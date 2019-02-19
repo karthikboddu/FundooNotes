@@ -9,10 +9,10 @@ class Emp extends CI_Controller{
     //     $this->load->model('empmodel');
     // }
         
-    public function index(){
-        $data['result'] = $this->empmodel->viewall();
-        $this->load->view('index',$data);
-    }
+    // public function index(){
+    //     $data['result'] = $this->empmodel->viewall();
+    //     $this->load->view('index',$data);
+    // }
 }
 
 ?>

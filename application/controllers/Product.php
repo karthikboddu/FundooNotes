@@ -14,7 +14,7 @@ class Product extends REST_Controller{
     public function find_all_get(){
         $data = json_encode($this->ProductModel->findall());
         print_r($data);
-        $this->load->view('index',$data);
+    
     }
     public function find_get($id){
         echo json_encode($this->ProductModel->find($id));
@@ -22,24 +22,27 @@ class Product extends REST_Controller{
 
     public function create_post(){
         $prod = array(
-        'id'=>$this->post('id'),
-        'name'=>$this->post('name'),
-        'price'=>$this->post('price'),
-        'quantity'=>$this->post('quantity'));
-        $this->ProductModel->insert($prod);
+        $this->post('id'),
+        $this->post('name'),
+        $this->post('price'),
+        $this->post('quantity'));
+        $d = $this->ProductModel->insert($prod);
+            print_r($d);
     }
 
     public function update_put(){
         $prod = array(        
-        'name'=>$this->put('name'),
-        'price'=>$this->put('price'),
-        'quantity'=>$this->put('quantity'));
+        $this->put('name'),
+        $this->put('price'),
+        $this->put('quantity'));
          $this->ProductModel->update($this->put('id'),$prod);
     }
 
     public function delete_delete($id){
         $this->ProductModel->delete($id);
     }
+
+
 }
 
 ?>
