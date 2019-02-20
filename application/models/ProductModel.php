@@ -2,18 +2,27 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ProductModel extends CI_Model{
+
+    /**
+     * function to write query for get method
+     */
     public function findall(){
-       $data = $this->db->query("SELECT * FROM product ")->result();
-        // print_r($data);
+        $qe = "SELECT * FROM product ";
+       $data = $this->db->query ("SELECT * FROM product ")->result();
+        print_r($data);
         foreach ($data as $record) {
-            print_r($record->id."   ");
-            print_r($record->name."   ");
-            print_r($record->price."   ");
-            print_r($record->quantity."</br>");
+            echo $record->id."   ";
+            echo $record->name."   ";
+            echo $record->price."   ";
+            echo $record->quantity."\n";
             
             // echo $row['name']."<br />\n";
         }
     }
+
+    /**
+     * function to write query for get method
+     */
     public function find($id){
        $data =  $this->db->query("SELECT * FROM product WHERE id = '$id'")->row(); 
         // $this->db->where('id',$id);
@@ -28,6 +37,9 @@ class ProductModel extends CI_Model{
         // }
     }
 
+    /**
+     * function to write query for post method
+     */
     public function insert($data){
         print_r($data);
         $id = $data[0];
@@ -38,14 +50,15 @@ class ProductModel extends CI_Model{
         ProductModel::queryRun($query);        
     }
 
+    /**
+     * function to write query for put method
+     */
     public function update($id,$data){
         print_r($data);
         $name = $data[0];
         $price = $data[1];
         $quantity = $data[2];
         $query = $this->db->query("UPDATE product SET name='".$name."', price='".$price."', quantity='".$quantity."' where id='".$id ."'");
-        // $this->db->where('id',$id);
-        // $this->db->update('product',$data);
         ProductModel::queryRun($query); 
     }
 
@@ -54,8 +67,8 @@ class ProductModel extends CI_Model{
         ProductModel::queryRun($query);
     }
 
-            /**
-     * function t orun query and return status to the user 
+    /**
+     * function to run query and return status to the user 
      * 
      * @return json the json data of the sql query 
      */

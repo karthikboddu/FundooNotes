@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="validateCtrl" 
+    name="myForm">
+            <form  novalidate>
+            
+            <p>Email:<br>
+                <input type="email" name="email" ng-model="user.email" required>
+                <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+                <span ng-show="myForm.email.$error.required">Email is required.</span>
+                <span ng-show="myForm.email.$error">Invalid email address.</span>
+                </span>
+                </p>
+
+            <p>password:<br>
+            <input type="password" name="password" ng-model="password" required>
+            <span style="color:red" ng-show="myForm.password.$untouched && myForm.password.$invalid">
+            <span ng-show="myForm.password.$error.required">password is required.</span>
+            </span>
+            </p>
+            <button type="submit"  ng-click="update(user)">Login</button>
+            <button  ng-click="reset()">Reset</button>
+
+            </form>
+
+            <pre>user = {{user | json}}</pre>
+            <pre>master = {{master | json}}</pre>
+    </div>
+<!-- 
+    <script>
+    var app = angular.module('myForm',[]);
+    app.controller("formCtrl",function($scope){
+        $scope.master = {email:"email",password:"password"};
+        $scope.reset =function(){
+            $scope.user = angular.copy($scope.master);
+        };
+        $scope.reset();
+    });
+    </script> -->
+
+ <script>
+var app = angular.module('myApp', []);
+app.controller('validateCtrl',['$scope',function($scope){
+    $scope.master = {};
+
+    $scope.update = function(user){
+        $scope.master = angular.copy(user);
+    };
+
+    $scope.reset = function(){
+        $scope.user = angular.copy($scope.master);
+    };
+
+    $scope.reset();
+}] );
+    // $scope.email = 'john.doe@gmail.com';
+    // $scope.password= 'John Doe';
+    
+
+</script>
+            
+</body>
+</html>

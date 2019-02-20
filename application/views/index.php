@@ -4,6 +4,6 @@
 //     echo $data1->price;
 //     echo $data1->quantity;
 // }
-
+echo $data;
 ?>
 

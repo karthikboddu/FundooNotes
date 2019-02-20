@@ -53,6 +53,11 @@ $route['default_controller'] = 'Welcome';
 
 
 $route['addtion']='Welcome/addtion';
+
+$route['subb']='Welcome/sub';
+
+
+
 $route['find']['get']='Product/find_all';
 $route['create'] = 'Product/create';
 $route['findbyid/(:num)'] = 'Product/find/$1';
@@ -65,6 +70,6 @@ $route['delete/(:num)'] = 'Product/delete/$1';
 // $route['product/(:any)'] = 'index.php/product';
 // $route['product/(:num)'] = 'product/find/$1';
 // $route['product']['get'] = 'product/find_all';
-$route['delete/(:num)'] = 'Product/delete';
+// $route['delete/(:num)'] = 'Product/delete';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
