@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html ng-app="angularFormApp">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    
+</head>
+<body class="container" ng-controller="helloController">
+        <h1>Angular Demo Page</h1>
+        <p>  {{ welcome}} </p>
+        <div class="bs-example" ng-controller="regController”>
+                <form class="form-horizontal"  ng-submit="submitForm()">
+                    <div class="form-group">
+                        <label for="inputFirstname" class="control-label col-xs-2">First Name</label>
+                        <div class="col-xs-10">
+                            <input type="text" class="form-control" id="inputFirstname" placeholder="FirstName" ng-model="user.firstname">
+                            
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="inputLastname" class="control-label col-xs-2">Last Name</label>
+                        <div class="col-xs-10">
+                            <input type="text" class="form-control" id="inputLastname" placeholder="LastName" ng-model="user.lastname">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputEmail" class="control-label col-xs-2">Email</label>
+                        <div class="col-xs-10">
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Email" ng-model="user.email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="control-label col-xs-2">Password</label>
+                        <div class="col-xs-10">
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="user.password">
+                        </div>
+                    </div>
+                   
+                    <div class="form-group">
+                        <div class="col-xs-offset-2 col-xs-10">
+                            <button type="submit" class="btn btn-primary">SignUp</button>
+                            <pre>{{message}}</pre>
+                        </div>
+                    </div>
+                    </div>
+               </form>
+            </div>
+            
+
+<script>
+var angularFormApp = angular.module('angularFormApp', [""]);
+angularFormApp.controller('helloController',['$scope', function($scope){
+    $scope.welcome='hi welcome to Angularjs coding';
+}]);
+
+var angularFormApp = angular.module('angularFormApp',[]);
+angularFormApp.controller('regController',['$scope','$http',
+function Formcontroller($scope,$http)
+{
+     $scope.user = {};
+$scope.submitForm=function()
+{
+       $http({
+        method:'post',
+        url:'http://localhost/codeigniter/welcome/add',
+        data : $scope.user, //forms user object
+        headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+    }).success(function (data)
+    {
+            $scope.message=data;
+    });
+};
+}]);
+</script>
+</body>
+</html>

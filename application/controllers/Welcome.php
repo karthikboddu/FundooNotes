@@ -18,6 +18,11 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function __construct()
+    {
+		parent::__construct();
+		$this->load->model('ektreemodel');
+    }
 	public function index()
 	{
 		$this->load->view('welcome_message');
@@ -31,6 +36,34 @@ class Welcome extends CI_Controller {
 	public function sub()
 	{
 		echo "sub";
+	}
+
+	public function add()
+	{
+		$request= json_decode(file_get_contents('php://input'), TRUE);
+		$data1=$this->ektreemodel->insert_form($request);
+		 $this->fetchdata();   
+	}
+
+	public function fetchdata()
+	{
+		// $data['fetchdata']=$this->ektreemodel->get_users();
+		// $this->load->view('fetchangulardata',$data);
+		 $result=$this->db->get('registration')->result();
+		 $arr_data=array();
+		 $i=0;
+		 foreach($result as $row)
+		 {
+		
+			 $arr_data[$i]['firstname']=$row->firstname;
+			 $arr_data[$i]['lastname']=$row->lastname;
+			 
+		   $i++;  
+		 }
+		
+		 echo json_encode($arr_data);
+		 
+	 
 	}
 	
 }
