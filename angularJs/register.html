@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="script.js"></script>
+</head>
+<body ng-app="angularFormApp">
+    <div  ng-app="formExample" ng-controller="ExampleController">
+        <form  name="myForm" novalidate>
+            <p>First Name:<br>
+            <input type="text" name="fname" ng-model="user.fname" required/>
+            <span  ng-show="myForm.fname.$untouched && myForm.fname.$invalid">
+              <span class="validate" ng-show="myForm.fname.$error.required">first name required</span>
+            </span>
+            </p>
+
+            <p>Last Name: <br>
+                <input type="text" name="lname" ng-model="user.lname"  required/>
+                <span ng-show="myForm.lname.$untouched && myForm.lname.$invalid">
+                 <span ng-show="myForm.lname.$error.required">last name required</span>
+                </span>
+                </p>
+                
+            <p>Email:<br>
+            <input type="email" name="email" ng-model="user.email" />
+            <span ng-show="myForm.email.$dirty && myForm.email.$invalid">
+            <span ng-show="myForm.email.$error.required">Email is required.</span>
+            <span ng-show="myForm.email.$error">Invalid email address.</span>
+            </span>
+            </p>
+
+            <p>Password :<br>
+          <input type="password"  name="password" ng-model="user.password" required />
+          <span ng-show="myForm.password.$untouched && myForm.password.$invalid">
+            <span ng-show="myForm.password.$error.required">password is required.</span>
+            </span>
+            </p>
+
+            <p>Confirm Password :<br>
+              <input type="password"  name="cpassword" ng-model="user.cpassword" required />
+              <span ng-show="myForm.cpassword.$untouched && myForm.cpassword.$invalid">
+                <span ng-show="myForm.cpassword.$error.required">password is required.</span>
+                </span>
+                </p>
+
+
+            <!-- <button type="submit"  ng-click="update(user)">Login</button> -->
+            <button type="submit"  ng-click="login()" ng-disabled="myForm.user.$dirty && myForm.user.$invalid ||  
+            myForm.email.$dirty && myForm.email.$invalid">Register</button>
+            <button type="reset">Reset</button>
+            <pre>{{registrations}}</pre>
+        </form>
+        <table>
+
+                <tbody>
+                        <tr ng-repeat="item in registrations">
+                            <td>{{user.email}}</td>
+                            <td>{{user.password}}</td>
+
+                         </tr>
+                    </tbody>
+        </table>
+        <pre>user = {{user | json}}</pre>
+        <pre>master = {{master | json}}</pre>
+    </div>
+      <script>
+
+
+      </script>
+</body>
+</html>

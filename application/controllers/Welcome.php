@@ -28,21 +28,18 @@ class Welcome extends CI_Controller {
 		$this->load->view('welcome_message');
 	}
 
-	public function addtion()
-	{
-		echo "addton";
-	}
-
-	public function sub()
-	{
-		echo "sub";
-	}
-
 	public function add()
 	{
 		$request= json_decode(file_get_contents('php://input'), TRUE);
-		$data1=$this->ektreemodel->insert_form($request);
-		 $this->fetchdata();   
+		$data=$this->ektreemodel->insert_form($request);
+		if($data)
+		{
+		   echo "success";
+		}else{
+		   echo "failure";
+		}
+		//  $this->fetchdata();   
+
 	}
 
 	public function fetchdata()
@@ -62,8 +59,11 @@ class Welcome extends CI_Controller {
 		 }
 		
 		 echo json_encode($arr_data);
-		 
-	 
+	} 
+
+	public function login(){
+		$request = json_decode(file_get_contents('php://input'),true);
+		$data = $this->ektreemodel->find($request);
 	}
 	
 }

@@ -17,24 +17,6 @@ class Product extends REST_Controller{
         parent::__construct();
     }
 
-    /**
-     * function to handl the http request called default as it is a index function 
-     * 
-     * @return void
-     */
-    public function index()
-    {
-        //checks the request of http
-        if ($_SERVER["REQUEST_METHOD"] == "get") {
-            $this->find_all();
-        } elseif ($_SERVER["REQUEST_METHOD"] == "PUT") {
-            $this->editUser();
-        } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $this->addUser();
-        } elseif ($_SERVER["REQUEST_METHOD"] == "DELETE") {
-            $this->deleteUser();
-        }
-    }
 
     /**
      * function to print all data from database using get restapi
