@@ -21,7 +21,7 @@ class Welcome extends CI_Controller {
 	public function __construct()
     {
 		parent::__construct();
-		$this->load->model('ektreemodel');
+		$this->load->model('login');
     }
 	public function index()
 	{
@@ -31,7 +31,7 @@ class Welcome extends CI_Controller {
 	public function add()
 	{
 		$request= json_decode(file_get_contents('php://input'), TRUE);
-		$data=$this->ektreemodel->insert_form($request);
+		$data=$this->login->insert_form($request);
 		if($data)
 		{
 		   echo "success";
@@ -41,6 +41,23 @@ class Welcome extends CI_Controller {
 		//  $this->fetchdata();   
 
 	}
+
+	public function verify(){
+		$request= json_decode(file_get_contents('php://input'));
+		$email = $request->email;
+		$text ='';
+		if($email!=''){
+			$sel = $this->db->query("SELECT  count(*) as all from registration where email = '$email' ")->row();
+			$text = "Available";
+			if($sel['all']>0){
+				$text = "Not available";
+			}
+		}
+
+		echo $text;
+
+	}
+
 
 	public function fetchdata()
 	{
@@ -63,7 +80,7 @@ class Welcome extends CI_Controller {
 
 	public function login(){
 		$request = json_decode(file_get_contents('php://input'),true);
-		$data = $this->ektreemodel->find($request);
+		$data = $this->login->find($request);
 	}
 	
 }

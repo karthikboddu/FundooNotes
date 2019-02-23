@@ -14,6 +14,8 @@ class Demo2 extends REST_Controller{
     public function demo1_get(){
         echo 'demo 1';
     }
+
+  
 }
 
 ?>

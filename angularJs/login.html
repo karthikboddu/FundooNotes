@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
-    <script src="script.js"></script>
+    <script src="login.js"></script>
 </head>
 <body ng-app="loginFormApp">
     <div  ng-app="formExample" ng-controller="ExampleController">
@@ -33,18 +33,12 @@
             <button type="submit"  ng-click="login()" ng-disabled="myForm.user.$dirty && myForm.user.$invalid ||  
             myForm.email.$dirty && myForm.email.$invalid">Register</button>
             <button type="reset">Reset</button>
-            <pre>{{registrations}}</pre>
+            <!-- <pre>{{registrations}}</pre> -->
+            <div ng-show="successMessage">
+                <strong>{{successMessage}}</strong>
+            </div>
+
         </form>
-        <table>
-
-                <tbody>
-                        <tr ng-repeat="item in registrations">
-                            <td>{{user.email}}</td>
-                            <td>{{user.password}}</td>
-
-                         </tr>
-                    </tbody>
-        </table>
         <pre>user = {{user | json}}</pre>
 
     </div>
