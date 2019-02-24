@@ -17,8 +17,8 @@ public function insert_form($request)
  }
  
  public function find($request){
-   $email = $request['email'];
-   $password = $request['password'];
+   $email = $request->email;
+   $password = $request->password;
    $data =  $this->db->query("SELECT * FROM registration WHERE email = '$email' AND password = '$password'  ")->row(); 
       // $check = $this->db->where('email',$request['email']);
       // return $this->db->get('registration')->row();

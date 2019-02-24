@@ -1,3 +1,18 @@
 .validate{
 color: "red";
 }
+
+#logindiv{
+    margin: auto;
+    float: left;
+    padding-left: 35%;
+    padding-top: 5%;
+}
+.btns{
+    background-color: aliceblue;
+    border: none;
+}
+
+.err{
+    color: brown;
+}
