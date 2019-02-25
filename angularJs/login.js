@@ -29,20 +29,21 @@ angular.module('loginFormApp', [])
         method :'post',
         dataType : 'json',
         data : $scope.user,
-        url :'http://localhost/codeigniter/index.php/welcome/login',
-        
+        url :'http://localhost/codeigniter/sigin',
         headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
       }).then(function(data){
         debugger
-        if(data.errr != '')
+        // alert(data);
+        // alert(data[error]);
+        if(data.data.errr != '')
         {
          $scope.alertMsg = true;
          $scope.alertClass = 'alert-danger';
-         $scope.alertMessage = data.errr;
+         $scope.alertMessage = data.data.errr;
         }
         else
         {
-         location.reload();
+         window.location('register.html');
         }
 
         $scope.alertMsg = true;
@@ -60,20 +61,24 @@ angular.module('loginFormApp', [])
           method :'post',
           dataType : 'json',
           data : $scope.user,   
-          url :'http://localhost/codeigniter/index.php/welcome/add',
+          url :'http://localhost/codeigniter/insert',
           headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
         }).then(function(data){
-          debugger
-          $scope.successMessage = "Form submitted successfully";
+          debugger;
+          // alert(data.data.error);
+          // alert(data.data[error]);
+          // $scope.successMessage = "Form submitted successfully";
             $scope.registrations=data;
-            if(data.error != '')
+            if(data.data.error != '')
             {
              $scope.alertMsg = true;
-             $scope.alertMessage = data.error;
+             $scope.alertMessage = data.data.error;
             }
             else
             {
-             location.reload();
+              $scope.alertClass = 'alert-success';
+              $scope.alertMessage = data.data.message;
+              $scope.registerData = {};
             }
             // window.location = 'index.html';
         });
