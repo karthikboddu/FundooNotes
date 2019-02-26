@@ -58,3 +58,16 @@ fetch.controller('ExampleController', ['$scope', '$http', function ($scope, $htt
  }
 
 }]);
+
+
+var app = angular.module("indexapp", ["ngRoute"]);
+app.config(function($routeProvider) {
+    $routeProvider
+
+    .when("/login", {
+        templateUrl : "login.html"
+    })
+    .when("/register", {
+        templateUrl : "register.html"
+    });
+});

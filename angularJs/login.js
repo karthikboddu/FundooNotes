@@ -43,7 +43,7 @@ angular.module('loginFormApp', [])
         }
         else
         {
-         window.location('register.html');
+          location.reload();
         }
 
         $scope.alertMsg = true;
@@ -64,6 +64,7 @@ angular.module('loginFormApp', [])
           url :'http://localhost/codeigniter/insert',
           headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
         }).then(function(data){
+          $scope.alertMsg = true;
           debugger;
           // alert(data.data.error);
           // alert(data.data[error]);
@@ -88,14 +89,16 @@ angular.module('loginFormApp', [])
 }]);
 
 
-var app = angular.module("indexapp", ["ngRoute"]);
-app.config(function($routeProvider) {
-    $routeProvider
+   var app = angular.module('MyApp', ["ngStorage"])  
+        app.controller('MyController', function ($scope, $localStorage, $window) {  
+            $scope.Save = function () {  
+                $localStorage.LocalMessage = $scope.Name + $scope.Address;  
+  
+  
+                $window.open('http://localhost/codeigniter/angularJs/demo2.html', 'testpopup', 'width=500,height=400');  
+            }  
+  
+        });  
 
-    .when("/login", {
-        templateUrl : "login.html"
-    })
-    .when("/register", {
-        templateUrl : "register.html"
-    });
-});
+
+

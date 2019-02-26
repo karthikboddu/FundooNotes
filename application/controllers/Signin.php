@@ -1,4 +1,11 @@
 <?php
+/**
+ * purpose   : program to implement api for login and register
+ * @author   : karthik
+ * @version  : 1.0
+ * @since    : 24-02-2019
+ ***********************************************************************************/
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Signin extends CI_Controller
@@ -9,6 +16,9 @@ class Signin extends CI_Controller
         $this->load->model('login');
     }
 
+    /**
+     * function to register user
+     */
     public function add()
     {
         $request = json_decode(file_get_contents('php://input'), true);
@@ -16,6 +26,7 @@ class Signin extends CI_Controller
         $message = '';
         $validation_error = '';
 
+        //validation on given user input
         if (empty($request['fname'])) {
             $error[] = 'Name is Required';
         } else {
@@ -31,20 +42,24 @@ class Signin extends CI_Controller
                 $data[':email'] = $request['email'];
             }
         }
-		if(!($request['password']== $request['cpassword'])){
-			$error[] = 'password should be same';
-		}
+
+        //validate password and confirm password are equal
+        if (!($request['password'] == $request['cpassword'])) {
+            $error[] = 'password should be same';
+        }
         if (empty($request['password'])) {
             $error[] = 'Password is Required';
         } else {
             $data[':password'] = password_hash($request['password'], PASSWORD_DEFAULT);
         }
 
+        //if the error array is empty then register
+
         if (empty($error)) {
             $data = $this->login->insert_form($request);
             if ($data) {
                 $message = 'Registration Completed';
-            } 
+            }
             //  $this->fetchdata();
         } else {
             $validation_error = implode(", ", $error);
@@ -76,37 +91,20 @@ class Signin extends CI_Controller
 
     }
 
-    public function fetchdata()
+    public function logout()
     {
-        // $data['fetchdata']=$this->ektreemodel->get_users();
-        // $this->load->view('fetchangulardata',$data);
-        $result = $this->db->get('registration')->result();
-        $arr_data = array();
-        $i = 0;
-        foreach ($result as $row) {
 
-            $arr_data[$i]['firstname'] = $row->firstname;
-            $arr_data[$i]['lastname'] = $row->lastname;
-
-            $i++;
-        }
-
-        echo json_encode($arr_data);
     }
 
-    public function logout(){
-            session_start();
-            session_destroy();
-            header("location:index.php");
-    }
-
+    /**
+     * function to login user with email and password
+     */
     public function login()
     {
-
-        session_start();
         $form_data = json_decode(file_get_contents("php://input"));
         $validation_error = '';
 
+        //validate user email and password
         if (empty($form_data->email)) {
             $errr[] = 'Email is Required';
         } else {
@@ -121,20 +119,25 @@ class Signin extends CI_Controller
             $errr[] = 'Password is Required';
         }
 
+        //if the error array is empty then login
         if (empty($errr)) {
-			$data = $this->login->find($form_data);
-		
-        } else { 
+            $data = $this->login->find($form_data);
+            // $name = $this->login->findname($form_data);
+            if (!$data) {
+                $errr[] = 'entered wrong details';
+                $validation_error = implode(", ", $errr);
+            }
+            // $mess = $name;
+
+        } else {
             $validation_error = implode(", ", $errr);
         }
 
         $output = array(
             'errr' => $validation_error,
+
         );
 
-        echo json_encode($output);  
+        echo json_encode($output);
     }
 }
-
-?>
-

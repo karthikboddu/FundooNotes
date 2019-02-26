@@ -58,6 +58,8 @@ $route['subb']='Welcome/sub';
 $route['insert'] = 'Signin/add';
 $route['sigin'] = 'Signin/login';
 
+
+
 $route['find']['get']='Product/find_all';
 $route['create'] = 'Product/create';
 $route['findbyid/(:num)'] = 'Product/find/$1';
