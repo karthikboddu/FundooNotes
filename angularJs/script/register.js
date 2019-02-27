@@ -1,6 +1,13 @@
+/**
+ * intialize angularjs application and controller
+ */
 angular.module('loginFormApp', [])
   .controller('ExampleController', ['$scope', '$http',
     function ($scope, $http) {
+
+      /**
+       * calling register function 
+       */
       $scope.register = function () {
         $scope.registrations = {};
         $http({
@@ -31,6 +38,10 @@ angular.module('loginFormApp', [])
       };
       // $scope.reset();
     }]);
+
+/**
+ * jquery for input type to change color on mouse over
+ */
 
 $(document).ready(function () {
   $(".ip").mouseover(function () {

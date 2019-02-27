@@ -60,7 +60,7 @@ $scope.Save = function () {
     $localStorage.LocalMessage = $scope.email + $scope.password;  
 
 
-    $window.open('http://localhost/codeigniter/angularJs/test/demo.html', 'testpopup', 'width=500,height=400');  
+    $window.open('http://localhost/codeigniter/angularJs/test/demo3.html', 'testpopup', 'width=500,height=400');  
 }
 
 }]);
