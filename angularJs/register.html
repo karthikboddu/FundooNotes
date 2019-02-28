@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,14 +12,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="script/register.js"></script>
-</head> 
+</head>
 
 <body>
 
     <!--heading of html page-->
     <h3 align="center">Register Login</h3></br>
 
-     <!--declaring controller and app directives-->
+    <!--declaring controller and app directives-->
     <div ng-app="loginFormApp" ng-controller="ExampleController" id="logindiv">
 
         <!--displaying any error or success message-->
@@ -48,7 +49,8 @@
                 </p>
                 <div>
                     <p>Email:<br>
-                        <input class="ip" type="email" name="email" ng-model="user.email" ng-keyup='checkUsername()' placeholder="enter email" />
+                        <input class="ip" type="email" name="email" ng-model="user.email" ng-keyup='checkUsername()'
+                            placeholder="enter email" />
                         <span ng-show="myForm.email.$dirty && myForm.email.$invalid">
                             <span class="err" ng-show="myForm.email.$error.required">Email is required.</span>
                             <span class="err" ng-show="myForm.email.$error">Invalid email address.</span>
@@ -73,19 +75,21 @@
                     </span>
                 </p>
 
-             <!--button to submit details -->   
+                <!--button to submit details -->
                 <button class="btns" type="submit" ng-disabled="myForm.user.$dirty && myForm.user.$invalid ||  
             myForm.email.$dirty && myForm.email.$invalid || myForm.password.$invalid">Register</button>
-                <br />
-
+               
+            <button class="btns" type="reset">Reset</button>
+            <br >
+                <br>
                 <!--button for redirecting to login page-->
-               <a href="login.html"> <input class="btns" type="button" value="Login" /></a>
-                <button class="btns" type="reset">Reset</button>
+                <a href="login.html"> <input class="btns" type="button" value="Login" /></a>
+               
                 <div ng-show="successMessage">
                     <strong>{{successMessage}}</strong>
                 </div>
             </form>
-            <pre>user = {{user | json}}</pre>
+            <!-- <pre>user = {{user | json}}</pre> -->
         </div>
     </div>
 </body>

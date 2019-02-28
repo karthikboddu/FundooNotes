@@ -9,10 +9,20 @@ color: "red";
     padding-top: 5%;
 }
  .btns{
-    background-color: aliceblue;
+    background-color: aqua;
+    border-radius: 8px;
     border: none;
+}
+button{
+    border-radius: 8px;
+    background-color: aqua;
 }
 
 .err{
     color: brown;
 }
+
+.ip{
+    border-radius: 8px;
+}
+

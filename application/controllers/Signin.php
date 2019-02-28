@@ -16,11 +16,14 @@ class Signin extends CI_Controller
         $this->load->model('login');
     }
 
+
+
     /**
      * function to register user
      */
-    public function add()
+    public function insert()
     {
+
         $request = json_decode(file_get_contents('php://input'), true);
 
         $message = '';

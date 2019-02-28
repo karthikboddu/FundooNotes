@@ -15,8 +15,10 @@ angular.module('loginFormApp', ['ngStorage'])
        * calling login function 
        */
       $scope.login = function () {
+        debugger
         $localStorage.prevdata = $scope.user;
         $scope.user = $localStorage.prevdata;
+        
         $scope.registrations = {};
         $http({
           method: 'post',
@@ -25,7 +27,7 @@ angular.module('loginFormApp', ['ngStorage'])
           url: 'http://localhost/codeigniter/sigin',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(function (data) {
-          debugger
+         
           // alert(data);
           // alert(data[error]);
           if (data.data.errr != '') {

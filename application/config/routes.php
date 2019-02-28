@@ -55,9 +55,10 @@ $route['default_controller'] = 'Welcome';
 $route['addtion']='Welcome/addtion';
 
 $route['subb']='Welcome/sub';
-$route['insert'] = 'Signin/add';
+$route['insert'] = 'Signin/insert';
 $route['sigin'] = 'Signin/login';
 
+$route['login'] = 'Signin/loginto';
 
 
 $route['find']['get']='Product/find_all';

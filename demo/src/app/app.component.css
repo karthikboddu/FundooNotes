@@ -1,0 +1,18 @@
+.card{
+    width:300px;
+    margin-left: 20%;
+    margin: 10% 30%;
+}
+mat-form-field{
+    margin-right: 50px;
+    margin-left: 20px;
+    margin: auto;
+}
+input{
+    width: 200px;
+    
+}
+mat-card-title{
+    text-align: center;
+}
+
