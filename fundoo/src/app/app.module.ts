@@ -1,46 +1,33 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule} from '@angular/router';
-import {FormsModule} from '@angular/forms';
+
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule } from '@angular/material';
+import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { DemoComponent } from './demo/demo.component';
-import { SqrtPipe } from './app.sqrt';
-import { DateserviceService} from './dateservice.service';
+
+
+
+import { CustomMaterial } from './material.module';
+import { LoginComponent } from './component/login/login.component';
+import { RegisterComponent } from './component/register/register.component';
+
+
+
 @NgModule({
   declarations: [
-    SqrtPipe,
-    FormsModule,
-    BrowserAnimationsModule,
     AppComponent,
     LoginComponent,
-    DemoComponent
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
-
-    MatButtonModule,
-    MatMenuModule,
-    MatCardModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatListModule,
     AppRoutingModule,
-    FormsModule,
-    RouterModule.forRoot([
-      {
-        path : 'app-demo',
-        component :DemoComponent
-      }
-    ])
+    CustomMaterial,
+    BrowserAnimationsModule,
+    FormsModule
   ],
-  providers: [DateserviceService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-export class PizzaPartyAppModule{}

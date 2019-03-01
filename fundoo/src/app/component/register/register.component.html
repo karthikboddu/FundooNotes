@@ -1,0 +1,61 @@
+<mat-card class="card">
+  <mat-card-title>Register</mat-card-title>
+  <form name="regform" novalidate>
+    <div class="example-container">
+      <mat-form-field>
+        <input matInput placeholder="First Name" required name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel">
+      </mat-form-field>
+      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+        <div *ngIf="firstName.errors.required">
+          <p class="validate">first name is required.</p>
+        </div>
+      </div>
+
+
+      <mat-form-field>
+        <input matInput placeholder="Last Name" required name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel">
+      </mat-form-field>
+      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+        <div *ngIf="firstName.errors.required">
+          <p class="validate">last name is required.</p>
+        </div>
+      </div>
+
+
+      <mat-form-field>
+        <input matInput placeholder="Email" required name="email" [(ngModel)]="model.email" #email="ngModel">
+      </mat-form-field>
+      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+        <div *ngIf="firstName.errors.required">
+          <p class="validate">email is required.</p>
+        </div>
+      </div>
+
+
+      <mat-form-field>`
+        <input matInput placeholder="Phone Number" required name="phno" [(ngModel)]="model.phno" #password="ngModel">
+      </mat-form-field>
+      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+        <div *ngIf="firstName.errors.required">
+          <p class="validate">phone number is required.</p>
+        </div>
+      </div>
+
+
+      <mat-form-field>
+        <input matInput placeholder="password" required name="password" [(ngModel)]="model.password" #password="ngModel">
+      </mat-form-field>
+      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+        <div *ngIf="firstName.errors.required">
+          <p class="validate">password is required.</p>
+        </div>
+      </div>
+
+
+    </div>
+    <button mat-raised-button color="primary" type="submit">Register</button>
+  </form>
+  
+  <a class="refReg" mat-button color="primary" routerLink="../login">Login</a>
+
+</mat-card>
