@@ -1,16 +1,29 @@
 <mat-card class="card">
   <mat-card-title>Login</mat-card-title>
-  <div class="example-container">
-    <mat-form-field matInput>
-      <input matInput placeholder="Email">
-    </mat-form-field>
-    <mat-form-field matInput >
-      <input matInput placeholder="password">
-    </mat-form-field>
-    <br>
-    <button mat-raised-button color="primary">Login</button><br>
-    <a class="refLogin" mat-button color="primary" routerLink="../register">Login</a>
+  <form [formGroup]="loginform" (ngSubmit)='submitForm(loginform.value)' novalidate>
+        <div class="example-container">
+          <mat-form-field matInput [ngClass]="{'has-error':!loginform.controls['Emailid'].valid}">
+            <input type="email" matInput placeholder="Email" formControlName="Emailid" [formControl]="loginform.controls['Emailid']"
+              required>
+          </mat-form-field>
+          <div *ngIf="submitted && loginform.controls['Emailid'].errors">
+            <div class="validate" *ngIf="loginform.controls['Emailid'].errors.required">email is required</div>
+          </div>
 
+          <mat-form-field matInput [ngClass]="{'has-error':!loginform.controls['password'].valid}">
+            <input matInput type="password" placeholder="password" formControlName="password" [formControl]="loginform.controls['password']"
+              required>
+          </mat-form-field>
+          <div *ngIf="submitted && loginform.controls['password'].errors">
+            <div class="validate" *ngIf="loginform.controls['password'].errors.required">Password is required</div>
+            <div class="validate" *ngIf="loginform.controls['password'].errors.minlength">Password must be at least 6
+              characters</div>
+          </div>
 
-  </div>
+          <br>
+          <button mat-raised-button color="primary">Login</button><br>
+          <a class="refLogin" mat-button color="primary" routerLink="../register">Register</a>
+        </div>
+
+  </form>
 </mat-card>
