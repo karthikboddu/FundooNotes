@@ -11,6 +11,8 @@ import { CustomMaterial } from './material.module';
 import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
 
+import {HttpClientModule} from "@angular/common/http";
+import {RegisterService} from './services/register.service';
 
 
 @NgModule({
@@ -26,11 +28,11 @@ import { RegisterComponent } from './component/register/register.component';
     CustomMaterial,
     BrowserAnimationsModule,
     FormsModule,
-        FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
