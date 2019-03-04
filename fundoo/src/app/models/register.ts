@@ -1,6 +1,6 @@
 export class Register{
-    firstname : string
-    lastname :string
-    email : string
+    firstName : string
+    lastName :string
+    Emailid : string
     password : string
 }

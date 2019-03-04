@@ -23,7 +23,10 @@ class Signin extends CI_Controller
      */
     public function insert()
     {
-
+        $fname = $_POST['fistName'];
+        $lname = $_POST['lastName'];
+        $password = $_POST['password'];
+        
         $request = json_decode(file_get_contents('php://input'), true);
 
         $message = '';

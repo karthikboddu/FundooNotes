@@ -54,6 +54,8 @@ $route['default_controller'] = 'Welcome';
 
 $route['addtion']='Welcome/addtion';
 
+$route['register'] = 'Register/insertUser';
+
 $route['subb']='Welcome/sub';
 $route['insert'] = 'Signin/insert';
 $route['sigin'] = 'Signin/login';

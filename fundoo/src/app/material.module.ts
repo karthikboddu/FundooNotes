@@ -37,7 +37,7 @@ import {
    MatIconModule,
    MatProgressSpinnerModule,
    MatSelectModule,
-   MatFormFieldModule
+ 
    ],
 })
 export class CustomMaterial { }
