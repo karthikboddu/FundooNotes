@@ -28,20 +28,25 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-
+  errormsg :string="";
   submitted = false;
   regform: FormGroup;
 
   submitForm(value: any) {
     debugger;
     this.submitted = true;
-    console.log(value);
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(value))
     if(this.regform.invalid){
       return;
     }
-    this.regService.createuser(value)    
-    .subscribe(data=>{console.log(data),error=>console.log(data)});
+    let status = this.regService.createuser(value) ;   
+    status.subscribe((res:any)=>{
+      console.log(res.message);
+      if(res.message=="200"){
+        this.errormsg = "register success"; 
+      }else if(res.message=="204"){
+        this.errormsg = "register failed";
+      }
+    });
 
   }
 
