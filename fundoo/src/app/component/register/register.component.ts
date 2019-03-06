@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import {RegisterService} from '../../services/register.service';
+import { RegisterService } from '../../services/register.service';
 
 import { PasswordValidation } from '../../password.match';
 @Component({
@@ -11,11 +11,16 @@ import { PasswordValidation } from '../../password.match';
 export class RegisterComponent implements OnInit {
 
 
+  /**
+   * @param formBuilder 
+   * @param regService 
+   */
+  constructor(private formBuilder: FormBuilder, private regService: RegisterService) { }
 
-  constructor(private formBuilder: FormBuilder,private regService:RegisterService) {
-  }
-
-
+  /**
+    * @return void
+    * @description Function to error validation
+    */
   ngOnInit() {
     this.regform = this.formBuilder.group({
       firstName: [null, [Validators.required]],
@@ -24,27 +29,34 @@ export class RegisterComponent implements OnInit {
       password: ['', Validators.required],
       cpassword: ['', Validators.required]
     }, {
-      validator: PasswordValidation.MatchPassword
-    });
+        validator: PasswordValidation.MatchPassword
+      });
   }
 
-  errormsg :string="";
+  errormsg: string = "";
   submitted = false;
   regform: FormGroup;
-
+  show ;
+  /**
+   * @method submitForm()
+   * @param value 
+   * @description function to call register serivce and give repsonse back of api
+   */
   submitForm(value: any) {
     debugger;
     this.submitted = true;
-    if(this.regform.invalid){
+    if (this.regform.invalid) {
       return;
     }
-    let status = this.regService.createuser(value) ;   
-    status.subscribe((res:any)=>{
+    let status = this.regService.createuser(value);
+    status.subscribe((res: any) => {
+      debugger;
       console.log(res.message);
-      if(res.message=="200"){
-        this.errormsg = "register success"; 
-      }else if(res.message=="204"){
-        this.errormsg = "register failed";
+      if (res.message == "200") {
+        this.show = true; 
+        this.errormsg = "Register success";
+      } else if (res.message == "204") {
+        this.errormsg = "Register failed";
       }
     });
 

@@ -3,6 +3,7 @@
     margin-top: 5%;
     // margin: 8% 0% 0% 30%;
     margin-left: 37%;
+    border-radius: 7px;
 }
 mat-form-field{
     margin-right: 50px;
@@ -16,16 +17,24 @@ mat-card-title{
 
 .mat-raised-button{
  
-    margin-left: 110px;
-    margin-bottom: 5px;  
+    margin-left: 40px;
+     
 }
 mat-card-title{
     font-weight: 100;
 }
 
+.msg{
+    font-size: 10px;
+    color: dodgerblue;
+    margin-left: 10px;
+}
+
 
 .refReg{
-    margin-left: 108px;
+    margin-left: 190px;
+    position: relative;
+    top: -35px;
 }
 .validate{
     font-size: 10px;

@@ -1,15 +1,22 @@
+<!--mat card starts-->
 <mat-card class="card">
   <mat-card-title>Login</mat-card-title>
+  
+  <!--form tag to submit the value through formgroup -->
   <form [formGroup]="loginform" (ngSubmit)='submitForm(loginform.value)' novalidate>
         <div class="example-container">
+         
+           <!--mat formfiled for email-->
           <mat-form-field matInput [ngClass]="{'has-error':!loginform.controls['Emailid'].valid}">
             <input type="email" matInput placeholder="Email" formControlName="Emailid" [formControl]="loginform.controls['Emailid']"
               required>
           </mat-form-field>
           <div *ngIf="submitted && loginform.controls['Emailid'].errors">
+            
             <div class="validate" *ngIf="loginform.controls['Emailid'].errors.required">email is required</div>
           </div>
 
+           <!--mat formfiled for password-->
           <mat-form-field matInput [ngClass]="{'has-error':!loginform.controls['password'].valid}">
             <input matInput type="password" placeholder="password" formControlName="password" [formControl]="loginform.controls['password']"
               required>
@@ -21,9 +28,15 @@
           </div>
 
           <br>
+
+          <!--button to submit details-->
           <button mat-raised-button color="primary">Login</button><br>
+         
+          <!--button to naviagete to login page-->
           <a class="refLogin" mat-button color="primary" routerLink="../register">Register</a>
         </div>
 
   </form>
+
+    <!--matcard ends-->
 </mat-card>

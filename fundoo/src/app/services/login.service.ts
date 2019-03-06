@@ -1,14 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Login} from '../models/login';
+import {Login} from '../models/login.model';
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
+  /**
+   * @param http 
+   */
   constructor(private http :HttpClient) { }
   baseUrl : string ="http://localhost/codeigniter/loginto"
 
+  /**
+   * @param users 
+   * @method getuser
+   * @description method to call api throught httpclient 
+   */
   getuser(users:Login){
     let getuser = new FormData();
     getuser.append("Emailid",users.Emailid);
