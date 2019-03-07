@@ -50,9 +50,12 @@ class InsertData extends CI_Controller
         ];
         $query = "SELECT * from registeruser WHERE email ='$email' AND password = '$password' ";
         $stmt = $this->db->conn_id->prepare($query);
-        $res = $stmt->execute($data);
+        $stmt->execute();
+        $no = $stmt->fetchColumn();
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        if ($res) {
+
+        if ($no>0) {
             $data = array(
                 "message" => "200",
             );

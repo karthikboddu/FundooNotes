@@ -8,7 +8,8 @@
     <div class="example-container">
 
       <!--mat formfiled for fistname-->
-      <mat-form-field [ngClass]="{'has-error':!regform.controls['firstName'].valid}">
+      <mat-form-field appearance="outline" [ngClass]="{'has-error':!regform.controls['firstName'].valid}">
+        <mat-label>Enter firstName</mat-label>
         <input matInput placeholder="First Name" formControlName="firstName" required name="firstName" [formControl]="regform.controls['firstName']">
       </mat-form-field>
       <div class="validate" *ngIf="submitted && regform.controls['firstName'].errors">
@@ -16,7 +17,8 @@
       </div>
 
       <!--mat formfiled for lastname-->
-      <mat-form-field [ngClass]="{'has-error':!regform.controls['lastName'].valid}">
+      <mat-form-field appearance="outline" [ngClass]="{'has-error':!regform.controls['lastName'].valid}">
+        <mat-label>Enter lastname</mat-label>
         <input matInput placeholder="Last Name" required name="lastName" formControlName="lastName">
       </mat-form-field>
       <div class="validate" *ngIf="submitted && regform.controls['lastName'].errors">
@@ -24,7 +26,8 @@
       </div>
 
       <!--mat formfiled for email-->
-      <mat-form-field matInput [ngClass]="{'has-error':!regform.controls['Emailid'].valid}">
+      <mat-form-field appearance="outline" matInput [ngClass]="{'has-error':!regform.controls['Emailid'].valid}">
+        <mat-label>Enter email</mat-label>
         <input matInput placeholder="Email" formControlName="Emailid" [formControl]="regform.controls['Emailid']"
           required>
       </mat-form-field>
@@ -34,7 +37,8 @@
       </div>
 
       <!--mat formfiled for password-->
-      <mat-form-field matInput [ngClass]="{'has-error':!regform.controls['password'].valid}">
+      <mat-form-field appearance="outline" matInput [ngClass]="{'has-error':!regform.controls['password'].valid}">
+        <mat-label>Enter password</mat-label>
         <input matInput type="password" placeholder="password" formControlName="password" [formControl]="regform.controls['password']"
           required>
       </mat-form-field>
@@ -45,7 +49,8 @@
       </div>
 
       <!--mat formfiled for confirm password-->
-      <mat-form-field matInput [ngClass]="{'has-error':!regform.controls['cpassword'].valid}">
+      <mat-form-field appearance="outline" matInput [ngClass]="{'has-error':!regform.controls['cpassword'].valid}">
+        <mat-label>Enter confirm password</mat-label>
         <input matInput type="password" placeholder="confirm password" formControlName="cpassword" [formControl]="regform.controls['cpassword']"
           required>
       </mat-form-field>

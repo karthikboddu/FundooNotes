@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
-import { from } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -41,6 +40,9 @@ export class LoginComponent implements OnInit {
   submitForm(value: any) {
     debugger
     this.submitted = true;
+    if(this.loginform.invalid){
+      return;
+    }
     console.log(value);
     let status = this.loginservice.getuser(value);
     status.subscribe((res: any) => {
@@ -48,9 +50,11 @@ export class LoginComponent implements OnInit {
       console.log(res.message);
       if (res.message == "200") {
         
-      this.route.navigate(["/register"]);
+        
+      this.route.navigate(["/dashboard"]);
+      localStorage.setItem(value.Emailid,value.password);
       } else if (res.message == "204") {
-        this.errormsg = "register failed";
+        this.errormsg = "login failed";
       }
     });
 

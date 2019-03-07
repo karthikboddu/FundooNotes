@@ -13,6 +13,8 @@ import { RegisterComponent } from './component/register/register.component';
 
 import {HttpClientModule} from "@angular/common/http";
 import {RegisterService} from './services/register.service';
+import { DashboradComponent } from './component/dashborad/dashborad.component';
+import { ForgotpasswordComponent } from './component/forgotpassword/forgotpassword.component';
 
 
 @NgModule({
@@ -20,6 +22,8 @@ import {RegisterService} from './services/register.service';
     AppComponent,
     LoginComponent,
     RegisterComponent,
+    DashboradComponent,
+    ForgotpasswordComponent,
    
   ],
   imports: [

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { RegisterService } from '../../services/register.service';
+import { AbstractControl } from '@angular/forms';
 
-import { PasswordValidation } from '../../password.match';
+import { PasswordValidation } from '../../services/password.match';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -26,12 +27,26 @@ export class RegisterComponent implements OnInit {
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
       Emailid: [null, [Validators.required, Validators.email, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      password: ['', Validators.required],
-      cpassword: ['', Validators.required]
+      password: ['', [Validators.required,Validators.minLength(6)]],
+      cpassword: ['', [Validators.required,Validators.minLength(6)]]
     }, {
         validator: PasswordValidation.MatchPassword
       });
   }
+
+
+//   static MatchPassword(AC: AbstractControl) {
+//     let password = AC.get('password').value;
+//     if (AC.get('cpassword').touched || AC.get('cpassword').dirty) {
+//         let verifyPassword = AC.get('cpassword').value;
+
+//         if (password != verifyPassword) {
+//             AC.get('cpassword').setErrors({ MatchPassword: true })
+//         } else {
+//             return null
+//         }
+//     }
+// }
 
   errormsg: string = "";
   submitted = false;
