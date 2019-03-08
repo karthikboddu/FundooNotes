@@ -58,7 +58,7 @@ $route['addtion']='Welcome/addtion';
 
 $route['register'] = 'Register/insertUser';
 $route['loginto'] = 'Register/selectuser';
-
+$route['forgotpass'] = 'Register/forgotpass';
 
 
 

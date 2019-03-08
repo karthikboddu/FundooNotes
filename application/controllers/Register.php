@@ -40,4 +40,10 @@ class Register extends CI_Controller
         $res = $this->refService->login($email, $password);
         return $res;
     }
+
+    public function forgotpass(){
+        $email = $_POST['Emailid'];
+
+        $res = $this->refService->forgotpassword($email);
+    }
 }

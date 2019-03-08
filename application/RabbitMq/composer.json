@@ -1,0 +1,7 @@
+{
+    "require": {
+        "doctrine/annotations": "^1.6",
+        "php-amqplib/php-amqplib": "^2.8",
+        "swiftmailer/swiftmailer": "@stable"
+    }
+}
