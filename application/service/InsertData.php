@@ -3,7 +3,7 @@ header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Authorization");
 
 defined('BASEPATH') or exit('No direct script access allowed');
-include '/var/www/html/codeigniter/application/RabbitMq/send.php';
+include '/var/www/html/codeigniter/application/Rabbitmq/sender.php';
 class InsertData extends CI_Controller
 {
     public function __construct()
@@ -80,21 +80,21 @@ class InsertData extends CI_Controller
         $present = InsertData::emailpresent($email);
 
         if($present){
-            $rabb = new Send();
+            $rabb = new SendMail();
         
             $token     = md5($email);
             $query     = "UPDATE registeruser SET reset_key = '$token' where email = '$email'";
             $statement = $this->db->conn_id->prepare($query);
             $statement->execute();
             $sub      = 'password recovery mail';
-            $body     = 'click here to reset passwordhttp://localhost:4200/verify?token=';
-            $response = $rabb->sendMail($email, $sub, $body);
+            $body     = 'click here to reset password http://localhost:4200/verify?token='.$token;
+            $response = $rabb->sendEmail($email, $sub, $body);
             if ($response == "sent") {
                 $data = array(
                     "message" => "200",
                 );
                 print json_encode($data);
-                return "200";
+                
 
             } else {
                 $data = array(
@@ -112,6 +112,7 @@ class InsertData extends CI_Controller
             print json_encode($data);
             return "404";
         }
+        return $data;
     }
 
 

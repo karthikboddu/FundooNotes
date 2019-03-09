@@ -8,10 +8,9 @@ import {LoginService} from '../../services/login.service';
 })
 export class ForgotpasswordComponent implements OnInit {
 
-
-
   errormsg: string = "";
   submitted = false;
+  
   constructor(private formBuilder: FormBuilder,private loginservice:LoginService) { }
   loginform: FormGroup;
   ngOnInit() {
@@ -29,8 +28,9 @@ export class ForgotpasswordComponent implements OnInit {
     debugger;
    let status = this.loginservice.forgotpass(value);
    status.subscribe((res: any) => {
+     debugger;
     if (res.message == "200") {
-      this.errormsg = "reset link has been sent to your mail";
+      this.errormsg = "reset link sent to your mail";
     } else {
       this.errormsg = "mail not registered";
     }
