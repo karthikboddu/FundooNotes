@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashborad',
@@ -7,12 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboradComponent implements OnInit {
 
-  constructor() {
-    localStorage.getItem
-
+  constructor(private route: ActivatedRoute) {
+    
    }
 
+   name : '';
   ngOnInit() {
+   this.name = this.route.snapshot.params.name;
+
   }
 
 }

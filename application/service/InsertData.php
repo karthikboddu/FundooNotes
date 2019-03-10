@@ -57,13 +57,12 @@ class InsertData extends CI_Controller
         $no = $stmt->rowCount();
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
-        if ($no>0) {
+        if ($no > 0) {
             $data = array(
                 "message" => "200",
             );
             print json_encode($data);
-          
+
         } else {
             $data = array(
                 "message" => "204",
@@ -75,26 +74,25 @@ class InsertData extends CI_Controller
         return $data;
     }
 
-
-    public function forgotpassword($email){
+    public function forgotpassword($email)
+    {
         $present = InsertData::emailpresent($email);
 
-        if($present){
+        if ($present) {
             $rabb = new SendMail();
-        
-            $token     = md5($email);
-            $query     = "UPDATE registeruser SET reset_key = '$token' where email = '$email'";
+
+            $token = md5($email);
+            $query = "UPDATE registeruser SET reset_key = '$token' where email = '$email'";
             $statement = $this->db->conn_id->prepare($query);
             $statement->execute();
-            $sub      = 'password recovery mail';
-            $body     = 'click here to reset password http://localhost:4200/verify?token='.$token;
+            $sub = 'password recovery mail';
+            $body = 'click here to reset password http://localhost:4200/reset?token=' . $token;
             $response = $rabb->sendEmail($email, $sub, $body);
             if ($response == "sent") {
                 $data = array(
                     "message" => "200",
                 );
                 print json_encode($data);
-                
 
             } else {
                 $data = array(
@@ -105,7 +103,7 @@ class InsertData extends CI_Controller
 
             }
 
-        }else{
+        } else {
             $data = array(
                 "message" => "404",
             );
@@ -115,9 +113,8 @@ class InsertData extends CI_Controller
         return $data;
     }
 
-
-
-    public function emailpresent($email){
+    public function emailpresent($email)
+    {
         $query = "SELECT * from registeruser WHERE email = '$email'";
         $stmt = $this->db->conn_id->prepare($query);
 
@@ -125,11 +122,61 @@ class InsertData extends CI_Controller
 
         $count = $stmt->rowCount();
 
-        if($count >0){
+        if ($count > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
+    }
+
+    public function fetchemailid($token)
+    {
+        $query = "SELECT email From registeruser where reset_key ='$token' ";
+        $stmt = $this->db->conn_id->prepare($query);
+        $stmt->execute();
+
+        $arr = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($arr) {
+            $data = array(
+                'key'     => $arr['email'],
+                'session' => 'active',
+            );
+            print json_encode($data);
+        } else {
+            $data = array(
+                'key'     => "\n",
+                'session' => 'reset link has been expired',
+            );
+            print json_encode($data);
+            return "reset link has been expired";
+        }
+
+
+        return $data;
+    }
+
+    public function resetpass($password, $token)
+    {
+        $query = "UPDATE registeruser set password = '$password' where reset_key='$token' ";
+        $stmt = $this->db->conn_id->prepare($query);
+        $stmt->execute();
+
+        $que1 = "SELECT reset_key from registeruser where password ='$password' ";
+        $stmt1 = $this->db->conn_id->prepare($que1);
+        $stmt1->execute();
+
+        $arr = $stmt1->fetch(PDO::FETCH_ASSOC);
+
+        if($arr['reset_key']==null){
+            $data = array(
+                'message'=>404
+            );
+        }else{
+            $data = array(
+                'message'=>200
+            );
+        }
+        return $data;
     }
 
 }

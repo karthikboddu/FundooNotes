@@ -1,0 +1,21 @@
+<div class="flexdiv" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="card">
+      <mat-card-title>Reset password</mat-card-title>
+      <form [formGroup]="resetgrp" (ngSubmit)='submitForm(resetgrp.value)' novalidate>
+      <mat-form-field appearance="outline" matInput>
+        <mat-label>Enter password</mat-label>
+        <input matInput placeholder="Enter your email" formControlName="password"  [formControl]="resetgrp.controls['password']" required />
+        <mat-error *ngIf="submitted && resetgrp.controls['password'].errors">
+
+          <div class="validate" *ngIf="resetgrp.controls['password'].errors.required">password is required</div>
+        </mat-error>
+      </mat-form-field>
+  
+      <button fxLayout="row" mat-raised-button color="primary" >Reset</button><br>
+  
+      <div align="center">{{ stat }}</div>
+  </form>
+    </mat-card>
+
+    {{value}} {{session}}
+  </div>

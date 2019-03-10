@@ -68,8 +68,8 @@ class Receiver
         $channel->basic_consume($RabbitMQConstantsObj->queuename, '', false, false, false, false, $callback);
 
         $channel->basic_qos(null, 1, null);
-        while (count($channel->callbacks)) {
-            $channel->wait();
-        }
+        // if (count($channel->callbacks)) {
+        //     $channel->wait();
+        // }
     }
 }

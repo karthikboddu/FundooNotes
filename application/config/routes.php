@@ -59,8 +59,8 @@ $route['addtion']='Welcome/addtion';
 $route['register'] = 'Register/insertUser';
 $route['loginto'] = 'Register/selectuser';
 $route['forgotpass'] = 'Register/forgotpass';
-
-
+$route['fetchemail'] = 'Register/fetchemail';
+$route['resetpass'] = 'Register/resetpassword';
 
 
 
@@ -69,6 +69,7 @@ $route['subb']='Welcome/sub';
 $route['insert'] = 'Signin/insert';
 $route['sigin'] = 'Signin/login';
 $route['login'] = 'Signin/loginto';
+
 
 
 $route['find']['get']='Product/find_all';

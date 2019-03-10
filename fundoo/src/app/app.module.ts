@@ -15,6 +15,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {RegisterService} from './services/register.service';
 import { DashboradComponent } from './component/dashborad/dashborad.component';
 import { ForgotpasswordComponent } from './component/forgotpassword/forgotpassword.component';
+import { ResetComponent } from './component/reset/reset.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { ForgotpasswordComponent } from './component/forgotpassword/forgotpasswo
     RegisterComponent,
     DashboradComponent,
     ForgotpasswordComponent,
+    ResetComponent,
    
   ],
   imports: [
