@@ -56,11 +56,11 @@ $route['addtion']='Welcome/addtion';
 
 
 
-$route['register'] = 'Register/insertUser';
-$route['loginto'] = 'Register/selectuser';
-$route['forgotpass'] = 'Register/forgotpass';
-$route['fetchemail'] = 'Register/fetchemail';
-$route['resetpass'] = 'Register/resetpassword';
+$route['register'] = 'UserData/register';
+$route['loginto'] = 'UserData/login';
+$route['forgotpass'] = 'UserData/forgotpass';
+$route['fetchemail'] = 'UserData/fetchemail';
+$route['resetpass'] = 'UserData/resetpassword';
 
 
 

@@ -4,7 +4,7 @@ header("Access-Control-Allow-Headers: Authorization");
 
 defined('BASEPATH') or exit('No direct script access allowed');
 include '/var/www/html/codeigniter/application/Rabbitmq/sender.php';
-class InsertData extends CI_Controller
+class UserDataController extends CI_Controller
 {
     public function __construct()
     {
@@ -14,38 +14,48 @@ class InsertData extends CI_Controller
     /**
      * @param fname,lname,email,password
      */
-    public function insertDb($fname, $lname, $email, $password)
+    public function registration($fname, $lname, $email, $password)
     {
-        $datta = [
-            'fname' => $fname,
-            'lname' => $lname,
-            'email' => $email,
-            'password' => $password,
-        ];
-        $query = "INSERT into registeruser (fname,lname,email,password) values ('$fname','$lname','$email','$password')";
-        $stmt = $this->db->conn_id->prepare($query);
-        $res = $stmt->execute($datta);
-        if ($res) {
+        $checkemail = UserDataController::emailpresent($email);
+        if(!$checkemail){
+            $datta = [
+                'fname' => $fname,
+                'lname' => $lname,
+                'email' => $email,
+                'password' => $password,
+            ];
+            $query = "INSERT into registeruser (fname,lname,email,password) values ('$fname','$lname','$email','$password')";
+            $stmt = $this->db->conn_id->prepare($query);
+            $res = $stmt->execute($datta);
+            if ($res) {
+                $data = array(
+                    "status" => "200",
+                );
+                print json_encode($data);
+    
+            } else {
+                $data = array(
+                    "status" => "204",
+                );
+                print json_encode($data);
+                return "204";
+    
+            }
+        }else{
             $data = array(
-                "message" => "200",
+                "status" => "201",
             );
             print json_encode($data);
-
-        } else {
-            $data = array(
-                "message" => "204",
-            );
-            print json_encode($data);
-            return "204";
 
         }
+
         return $data;
     }
 
     /**
      * @param email,password
      */
-    public function login($email, $password)
+    public function signin($email, $password)
     {
         $data = [
             'email' => $email,
@@ -76,7 +86,7 @@ class InsertData extends CI_Controller
 
     public function forgotpassword($email)
     {
-        $present = InsertData::emailpresent($email);
+        $present = UserDataController::emailpresent($email);
 
         if ($present) {
             $rabb = new SendMail();
@@ -137,22 +147,21 @@ class InsertData extends CI_Controller
 
         $arr = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($arr) {
-            $data = array(
-                'key'     => $arr['email'],
-                'session' => 'active',
+            $dataa = array(
+                'key' => $arr['email'], 
+                'status'=>'200',
+            
             );
-            print json_encode($data);
+            print json_encode($dataa);
         } else {
-            $data = array(
-                'key'     => "\n",
-                'session' => 'reset link has been expired',
+            $dataa = array(
+                'key' => "\n",
+                'status'=>'204',
             );
-            print json_encode($data);
-            return "reset link has been expired";
+            print json_encode($dataa);
         }
 
-
-        return $data;
+       
     }
 
     public function resetpass($password, $token)
@@ -160,23 +169,32 @@ class InsertData extends CI_Controller
         $query = "UPDATE registeruser set password = '$password' where reset_key='$token' ";
         $stmt = $this->db->conn_id->prepare($query);
         $stmt->execute();
-
+        $flag = 0;
         $que1 = "SELECT reset_key from registeruser where password ='$password' ";
         $stmt1 = $this->db->conn_id->prepare($que1);
-        $stmt1->execute();
+        $updatepass = $stmt1->execute();
 
         $arr = $stmt1->fetch(PDO::FETCH_ASSOC);
 
-        if($arr['reset_key']==null){
+        if ($arr['reset_key'] == null) {
+            $flag = 1;
             $data = array(
-                'message'=>404
+                "message" => "404",
             );
-        }else{
+            print json_encode($data);
+        } else if ($flag == 0) {
+ 
             $data = array(
-                'message'=>200
+                "message" => "200",
             );
+            print json_encode($data);
+            $query3 = "UPDATE registeruser SET reset_key='' where password='$password'";
+            $stmt2 = $this->db->conn_id->prepare($query3);
+            $updatekey = $stmt2->execute();
+
+           $redata = $stmt2->fetch(PDO::FETCH_ASSOC);
         }
-        return $data;
+    
     }
 
 }

@@ -24,7 +24,7 @@ class SendMail
         $RabbitMQConstantsObj = new RabbitMQConstants();
         
         $connection = new AMQPStreamConnection($RabbitMQConstantsObj->host,$RabbitMQConstantsObj->port,$RabbitMQConstantsObj->username,$RabbitMQConstantsObj->password);
-       //  $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+      
         $channel    = $connection->channel();
         /*
         name: hello

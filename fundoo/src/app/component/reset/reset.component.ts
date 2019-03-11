@@ -8,40 +8,47 @@ import { PasswordValidation } from '../../services/password.match';
   styleUrls: ['./reset.component.scss']
 })
 export class ResetComponent implements OnInit {
-  resetgrp : FormGroup;
-  stat :string ="";
+  resetgrp: FormGroup;
+  stat: string = "";
   submitted = false;
-  value ;
+  value: any;
+  show: any;
   session;
-  constructor(private fb:FormBuilder,private loginservice :LoginService) { }
+  constructor(private fb: FormBuilder, private loginservice: LoginService) { }
 
   ngOnInit() {
     this.resetgrp = this.fb.group({
       password: [null, [Validators.required]]
     });
-  }
-
-  submitForm(value:any){
-    
-    this.submitted = true;
-    if(this.resetgrp.invalid){
-      return ;
-    }
-    debugger
-    let obj = this.loginservice.getEmail(value);
+    let obj = this.loginservice.getEmail(this.resetgrp.value);
     obj.subscribe((res: any) => {
       debugger
-      this.value = res.key;
-      this.session = res.session;
+
+      if (res.status == 200) {
+        this.session = "active",
+          this.value = res.key;
+        this.show = true;
+      } else if (res.status == 204) {
+        this.session = "Reset link expired",
+          this.show = false
+      }
     });
+  }
+
+  submitForm(value: any) {
+
+    this.submitted = true;
+    if (this.resetgrp.invalid) {
+      return;
+    }
     debugger
     let status = this.loginservice.userResetPass(value);
-    status.subscribe((result:any)=>{
+    status.subscribe((res: any) => {
       debugger
-      if(result.message=="200"){
+      if (res.message == "200") {
         this.stat = "reset successfull";
-      }else{
-        this.stat =" sadf";
+      } else {
+        this.stat = " reset not succesfull";
       }
     })
   }

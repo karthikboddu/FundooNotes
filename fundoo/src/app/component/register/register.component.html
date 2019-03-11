@@ -1,5 +1,6 @@
 <!--mat card starts-->
 <mat-card class="card">
+    <mat-card-title>FUNDOO</mat-card-title>
   <mat-card-title>Register</mat-card-title>
 
   <!--form tag to submit the value through formgroup -->
@@ -72,7 +73,7 @@
   <a class="refReg" mat-button color="primary" routerLink="../login">Login</a>
 
   <!--print success or error message-->
-  <mat-toolbar *ngIf="show" class="msg">{{ errormsg }}</mat-toolbar>
+  <mat-toolbar *ngIf=show class="msg">{{ errormsg }}</mat-toolbar>
 
   <!--matcard ends-->
 </mat-card>

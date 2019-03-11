@@ -67,11 +67,16 @@ export class RegisterComponent implements OnInit {
     status.subscribe((res: any) => {
       debugger;
       console.log(res.message);
-      if (res.message == "200") {
+      if (res.status == "200") {
         this.show = true; 
         this.errormsg = "Register success";
-      } else if (res.message == "204") {
+      } else if (res.status == "204") {
+        this.show = true; 
         this.errormsg = "Register failed";
+      }
+      else if(res.status =="201"){
+        this.errormsg = "Email is present";
+        this.show = true; 
       }
     });
 

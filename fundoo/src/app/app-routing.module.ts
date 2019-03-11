@@ -9,7 +9,7 @@ import { ResetComponent } from './component/reset/reset.component';
 const routes: Routes = [
   {path : 'login',component : LoginComponent},
   {path :'register',component :RegisterComponent},
-  {path :'dashboard/:name',component: DashboradComponent},
+  {path :'dashboard',component: DashboradComponent},
   {path :'forgot',component:ForgotpasswordComponent},
   {path :'reset' ,component:ResetComponent},
   {path : '' ,component :LoginComponent}

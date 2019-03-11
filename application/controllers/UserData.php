@@ -2,9 +2,9 @@
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Authorization");
 defined('BASEPATH') or exit('No direct script access allowed');
-include "/var/www/html/codeigniter/application/service/InsertData.php";
+include "/var/www/html/codeigniter/application/service/UserDataController.php";
 
-class Register extends CI_Controller
+class UserData extends CI_Controller
 {
     private $refService = "";
 
@@ -14,30 +14,30 @@ class Register extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->refService = new InsertData();
+        $this->refService = new UserDataController();
     }
 
     /**
      * @return result
      */
-    public function insertUser()
+    public function register()
     {
         $fname = $_POST['firstName'];
         $lname = $_POST['lastName'];
         $email = $_POST['Emailid'];
         $password = $_POST['password'];
-        $res = $this->refService->insertDb($fname, $lname, $email, $password);
+        $res = $this->refService->registration($fname, $lname, $email, $password);
         return $res;
     }
 
     /**
      * @return result
      */
-    public function selectuser()
+    public function login()
     {
         $email = $_POST['Emailid'];
         $password = $_POST['password'];
-        $res = $this->refService->login($email, $password);
+        $res = $this->refService->signin($email, $password);
         return $res;
     }
 
@@ -55,10 +55,6 @@ class Register extends CI_Controller
     public function resetpassword(){
         $password = $_POST['password'];
         $token = $_POST['token'];
-
-
         $res = $this->refService->resetpass($password,$token);
-
-
     }
 }

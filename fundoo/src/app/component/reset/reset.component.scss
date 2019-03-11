@@ -1,3 +1,26 @@
-.flex{
-    
+.flexdiv{
+    position: relative;
+    top: 100px;
+}
+.card{
+    width: 350px;
+    box-shadow: 5px 5px 5px 5px #9f9ea3;
+    border-radius: 10px; 
+}
+mat-card-title{
+    text-align: center;
+    font-weight: 100;
+    color: royalblue
+}
+mat-form-field{
+    margin-top: 10px;
+    margin-left: 30px;
+    width : 280px;
+}
+button{
+    margin-left: 125px;
+}
+
+.sess{
+    color: green
 }
