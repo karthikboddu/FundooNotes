@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import {LoginService} from '../../services/login.service';
+import { LoginService } from '../../services/login.service';
 @Component({
   selector: 'app-forgotpassword',
   templateUrl: './forgotpassword.component.html',
@@ -10,8 +10,13 @@ export class ForgotpasswordComponent implements OnInit {
 
   errormsg: string = "";
   submitted = false;
-  
-  constructor(private formBuilder: FormBuilder,private loginservice:LoginService) { }
+
+  /**
+   * 
+   * @param formBuilder 
+   * @param loginservice 
+   */
+  constructor(private formBuilder: FormBuilder, private loginservice: LoginService) { }
   loginform: FormGroup;
   ngOnInit() {
     this.loginform = this.formBuilder.group({
@@ -20,21 +25,26 @@ export class ForgotpasswordComponent implements OnInit {
 
   }
 
+  /**
+   * @description method to call service and return response
+   * @method submitForm()
+   * @param value 
+   */
   submitForm(value: any) {
     this.submitted = true;
     if (this.loginform.invalid) {
       return;
     }
     debugger;
-   let status = this.loginservice.forgotpass(value);
-   status.subscribe((res: any) => {
-     debugger;
-    if (res.message == "200") {
-      this.errormsg = "reset link sent to your mail";
-    } else {
-      this.errormsg = "mail not registered";
-    }
-  });
+    let status = this.loginservice.forgotpass(value);
+    status.subscribe((res: any) => {
+      debugger;
+      if (res.message == "200") {
+        this.errormsg = "reset link sent to your mail";
+      } else {
+        this.errormsg = "mail not registered";
+      }
+    });
 
   }
 

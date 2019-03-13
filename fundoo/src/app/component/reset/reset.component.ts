@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
-import { PasswordValidation } from '../../services/password.match';
+
 @Component({
   selector: 'app-reset',
   templateUrl: './reset.component.html',
@@ -16,9 +16,12 @@ export class ResetComponent implements OnInit {
   session;
   constructor(private fb: FormBuilder, private loginservice: LoginService) { }
 
+  /**
+   * @description when the component loads it return status 
+   */
   ngOnInit() {
     this.resetgrp = this.fb.group({
-      password: [null, [Validators.required]]
+      password: [null, [Validators.required, Validators.minLength(6)]]
     });
     let obj = this.loginservice.getEmail(this.resetgrp.value);
     obj.subscribe((res: any) => {
@@ -35,8 +38,12 @@ export class ResetComponent implements OnInit {
     });
   }
 
+  /**
+   * @description method to call service and return reponse
+   * @method submitForm()
+   * @param value 
+   */
   submitForm(value: any) {
-
     this.submitted = true;
     if (this.resetgrp.invalid) {
       return;
@@ -52,6 +59,4 @@ export class ResetComponent implements OnInit {
       }
     })
   }
-
-
 }

@@ -1,14 +1,19 @@
+<!--div for flex control-->
 <div class="flexdiv" fxLayout="row" fxLayoutAlign="center center">
     <div align="center" class="sess">{{session}}</div>
+
+    <!--mat card -->
     <mat-card *ngIf=show class="card">
         
       <mat-card-title>Reset password</mat-card-title>
+
+      <!--form -->
       <form [formGroup]="resetgrp" (ngSubmit)='submitForm(resetgrp.value)' novalidate>
       <mat-form-field appearance="outline" matInput>
         <mat-label>Enter password</mat-label>
-        <input matInput placeholder="Enter your password" formControlName="password"  [formControl]="resetgrp.controls['password']" required />
+        <input matInput placeholder="Enter your password" formControlName="password"   required />
         <mat-error *ngIf="submitted && resetgrp.controls['password'].errors">
-
+          <div class="validate" *ngIf="resetgrp.controls['password'].errors.minlength">Password must be at least 6</div>
           <div class="validate" *ngIf="resetgrp.controls['password'].errors.required">password is required</div>
         </mat-error>
       </mat-form-field>

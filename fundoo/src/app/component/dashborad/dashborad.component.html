@@ -1,1 +1,46 @@
-<h2>dashboard {{name}}</h2>
+<mat-toolbar >
+  <mat-toolbar-row>
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <mat-icon><img src="../../../assets/keep_48dp.png"></mat-icon>
+    <div >
+        
+      <input class="ip" matInput placeholder="search">
+    </div>
+
+
+
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-divider></mat-divider>
+
+<mat-sidenav-container fxFlexFill class="example-container">
+  <mat-sidenav fxLayout="column" class="sidenav" #drawer mode="side" role="navigation">
+    <mat-nav-list fxShow="true" fxHide.lt-md="true">
+      <a mat-list-item role="listitem"><mat-icon><img src="../../../assets/light.png"></mat-icon><span>Notes</span></a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet>
+
+
+    </router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- 
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <mat-list>
+
+    </mat-list>
+
+  </mat-drawer>
+
+
+
+</mat-drawer-container> -->

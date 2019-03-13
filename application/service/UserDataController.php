@@ -4,11 +4,15 @@ header("Access-Control-Allow-Headers: Authorization");
 
 defined('BASEPATH') or exit('No direct script access allowed');
 include '/var/www/html/codeigniter/application/Rabbitmq/sender.php';
+include '/var/www/html/codeigniter/application/static/LinkRef.php';
+
 class UserDataController extends CI_Controller
 {
+    private $constants = "";
     public function __construct()
     {
         parent::__construct();
+        $constants = new LinkConstants();
     }
 
     /**
@@ -84,6 +88,10 @@ class UserDataController extends CI_Controller
         return $data;
     }
 
+    /**
+     * @method forgotpassword()
+     * @param email
+     */
     public function forgotpassword($email)
     {
         $present = UserDataController::emailpresent($email);
@@ -96,7 +104,7 @@ class UserDataController extends CI_Controller
             $statement = $this->db->conn_id->prepare($query);
             $statement->execute();
             $sub = 'password recovery mail';
-            $body = 'click here to reset password http://localhost:4200/reset?token=' . $token;
+            $body = $constants->resetLinkMsg.$constants->resetLink.$token;
             $response = $rabb->sendEmail($email, $sub, $body);
             if ($response == "sent") {
                 $data = array(
@@ -123,6 +131,11 @@ class UserDataController extends CI_Controller
         return $data;
     }
 
+    /**
+     * @method emailpresent()
+     * @param email
+     */
+
     public function emailpresent($email)
     {
         $query = "SELECT * from registeruser WHERE email = '$email'";
@@ -138,6 +151,11 @@ class UserDataController extends CI_Controller
             return false;
         }
     }
+
+    /**
+     * @method fetchemailid()
+     * @param token
+     */
 
     public function fetchemailid($token)
     {
@@ -164,6 +182,10 @@ class UserDataController extends CI_Controller
        
     }
 
+    /**
+     * @method resetpass()
+     * @param password,token
+     */
     public function resetpass($password, $token)
     {
         $query = "UPDATE registeruser set password = '$password' where reset_key='$token' ";

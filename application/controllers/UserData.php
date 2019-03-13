@@ -41,6 +41,9 @@ class UserData extends CI_Controller
         return $res;
     }
 
+    /**
+     * @method forgotpass()
+     */
     public function forgotpass(){
         $email = $_POST['Emailid'];
 

@@ -6,7 +6,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
   MatToolbarModule, MatMenuModule,MatIconModule, MatProgressSpinnerModule,
-  MatSelectModule ,MatFormFieldModule
+  MatSelectModule ,MatFormFieldModule, MatSidenavModule,MatListModule,
+  MatGridListModule
 } from '@angular/material';
 @NgModule({
   imports: [
@@ -23,7 +24,11 @@ import {
   MatIconModule,
   MatSelectModule,
   MatProgressSpinnerModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatSidenavModule,
+  MatGridListModule,
+  MatListModule
+
   ],
   exports: [
   CommonModule,
@@ -37,7 +42,9 @@ import {
    MatIconModule,
    MatProgressSpinnerModule,
    MatSelectModule,
- 
+   MatSidenavModule,
+   MatGridListModule,
+   MatListModule
    ],
 })
 export class CustomMaterial { }

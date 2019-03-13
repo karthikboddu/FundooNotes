@@ -1,0 +1,6 @@
+{
+    "require": {
+        "maykonn/codeigniter-predis": "^0.1.1"
+    }
+}
+
