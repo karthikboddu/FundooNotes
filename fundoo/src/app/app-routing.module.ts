@@ -5,6 +5,7 @@ import { RegisterComponent } from './component/register/register.component';
 import { DashboradComponent } from './component/dashborad/dashborad.component';
 import { ForgotpasswordComponent } from './component/forgotpassword/forgotpassword.component';
 import { ResetComponent } from './component/reset/reset.component';
+import { SampleComponent } from './sample/sample.component';
 
 const routes: Routes = [
   {path : 'login',component : LoginComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path :'dashboard',component: DashboradComponent},
   {path :'forgot',component:ForgotpasswordComponent},
   {path :'reset' ,component:ResetComponent},
+  {path:'sample',component:SampleComponent},
   {path : '' ,component :LoginComponent}
 ];
 

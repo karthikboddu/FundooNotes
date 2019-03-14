@@ -16,6 +16,7 @@ import {RegisterService} from './services/register.service';
 import { DashboradComponent } from './component/dashborad/dashborad.component';
 import { ForgotpasswordComponent } from './component/forgotpassword/forgotpassword.component';
 import { ResetComponent } from './component/reset/reset.component';
+import { SampleComponent } from './sample/sample.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { ResetComponent } from './component/reset/reset.component';
     DashboradComponent,
     ForgotpasswordComponent,
     ResetComponent,
+    SampleComponent,
    
   ],
   imports: [

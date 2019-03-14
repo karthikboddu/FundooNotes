@@ -1,36 +1,60 @@
-<mat-toolbar >
-  <mat-toolbar-row>
-    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary">
-      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-    </button>
-    <mat-icon><img src="../../../assets/keep_48dp.png"></mat-icon>
-    <div >
-        
-      <input class="ip" matInput placeholder="search">
+  <div fxLayout="row" fxLayoutAlign="space-around center" style="flex: 0 0 20%;">
+  <mat-toolbar >
+    <mat-toolbar-row     >
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <img src="../../../assets/keep_48dp.png">
+      <span class="title">Fundoo</span>
+      <div>
+           <mat-icon class="search">search</mat-icon>
+        <input matInput class="ip" matInput placeholder="search">
+      </div>
+
+      <div>
+      <mat-icon class="icon" >refresh</mat-icon>
+      <mat-icon class="icon">view_agenda</mat-icon>
+      <mat-icon class="icon">settings</mat-icon>
+      <mat-icon class="icon">apps</mat-icon>
     </div>
+    </mat-toolbar-row>
+  
+  </mat-toolbar>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <mat-sidenav-container fxFlexFill class="example-container">
+    <mat-sidenav fxLayout="column" class="sidenav" #drawer mode="side" role="navigation">
+      <mat-nav-list >
+        <a mat-list-item role="listitem">
+          <mat-icon class="icon">lightbulb_outline</mat-icon><span class="notes">Notes</span>
+        </a>
+        <a mat-list-item role="listitem">
+            <mat-icon class="icon">notifications_none</mat-icon><span class="notes">Remainders</span>
+          </a>
+          <a mat-list-item role="listitem">
+              <mat-icon class="icon">edit</mat-icon><span class="notes">Edit Labels</span>
+            </a>
+        <a mat-list-item role="listitem">
+            <mat-icon class="icon" >archive</mat-icon><span class="notes">Notes</span>
+          </a>
 
 
 
-  </mat-toolbar-row>
-</mat-toolbar>
-<mat-divider></mat-divider>
+      </mat-nav-list>
+    </mat-sidenav>
 
-<mat-sidenav-container fxFlexFill class="example-container">
-  <mat-sidenav fxLayout="column" class="sidenav" #drawer mode="side" role="navigation">
-    <mat-nav-list fxShow="true" fxHide.lt-md="true">
-      <a mat-list-item role="listitem"><mat-icon><img src="../../../assets/light.png"></mat-icon><span>Notes</span></a>
+    <mat-sidenav-content>
+      <router-outlet>
+        <div>
+          <input class="ipnotes" matInput placeholder="Take a note">
+        </div>
 
-    </mat-nav-list>
-  </mat-sidenav>
+      </router-outlet>
 
-  <mat-sidenav-content>
-    <router-outlet>
-
-
-    </router-outlet>
-
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 
 <!-- 
 <mat-drawer-container class="example-container" autosize>
@@ -41,6 +65,19 @@
 
   </mat-drawer>
 
+lightbulb_outline
+notifications_none
+edit
+archive
+menu
+search
+apps
+view_agenda
+refresh
+settings
+https://material.io/tools/icons/?icon=restore_from_trash&style=outline
+https://klarsys.github.io/angular-material-icons/
+<mat-icon class="example-icon">notifications_none</mat-icon>
 
 
 </mat-drawer-container> -->

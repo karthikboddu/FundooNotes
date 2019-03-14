@@ -8,11 +8,11 @@ include '/var/www/html/codeigniter/application/static/LinkRef.php';
 
 class UserDataController extends CI_Controller
 {
-    private $constants = "";
+
     public function __construct()
     {
         parent::__construct();
-        $constants = new LinkConstants();
+        
     }
 
     /**
@@ -94,6 +94,7 @@ class UserDataController extends CI_Controller
      */
     public function forgotpassword($email)
     {
+        $constants = new LinkConstants();
         $present = UserDataController::emailpresent($email);
 
         if ($present) {

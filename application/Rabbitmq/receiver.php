@@ -26,8 +26,6 @@ class Receiver
             $RabbitMQConstantsObj = new RabbitMQConstants();
             $data = json_decode($msg->body, true);
 
-            // $from       = $data['from'];
-            // $from_email = $data['from_email'];
             $to_email = $data['to_email'];
             $subject = $data['subject'];
             $message = $data['message'];
@@ -38,7 +36,7 @@ class Receiver
                 ->setUsername($RabbitMQConstantsObj->senderEmailID)
                 ->setPassword($RabbitMQConstantsObj->senderPassword);
 
-            //             $transport = (new Swift_SmtpTransport('smtp.gmail.com', 25))
+            // $transport = (new Swift_SmtpTransport('smtp.gmail.com', 25))
             // ->setUsername($RabbitMQConstantsObj->senderEmailID)
             // ->setPassword($RabbitMQConstantsObj->senderPassword);
 
