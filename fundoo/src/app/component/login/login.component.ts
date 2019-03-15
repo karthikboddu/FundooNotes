@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       if (res.message == "200") {
         
         
-      this.route.navigate(["/dashboard"]);
+      this.route.navigate(["/home"]);
       localStorage.setItem(value.Emailid,value.password);
       } else if (res.message == "204") {
         this.errormsg = "login failed";

@@ -79,7 +79,7 @@ $route['update'] = 'Product/update';
 $route['delete/(:num)'] = 'Product/delete/$1';
 
 
-
+$route['redis'] = 'Redis/index';
 // $route['delete']['delete']='Product/find_all';
 // $route['product/(:any)'] = 'index.php/product';
 // $route['product/(:num)'] = 'product/find/$1';
