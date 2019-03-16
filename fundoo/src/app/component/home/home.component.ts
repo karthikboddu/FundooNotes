@@ -24,10 +24,10 @@ export class HomeComponent implements OnInit {
         $(".matcard").show();
         $(".ipnotes").hide();
       });
-      $(".maindiv").click(function(){
-        $(".matcard").hide();
-        $(".ipnotes").show();
-      });
+      // $(".maindiv").click(function(){
+      //   $(".matcard").hide();
+      //   $(".ipnotes").show();
+      // });
 
   
 

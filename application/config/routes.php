@@ -61,6 +61,9 @@ $route['loginto'] = 'UserData/login';
 $route['forgotpass'] = 'UserData/forgotpass';
 $route['fetchemail'] = 'UserData/fetchemail';
 $route['resetpass'] = 'UserData/resetpassword';
+$route['createnotes'] = 'Notes/createNotes';
+$route['fetchnotes'] = 'Notes/fetchNotes';
+
 
 
 

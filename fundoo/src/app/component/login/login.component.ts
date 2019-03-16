@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private loginservice: LoginService, private route: Router) { }
 
   errormsg: string = "";
-
+  tokens;
   /**
    * @description to validate form group value
    */
@@ -50,10 +50,10 @@ export class LoginComponent implements OnInit {
     debugger;
       console.log(res.message);
       if (res.message == "200") {
-        
+        this.tokens = res.token;
         
       this.route.navigate(["/home"]);
-      localStorage.setItem(value.Emailid,value.password);
+      localStorage.setItem('token',this.tokens);
       } else if (res.message == "204") {
         this.errormsg = "login failed";
       }

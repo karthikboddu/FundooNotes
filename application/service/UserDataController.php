@@ -5,7 +5,10 @@ header("Access-Control-Allow-Headers: Authorization");
 defined('BASEPATH') or exit('No direct script access allowed');
 include '/var/www/html/codeigniter/application/Rabbitmq/sender.php';
 include '/var/www/html/codeigniter/application/static/LinkRef.php';
+include 'JWT.php';
+include '/var/www/html/codeigniter/application/libraries/predis/autoload.php';
 
+use \Firebase\JWT\JWT;
 class UserDataController extends CI_Controller
 {
 
@@ -70,13 +73,38 @@ class UserDataController extends CI_Controller
         $stmt->execute();
         $no = $stmt->rowCount();
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach($res as $login){
+            $key = $login['fname'];
+            $email = $login['email'];
+            $randnum = rand(1111111111,9999999999);
 
+        }
         if ($no > 0) {
-            $data = array(
+    
+
+            
+            $token = array(
+                "email" =>$email,
+                "random" => $randnum
+            );
+            $jwt = JWT::encode($token, $key);
+            $decoded = JWT::decode($jwt, $key, array('HS256'));
+
+            $client = new Predis\Client(array(
+                'host' => '127.0.0.1',
+                'port' => 6379,
+                'password' => null,
+              ));
+              $client->set('token',$jwt);
+              $response = $client->get('token');
+
+              $data = array(
+                "token" => $jwt,  
                 "message" => "200",
             );
-            print json_encode($data);
-
+            
+              print json_encode($data);
+            
         } else {
             $data = array(
                 "message" => "204",
