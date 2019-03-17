@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import {NotesService} from '../../services/notes.service';
-
+import { NotesService } from '../../services/notes.service';
+import decode from 'jwt-decode';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -10,35 +10,52 @@ import {NotesService} from '../../services/notes.service';
 export class NotesComponent implements OnInit {
 
 
-  constructor(private fb:FormBuilder,private notes:NotesService) { }
 
-  noteform:FormGroup;
-  note : string[];
+  constructor(private fb: FormBuilder, private notes: NotesService) { }
+
+  noteform: FormGroup;
+  note: string[];
+  email: any;
+  noteshow:boolean=true;
+  cardshow:boolean=false;
+  token1;
+
   ngOnInit() {
     this.noteform = this.fb.group({
       desc: '',
-      title:''
+      title: ''
     });
 
-    let notesobs = this.notes.fetchNotes();
-    notesobs.subscribe((data:any)=>{
-      this.note = data as string[];
-    });
-
+    this.loadNotes();
 
   }
+  toggle(){
+    this.noteshow = false;
+    this.cardshow = true;
+  }
 
-  token1;
-
-    noteSubmit(value:any){
-debugger
-    let createobs = this.notes.createNotes(value);
-    debugger
+  loadNotes() {
     const token = localStorage.getItem('token');
-    createobs.subscribe((res:any)=>{
+    const tokenPayload = decode(token);
+    const emailid = tokenPayload.email;
+    debugger
+    let notesobs = this.notes.fetchNotes(emailid);
+    notesobs.subscribe((data: any) => {
+      this.note = data as string[];
+    });
+  }
+
+
+  noteSubmit(value: any) {
+    debugger
+
+    const email = localStorage.getItem('email');
+    let createobs = this.notes.createNotes(value, email);
+
+    createobs.subscribe((res: any) => {
       debugger
       console.log(res.status);
-      if(res.status=="200"){
+      if (res.status == "200") {
         this.token1 = res.token;
       }
     })

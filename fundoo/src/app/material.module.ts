@@ -9,6 +9,7 @@ import {
   MatSelectModule ,MatFormFieldModule, MatSidenavModule,MatListModule,
   MatGridListModule
 } from '@angular/material';
+
 @NgModule({
   imports: [
   CommonModule, 
@@ -27,7 +28,7 @@ import {
   MatFormFieldModule,
   MatSidenavModule,
   MatGridListModule,
-  MatListModule
+  MatListModule,
 
   ],
   exports: [
@@ -44,7 +45,8 @@ import {
    MatSelectModule,
    MatSidenavModule,
    MatGridListModule,
-   MatListModule
+   MatListModule,
+
    ],
 })
 export class CustomMaterial { }

@@ -19,6 +19,8 @@ import { ResetComponent } from './component/reset/reset.component';
 
 import { HomeComponent } from './component/home/home.component';
 import { NotesComponent } from './component/notes/notes.component';
+import { DialogComponent } from './component/dialog/dialog.component';
+import { DialogdataComponent } from './component/dialogdata/dialogdata.component';
 
 
 @NgModule({
@@ -32,6 +34,10 @@ import { NotesComponent } from './component/notes/notes.component';
     HomeComponent,
 
     NotesComponent,
+
+    DialogComponent,
+
+    DialogdataComponent,
    
   ],
   imports: [
@@ -45,6 +51,7 @@ import { NotesComponent } from './component/notes/notes.component';
     HttpClientModule
   ],
   providers: [RegisterService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents : [DialogdataComponent]
 })
 export class AppModule { }

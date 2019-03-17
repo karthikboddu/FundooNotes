@@ -1,33 +1,25 @@
 <div fxShow="true" fxHide.lt-sm="true">
-  <input class="ipnotes" placeholder="Take a note">
+  <input class="ipnotes" *ngIf="noteshow"  (click)="toggle()" placeholder="Take a note">
 
 </div>
 <div>
-  <mat-card class="matcard">
+  <mat-card class="matcard" *ngIf="cardshow">
     <form [formGroup]="noteform" (ngSubmit)='noteSubmit(noteform.value)'>
       <input matInput placeholder="Title" formControlName="title" >
       <mat-form-field class="example-full-width">
-        <textarea matInput placeholder="Take a note" formControlName="desc" ></textarea>
+        <input matInput placeholder="Take a note" formControlName="desc" >
       </mat-form-field>
       <button  mat-raised-button color="primary" >Submit</button>
     </form>
   </mat-card>
-{{token1}}
 
    <mat-grid-list cols="4" rowHeight="3:1" class="cardnotes" *ngFor="let n of note">
-    
-       
-      <a mat-button>     <mat-card  >{{n.title}} <p>{{n.description}}</p> </mat-card></a>
-       
-    
-   
+      <a mat-button class="matbtn"> 
+      <mat-card class="notescard">{{n.title}} <p>{{n.description}}</p>
+       </mat-card>
+      </a>
     </mat-grid-list>
 
-
-               
-                  
-     
-
-
-
 </div>
+
+

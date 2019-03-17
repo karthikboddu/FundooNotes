@@ -16,9 +16,9 @@ class NoteService extends CI_Controller
         
     }
 
-    public function addNotes($title,$desc){
+    public function addNotes($email,$title,$desc){
 
-        $query = "INSERT into notes (title,description) values ('$title','$desc')";
+        $query = "INSERT into notes (title,description,email) values ('$title','$desc','$email')";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
 
@@ -38,8 +38,8 @@ class NoteService extends CI_Controller
         }
     }
 
-    public function noteFetch(){
-        $query = "SELECT * from notes ORDER BY id DESC ";
+    public function noteFetch($email){
+        $query = "SELECT * from notes Where email ='$email' ORDER BY id DESC ";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
 

@@ -8,7 +8,7 @@ import * as $ from 'jquery';
 export class HomeComponent implements OnInit {
 
   constructor() { }
-
+maindiv:boolean =false;
   ngOnInit() {
     $(document).ready(function () {
       $(".ip").click(function () {
@@ -17,21 +17,15 @@ export class HomeComponent implements OnInit {
       $(".ip").mouseout(function () {
         $(".ip").css("background-color", "#F5F5F5");
       });
-
-      $(".matcard").hide();
-
-      $(".ipnotes").click(function(){
-        $(".matcard").show();
-        $(".ipnotes").hide();
-      });
-      // $(".maindiv").click(function(){
-      //   $(".matcard").hide();
-      //   $(".ipnotes").show();
-      // });
-
-  
-
     });
   }
+
+
+
+ toggle(){
+   this.maindiv = true;
+ }
+
+
 
 }

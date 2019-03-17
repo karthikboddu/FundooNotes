@@ -19,15 +19,16 @@ class Notes extends CI_Controller
     }
 
     public function createNotes(){
+        $email = $_POST['email'];
         $title = $_POST['title'];
         $desc = $_POST['desc'];
-        $this->refService->addNotes($title,$desc);
+        $this->refService->addNotes($email,$title,$desc);
     }
 
 
     public function fetchNotes(){
-
-        $this->refService->noteFetch();
+        $email = $_POST['email'];
+        $this->refService->noteFetch($email);
     }
 
 

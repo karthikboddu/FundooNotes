@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
     debugger;
       console.log(res.message);
       if (res.message == "200") {
+        localStorage.setItem('email',value.Emailid);
         this.tokens = res.token;
         
       this.route.navigate(["/home"]);
