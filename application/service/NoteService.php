@@ -18,24 +18,37 @@ class NoteService extends CI_Controller
 
     public function addNotes($email,$title,$desc){
 
-        $query = "INSERT into notes (title,description,email) values ('$title','$desc','$email')";
-        $stmt = $this->db->conn_id->prepare($query);
-        $res = $stmt->execute();
 
-        if ($res) {
-            $data = array(
-                "status" => "200",
-            );
-            print json_encode($data);
-
-        } else {
-            $data = array(
-                "status" => "204",
-            );
-            print json_encode($data);
-            return "204";
-
+        $flag = 0;        
+        if(empty($title)||empty($desc)){
+            $flag = 1;
         }
+
+
+        if($flag == 0){
+            $redis = new RedisConn();
+            $conn = $redis->connection();
+            $response = $client->get('token');
+            
+            $query = "INSERT into notes (title,description,email) values ('$title','$desc','$email')";
+            $stmt = $this->db->conn_id->prepare($query);
+            $res = $stmt->execute();
+            if ($res) {
+                $data = array(
+                    "status" => "200",
+                );
+                print json_encode($data);
+    
+            } else {
+                $data = array(
+                    "status" => "204",
+                );
+                print json_encode($data);
+                return "204";
+    
+            }
+        }
+
     }
 
     public function noteFetch($email){

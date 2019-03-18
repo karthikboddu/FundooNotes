@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
+import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -50,6 +51,8 @@ export class LoginComponent implements OnInit {
     debugger;
       console.log(res.message);
       if (res.message == "200") {
+        let headers: HttpHeaders = new HttpHeaders();
+        headers.set("Authorization",value.Emailid);
         localStorage.setItem('email',value.Emailid);
         this.tokens = res.token;
         

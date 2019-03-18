@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NotesService } from '../../services/notes.service';
 import decode from 'jwt-decode';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -11,13 +12,13 @@ export class NotesComponent implements OnInit {
 
 
 
-  constructor(private fb: FormBuilder, private notes: NotesService) { }
+  constructor(private fb: FormBuilder, private notes: NotesService, private route: Router) { }
 
   noteform: FormGroup;
   note: string[];
   email: any;
-  noteshow:boolean=true;
-  cardshow:boolean=false;
+  noteshow: boolean = true;
+  cardshow: boolean = false;
   token1;
 
   ngOnInit() {
@@ -29,20 +30,30 @@ export class NotesComponent implements OnInit {
     this.loadNotes();
 
   }
-  toggle(){
+
+
+  toggle() {
     this.noteshow = false;
     this.cardshow = true;
   }
 
   loadNotes() {
-    const token = localStorage.getItem('token');
-    const tokenPayload = decode(token);
-    const emailid = tokenPayload.email;
     debugger
-    let notesobs = this.notes.fetchNotes(emailid);
-    notesobs.subscribe((data: any) => {
-      this.note = data as string[];
-    });
+    const token = localStorage.getItem('token');
+    if (token == null) {
+      this.route.navigate(['../login']);
+    } else {
+      const tokenPayload = decode(token);
+      const emailid = tokenPayload.email;
+      debugger
+      let notesobs = this.notes.fetchNotes(emailid);
+
+      notesobs.subscribe((data: any) => {
+        this.note = data as string[];
+
+      });
+    }
+
   }
 
 

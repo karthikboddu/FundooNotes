@@ -1,21 +1,24 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Authorization");
+header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin, Authorization
+');
 
 defined('BASEPATH') or exit('No direct script access allowed');
 include '/var/www/html/codeigniter/application/Rabbitmq/sender.php';
 include '/var/www/html/codeigniter/application/static/LinkRef.php';
 include 'JWT.php';
-include '/var/www/html/codeigniter/application/libraries/predis/autoload.php';
 
+include '/var/www/html/codeigniter/application/service/RedisConn.php';
 use \Firebase\JWT\JWT;
+
 class UserDataController extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
-        
+
     }
 
     /**
@@ -23,8 +26,9 @@ class UserDataController extends CI_Controller
      */
     public function registration($fname, $lname, $email, $password)
     {
+
         $checkemail = UserDataController::emailpresent($email);
-        if(!$checkemail){
+        if (!$checkemail) {
             $datta = [
                 'fname' => $fname,
                 'lname' => $lname,
@@ -39,16 +43,16 @@ class UserDataController extends CI_Controller
                     "status" => "200",
                 );
                 print json_encode($data);
-    
+
             } else {
                 $data = array(
                     "status" => "204",
                 );
                 print json_encode($data);
                 return "204";
-    
+
             }
-        }else{
+        } else {
             $data = array(
                 "status" => "201",
             );
@@ -68,43 +72,39 @@ class UserDataController extends CI_Controller
             'email' => $email,
             'password' => $password,
         ];
+        $headers = apache_response_headers();
+        $token   = explode(" ", $headers['Authorization']);
         $query = "SELECT * from registeruser WHERE email ='$email' AND password = '$password' ";
         $stmt = $this->db->conn_id->prepare($query);
         $stmt->execute();
         $no = $stmt->rowCount();
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        foreach($res as $login){
+        foreach ($res as $login) {
             $key = $login['fname'];
             $email = $login['email'];
-            $randnum = rand(1111111111,9999999999);
+            $randnum = rand(1111111111, 9999999999);
 
         }
         if ($no > 0) {
-    
 
-            
             $token = array(
-                "email" =>$email,
-                "random" => $randnum
+                "email" => $email,
+                "random" => $randnum,
             );
             $jwt = JWT::encode($token, $key);
             $decoded = JWT::decode($jwt, $key, array('HS256'));
+            $redis = new RedisConn();
+            $conn = $redis->connection();
+            $conn->set('token', $jwt);
+            $response = $conn->get('token');
 
-            $client = new Predis\Client(array(
-                'host' => '127.0.0.1',
-                'port' => 6379,
-                'password' => null,
-              ));
-              $client->set('token',$jwt);
-              $response = $client->get('token');
-
-              $data = array(
-                "token" => $jwt,  
+            $data = array(
+                "token" => $response,
                 "message" => "200",
             );
-            
-              print json_encode($data);
-            
+
+            print json_encode($data);
+
         } else {
             $data = array(
                 "message" => "204",
@@ -133,7 +133,7 @@ class UserDataController extends CI_Controller
             $statement = $this->db->conn_id->prepare($query);
             $statement->execute();
             $sub = 'password recovery mail';
-            $body = $constants->resetLinkMsg.$constants->resetLink.$token;
+            $body = $constants->resetLinkMsg . $constants->resetLink . $token;
             $response = $rabb->sendEmail($email, $sub, $body);
             if ($response == "sent") {
                 $data = array(
@@ -195,20 +195,19 @@ class UserDataController extends CI_Controller
         $arr = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($arr) {
             $dataa = array(
-                'key' => $arr['email'], 
-                'status'=>'200',
-            
+                'key' => $arr['email'],
+                'status' => '200',
+
             );
             print json_encode($dataa);
         } else {
             $dataa = array(
                 'key' => "\n",
-                'status'=>'204',
+                'status' => '204',
             );
             print json_encode($dataa);
         }
 
-       
     }
 
     /**
@@ -234,7 +233,7 @@ class UserDataController extends CI_Controller
             );
             print json_encode($data);
         } else if ($flag == 0) {
- 
+
             $data = array(
                 "message" => "200",
             );
@@ -243,9 +242,9 @@ class UserDataController extends CI_Controller
             $stmt2 = $this->db->conn_id->prepare($query3);
             $updatekey = $stmt2->execute();
 
-           $redata = $stmt2->fetch(PDO::FETCH_ASSOC);
+            $redata = $stmt2->fetch(PDO::FETCH_ASSOC);
         }
-    
+
     }
 
 }

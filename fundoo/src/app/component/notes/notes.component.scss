@@ -24,10 +24,12 @@
     box-shadow: -1px 1px 11px 8px rgba(173,173,173,0.72);
   }
 
-  .cardnotes{
+  mat-grid-list {
+    display: block;
     margin-left: 340px;
-    margin-top: 50px;
-    width: 0px;
-    height: 70px;
-    display: inline-block
-  }
+    position: relative;
+}
+.mat-grid-tile{
+  height: 78px;
+  width: 238px;
+}

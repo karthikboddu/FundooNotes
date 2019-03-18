@@ -25,6 +25,15 @@ maindiv:boolean =false;
  toggle(){
    this.maindiv = true;
  }
+ logout(){
+  const email = localStorage.getItem('email');
+  const token = localStorage.getItem('token');
+
+  localStorage.removeItem('email');
+  localStorage.removeItem('token');
+
+
+ }
 
 
 

@@ -13,13 +13,20 @@
     </form>
   </mat-card>
 
-   <mat-grid-list cols="4" rowHeight="3:1" class="cardnotes" *ngFor="let n of note">
-      <a mat-button class="matbtn"> 
-      <mat-card class="notescard">{{n.title}} <p>{{n.description}}</p>
-       </mat-card>
-      </a>
-    </mat-grid-list>
+
 
 </div>
 
+<!-- <mat-grid-list cols="2" rowHeight="100px" class="crdnotes" *ngFor="let n of note">
+  <a mat-button class="matbtn"> 
+ <mat-card><p>{{n.title}} </p><p>{{n.description}}</p>
+  </mat-card>
+ 
+  </a>
+</mat-grid-list> -->
+<mat-grid-list   cols="4"  >
+  <div  class="cardnotes" *ngFor="let n of note">
+  <mat-grid-tile><mat-card><p>{{n.title}}</p> <p> {{n.description}}</p></mat-card></mat-grid-tile>
+  </div>
 
+  </mat-grid-list>
