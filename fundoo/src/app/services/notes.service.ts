@@ -10,14 +10,19 @@ export class NotesService {
   constructor(private http :HttpClient,private serviceurl:ServiceUrlService) { 
 
   }
-
-  createNotes(notes,email){
-   
+  tokens;
+  createNotes(notes,email,time){
+    let headses=  new  HttpHeaders().set("Authorization",localStorage.getItem('token'));
+  //  this.tokens= localStorage.getItem('token');
+  //   headses.set('Authorization',this.tokens);
       let createnotes = new FormData();
       createnotes.append("email",email);
       createnotes.append("title",notes.title);
       createnotes.append("desc",notes.desc);
-      return this.http.post(this.serviceurl.host+this.serviceurl.createnotes,createnotes);
+      createnotes.append("remainder",time);
+      
+      return this.http.post(this.serviceurl.host+this.serviceurl.createnotes,createnotes,
+        {headers:headses});
 
   }
 

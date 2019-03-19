@@ -1,15 +1,47 @@
-<div fxShow="true" fxHide.lt-sm="true">
-  <input class="ipnotes" *ngIf="noteshow"  (click)="toggle()" placeholder="Take a note">
-
+<div fxShow="true" fxHide.lt-sm="true" >
+  <input class="ipnotes" *ngIf="noteshow" (click)="toggle()" placeholder="Take a note">
+  <span class="iconbtn"><button mat-icon-button>
+      <mat-icon class="icon">check_box</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon class="icon">brush</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon class="icon">insert_photo</mat-icon>
+    </button>
+  </span>
 </div>
 <div>
   <mat-card class="matcard" *ngIf="cardshow">
-    <form [formGroup]="noteform" (ngSubmit)='noteSubmit(noteform.value)'>
-      <input matInput placeholder="Title" formControlName="title" >
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Take a note" formControlName="desc" >
-      </mat-form-field>
-      <button  mat-raised-button color="primary" >Submit</button>
+    <form [formGroup]="noteform">
+      <input matInput class="ipnote" placeholder="Title" formControlName="title">
+      <button mat-icon-button class="pinbtn">
+        <mat-icon class="icon">notification_important</mat-icon>
+      </button>
+
+      <input class="ipnote takenote" matInput placeholder="Take a note ..." formControlName="desc">
+     <div> <button mat-icon-button  *ngIf="timer" >
+          <mat-icon class="icon">schedule</mat-icon>{{timedate}}
+        </button>
+      </div>
+      <span class="spanbtn">
+          <button mat-icon-button class="pinbtn" [matMenuTriggerFor]="remainder">
+              <mat-icon class="icon">notification_important</mat-icon>
+            </button>
+        <button mat-icon-button class="pinbtn">
+          <mat-icon class="icon">color_lens</mat-icon>
+        </button>
+        <button mat-icon-button class="pinbtn">
+          <mat-icon class="icon">archive</mat-icon>
+        </button>
+        <button mat-icon-button class="pinbtn">
+          <mat-icon class="icon">person_add</mat-icon>
+        </button>
+        <button mat-icon-button class="pinbtn">
+          <mat-icon class="icon">more_vert</mat-icon>
+        </button>
+        <button mat-button class="close" (click)="noteSubmit(noteform.value)">Close</button>
+      </span>
     </form>
   </mat-card>
 
@@ -24,9 +56,61 @@
  
   </a>
 </mat-grid-list> -->
-<mat-grid-list   cols="4"  >
-  <div  class="cardnotes" *ngFor="let n of note">
-  <mat-grid-tile><mat-card><p>{{n.title}}</p> <p> {{n.description}}</p></mat-card></mat-grid-tile>
+<div fxLayout="wrap">
+
+ 
+ <div fxLayout="row">
+    <div fxFlex="80"></div>
+
+ </div>
+  <div fxFlex="26"></div>
+  <div fxFlex="60">
+    
+
+      <div fxLayout="row wrap" fxLayoutGap="0px">
+
+          <div  class="flexcard" fxFlex="33" *ngFor="let n of note" layout-wrap>
+            <mat-card class="cards">
+              <p>{{n.title}}</p>
+              <p> {{n.description}}</p>
+              <p> {{n.remainder}}</p>
+            </mat-card>
+
+          </div>
+        </div>
+
+
   </div>
 
-  </mat-grid-list>
+
+
+</div>
+
+
+
+<mat-menu #remainder="matMenu">
+    <a>Remainder</a>
+  <button mat-menu-item (click)="today()">Later today :</button>
+  <button mat-menu-item>Tomorrow </button>
+  <button mat-menu-item>next week</button>
+</mat-menu>
+
+
+
+
+
+
+
+
+
+<!-- <mat-grid-list class="grid" cols="3">
+  <div class="cardnotes" *ngFor="let n of note">
+    <mat-grid-tile class="cards">
+      <mat-card class="cards" > 
+        <p>{{n.title}}</p>
+        <p> {{n.description}}</p>
+      </mat-card>
+    </mat-grid-tile>
+  </div>
+
+</mat-grid-list> -->
