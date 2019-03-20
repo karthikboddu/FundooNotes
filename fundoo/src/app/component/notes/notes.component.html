@@ -1,4 +1,4 @@
-<div fxShow="true" fxHide.lt-sm="true" >
+<div fxShow="true" fxHide.lt-sm="true">
   <input class="ipnotes" *ngIf="noteshow" (click)="toggle()" placeholder="Take a note">
   <span class="iconbtn"><button mat-icon-button>
       <mat-icon class="icon">check_box</mat-icon>
@@ -20,14 +20,18 @@
       </button>
 
       <input class="ipnote takenote" matInput placeholder="Take a note ..." formControlName="desc">
-     <div> <button mat-icon-button  *ngIf="timer" >
-          <mat-icon class="icon">schedule</mat-icon>{{timedate}}
-        </button>
+      <div *ngIf="timer"> <button mat-icon-button>
+          <mat-icon class="remicon">schedule</mat-icon>Today 8PM
+        </button><span><button mat-icon-button (click)="closetime()">
+            <mat-icon class="remicon">close</mat-icon>
+
+          </button>
+        </span>
       </div>
       <span class="spanbtn">
-          <button mat-icon-button class="pinbtn" [matMenuTriggerFor]="remainder">
-              <mat-icon class="icon">notification_important</mat-icon>
-            </button>
+        <button mat-icon-button class="pinbtn" [matMenuTriggerFor]="remainder">
+          <mat-icon class="icon">notification_important</mat-icon>
+        </button>
         <button mat-icon-button class="pinbtn">
           <mat-icon class="icon">color_lens</mat-icon>
         </button>
@@ -58,26 +62,30 @@
 </mat-grid-list> -->
 <div fxLayout="wrap">
 
- 
- <div fxLayout="row">
+
+  <div fxLayout="row">
     <div fxFlex="80"></div>
 
- </div>
+  </div>
   <div fxFlex="26"></div>
-  <div fxFlex="60">
-    
+  <div fxFlex>
 
-      <div fxLayout="row wrap" fxLayoutGap="0px">
 
-          <div  class="flexcard" fxFlex="33" *ngFor="let n of note" layout-wrap>
-            <mat-card class="cards">
-              <p>{{n.title}}</p>
-              <p> {{n.description}}</p>
-              <p> {{n.remainder}}</p>
-            </mat-card>
+    <div fxLayout="row wrap" fxLayoutGap="0px">
+      <mat-card *ngIf="newnote" class="cards">
+        <p>{{title}}</p>
+        <p> {{description}}</p>
 
-          </div>
-        </div>
+      </mat-card>
+      <div class="flexcard" fxFlex="33" *ngFor="let n of note" layout-wrap>
+        <mat-card class="cards">
+          <p>{{n.title}}</p>
+          <p> {{n.description}}</p>
+          <p> {{n.remainder}}</p>
+        </mat-card>
+
+      </div>
+    </div>
 
 
   </div>
@@ -88,10 +96,10 @@
 
 
 
-<mat-menu #remainder="matMenu">
-    <a>Remainder</a>
-  <button mat-menu-item (click)="today()">Later today :</button>
-  <button mat-menu-item>Tomorrow </button>
+<mat-menu #remainder="matMenu" class="matmenu">
+  <a>Remainder</a>
+  <button mat-menu-item (click)="today()">Later today : 8PM</button>
+  <button mat-menu-item>Tomorrow : 8PM</button>
   <button mat-menu-item>next week</button>
 </mat-menu>
 

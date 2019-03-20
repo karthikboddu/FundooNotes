@@ -8,7 +8,10 @@ import * as $ from 'jquery';
 export class HomeComponent implements OnInit {
 
   constructor() { }
+
 maindiv:boolean =false;
+
+
   ngOnInit() {
     $(document).ready(function () {
       $(".ip").click(function () {
@@ -20,19 +23,17 @@ maindiv:boolean =false;
     });
   }
 
-
-
  toggle(){
    this.maindiv = true;
  }
- logout(){
-  const email = localStorage.getItem('email');
-  const token = localStorage.getItem('token');
 
+
+ /**
+  * @method logout()
+  */
+ logout(){
   localStorage.removeItem('email');
   localStorage.removeItem('token');
-
-
  }
 
 

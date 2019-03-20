@@ -12,7 +12,7 @@ export class NotesService {
   }
   tokens;
   createNotes(notes,email,time){
-    let headses=  new  HttpHeaders().set("Authorization",localStorage.getItem('token'));
+    
   //  this.tokens= localStorage.getItem('token');
   //   headses.set('Authorization',this.tokens);
       let createnotes = new FormData();
@@ -20,9 +20,13 @@ export class NotesService {
       createnotes.append("title",notes.title);
       createnotes.append("desc",notes.desc);
       createnotes.append("remainder",time);
-      
-      return this.http.post(this.serviceurl.host+this.serviceurl.createnotes,createnotes,
-        {headers:headses});
+      var httpOptions={ headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
+      httpOptions.headers = httpOptions.headers.append('Token', localStorage.getItem('token'));
+
+      //  var headerss=  new  HttpHeaders().set("Authorization",localStorage.getItem('token'));
+ 
+
+      return this.http.post(this.serviceurl.host+this.serviceurl.createnotes,createnotes,httpOptions );
 
   }
 

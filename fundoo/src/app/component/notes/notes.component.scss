@@ -1,3 +1,6 @@
+.main{
+  height: 100%;
+}
 .ipnotes{
     border: solid 1px rgba(0, 0, 0, 0.2);
     border-radius: 11px;
@@ -24,7 +27,7 @@
   .matcard{
     margin-top: 3px;
     margin-left: 340px;
-    height: 118px;
+    height: 147px;
     width: 570px;
     box-shadow: -1px 1px 11px 8px rgba(173,173,173,0.72);
   }
@@ -54,8 +57,7 @@
   width: 530px;
 }
 .close{
-  margin-top: -62px;
-  margin-left: 499px;
+margin-left: 302px;
 }
 
 .ipnote{
@@ -77,4 +79,11 @@
 }
 .spanbtn{
   width: 100px;
+}
+.remicon{
+font-size: 17px;
+}
+.matgrid{
+  height: 150px;
+  width: 200px;
 }
