@@ -12,6 +12,8 @@ export class NotesService {
   }
   tokens;
   createNotes(notes,email,time){
+
+
     
   //  this.tokens= localStorage.getItem('token');
   //   headses.set('Authorization',this.tokens);
@@ -20,13 +22,16 @@ export class NotesService {
       createnotes.append("title",notes.title);
       createnotes.append("desc",notes.desc);
       createnotes.append("remainder",time);
-      var httpOptions={ headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
-      httpOptions.headers = httpOptions.headers.append('Token', localStorage.getItem('token'));
+      let headers_object = new HttpHeaders().set("Authorization",
+			
+      localStorage.getItem("token")
+    );
 
-      //  var headerss=  new  HttpHeaders().set("Authorization",localStorage.getItem('token'));
- 
+      // var httpOptions={ headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
+      // httpOptions.headers = httpOptions.headers.append('Token', localStorage.getItem('token'));
 
-      return this.http.post(this.serviceurl.host+this.serviceurl.createnotes,createnotes,httpOptions );
+      console.log(headers_object);
+      return this.http.post(this.serviceurl.host+this.serviceurl.createnotes,createnotes,{headers:headers_object});
 
   }
 

@@ -27,7 +27,7 @@
   .matcard{
     margin-top: 3px;
     margin-left: 340px;
-    height: 147px;
+    // height: 147px;
     width: 570px;
     box-shadow: -1px 1px 11px 8px rgba(173,173,173,0.72);
   }
@@ -86,4 +86,15 @@ font-size: 17px;
 .matgrid{
   height: 150px;
   width: 200px;
+}
+
+.datecard{
+  max-width: 300px;
+  max-height: 150px;
+}
+
+.dateinput{
+  
+  width:300px;
+  
 }

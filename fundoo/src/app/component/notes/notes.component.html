@@ -21,7 +21,12 @@
 
       <input class="ipnote takenote" matInput placeholder="Take a note ..." formControlName="desc">
       <div *ngIf="timer"> <button mat-icon-button>
-          <mat-icon class="remicon">schedule</mat-icon>Today 8PM
+          <mat-icon class="remicon">schedule</mat-icon>
+   
+            <mat-chip>
+          Today 8PM
+        </mat-chip>
+
         </button><span><button mat-icon-button (click)="closetime()">
             <mat-icon class="remicon">close</mat-icon>
 
@@ -51,6 +56,30 @@
 
 
 
+<div  align="center" *ngIf="date_panel">
+      <mat-card class="datecard">
+      <mat-form-field class="dateinput">
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Select an option</mat-label>
+            <mat-select [(value)]="selected">
+              <mat-option>None</mat-option>
+              <mat-option value="option1">Option 1</mat-option>
+              <mat-option value="option2">Option 2</mat-option>
+              <mat-option value="option3">Option 3</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+      </mat-card>
+    </div>
+
+
 </div>
 
 <!-- <mat-grid-list cols="2" rowHeight="100px" class="crdnotes" *ngFor="let n of note">
@@ -77,6 +106,19 @@
         <p> {{description}}</p>
 
       </mat-card>
+
+
+      <!-- <mat-grid-list cols="2" rowHeight="1:1.4"  gutterSize="10px"  >
+          <mat-grid-tile *ngFor="let n of note">
+              <mat-card  >
+ 
+                <p>{{n.title}}</p>
+
+              </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list> -->
+
+
       <div class="flexcard" fxFlex="33" *ngFor="let n of note" layout-wrap>
         <mat-card class="cards">
           <p>{{n.title}}</p>
@@ -100,16 +142,23 @@
   <a>Remainder</a>
   <button mat-menu-item (click)="today()">Later today : 8PM</button>
   <button mat-menu-item>Tomorrow : 8PM</button>
-  <button mat-menu-item>next week</button>
+  <button mat-menu-item >next week</button>
+
+  <button mat-menu-item (click)="date_panel = true">pick date and time</button>
+          
+   
+
 </mat-menu>
 
-
-
-
-
-
-
-
+      <mat-menu #fish="matMenu">
+          <mat-form-field class="example-full-width">
+              <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+              <mat-datepicker-toggle matSuffix [for]="picker">
+                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field> 
+        </mat-menu>
 
 <!-- <mat-grid-list class="grid" cols="3">
   <div class="cardnotes" *ngFor="let n of note">

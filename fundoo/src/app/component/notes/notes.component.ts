@@ -4,7 +4,6 @@ import { NotesService } from '../../services/notes.service';
 import * as moment from "moment";
 import decode from 'jwt-decode';
 import { Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',

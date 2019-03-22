@@ -7,7 +7,8 @@ import {
   MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
   MatToolbarModule, MatMenuModule,MatIconModule, MatProgressSpinnerModule,
   MatSelectModule ,MatFormFieldModule, MatSidenavModule,MatListModule,
-  MatGridListModule
+  MatGridListModule,MatChipsModule,MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 
 @NgModule({
@@ -29,7 +30,10 @@ import {
   MatSidenavModule,
   MatGridListModule,
   MatListModule,
-
+  MatChipsModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  
   ],
   exports: [
   CommonModule,
@@ -46,7 +50,9 @@ import {
    MatSidenavModule,
    MatGridListModule,
    MatListModule,
-
+   MatChipsModule,
+   MatDatepickerModule,
+   MatNativeDateModule,
    ],
 })
 export class CustomMaterial { }
