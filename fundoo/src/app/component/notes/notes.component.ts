@@ -4,6 +4,7 @@ import { NotesService } from '../../services/notes.service';
 import * as moment from "moment";
 import decode from 'jwt-decode';
 import { Router } from '@angular/router';
+import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -18,10 +19,22 @@ export class NotesComponent implements OnInit {
    * @param notes 
    * @param route 
    */
-  constructor(private fb: FormBuilder, private notes: NotesService, private route: Router) { }
+  constructor(private fb: FormBuilder, private notes: NotesService, private route: Router,private viewservice :ViewService) {
+    this.viewservice.getView().subscribe((res=>{
+      this.view =res;
+      this.direction = this.view.data;
+      console.log("Direction is :", this.direction);
+
+			this.layout = this.direction + " " + this.wrap;
+			console.log("Layout is ", this.layout);
+    }))
+   }
+
+   view;
+
 
   noteform: FormGroup;
-  note: string[];
+  notescollabaration: string[];
   email: any;
   noteshow: boolean = true;
   cardshow: boolean = false;
@@ -33,7 +46,12 @@ export class NotesComponent implements OnInit {
   timer: any;
   description:any
   title:any;
+  breakpoint:number;
 
+
+  wrap: string = "wrap";
+	direction: string = "row";
+	layout: string = this.direction + " " + this.wrap;
   /**
    * @description fetch the notes when the components loads
    */
@@ -45,6 +63,18 @@ export class NotesComponent implements OnInit {
     this.timer = false;
     this.newnote = false;
     this.loadNotes();
+    this.breakpoint = (window.innerWidth <= 400) ? 1 : 6;
+
+    this.viewservice.getView().subscribe((res=>{
+        this.view = res;
+        this.direction = this.view.data;
+        this.layout = this.direction + " "+this.wrap;
+    }))
+
+  }
+
+  onResize(event) {
+    this.breakpoint = (event.target.innerWidth <= 400) ? 1 : 6;
   }
 
 /**
@@ -71,7 +101,7 @@ export class NotesComponent implements OnInit {
       let notesobs = this.notes.fetchNotes(emailid);
 
       notesobs.subscribe((data: any) => {
-        this.note = data as string[];
+        this.notescollabaration = data as string[];
 
       });
     }

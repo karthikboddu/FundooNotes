@@ -10,12 +10,15 @@ import { filter } from 'rxjs/operators';
 export class DialogComponent implements OnInit {
 
   fileDialogRef: MatDialogRef<DialogdataComponent>;
-
+  breakpoint: number;
   constructor(private dialog:MatDialog){}
   ngOnInit() {
+    this.breakpoint = (window.innerWidth <= 400) ? 1 : 6;
   }
 files:any;
-
+onResize(event) {
+  this.breakpoint = (event.target.innerWidth <= 400) ? 1 : 6;
+}
 
   openAddFileDialog(file?) {
     this.fileDialogRef = this.dialog.open(DialogdataComponent,{

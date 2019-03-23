@@ -14,7 +14,21 @@
 
                 <!-- The following menu items will be hidden on both SM and XS screen sizes -->
                 <button mat-icon-button class="iconbtn"><mat-icon class="icon">refresh</mat-icon></button>
-                <button mat-icon-button class="iconbtn"> <mat-icon class="icon">view_agenda</mat-icon></button>
+                <button mat-icon-button class="iconbtn"  *ngIf="list"
+                    (click)="changeView()"
+                    fxShow="true"
+                    fxHide.lt-sm="true"> <mat-icon class="icon">view_agenda</mat-icon>
+                </button>
+
+                <button
+                mat-icon-button
+                *ngIf="grid"
+                (click)="changeView()"
+                fxShow="true"
+                fxHide.lt-sm="true"
+              >
+              <mat-icon class="icon">apps</mat-icon>
+              </button>
                 <button mat-icon-button class="iconbtn"><mat-icon class="icon">settings</mat-icon></button>
                 <button mat-icon-button class="iconbtn"> <mat-icon class="icon">apps</mat-icon></button>
                 <button mat-icon-button class="iconbtn"> <mat-icon class="icon" (click)="logout()">account_box</mat-icon></button>

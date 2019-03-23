@@ -1,17 +1,8 @@
-<!-- <ul>
-  <li >
-    
-    <button (click)="openFileDialog(file)">Edit file</button>
-  <li>
-</ul>
-<button (click)="openFileDialog()">Add file</button> -->
-<div fxLayout="column" fxFlex="10" ></div>
-<div class="asd"  fxFlex fxLayout="column">
-
-
-    <div fxLayout="row"  fxFlex="30" class="sa">dsaf</div>
-    <div fxLayout="row"  fxFlex="70" class="b">dsf </div>
-  
-
-</div>
-<div fxLayout="column" fxFlex="10"></div>
+<mat-grid-list [cols]="breakpoint" rowHeight="2:0.5" (window:resize)="onResize($event)">
+    <mat-grid-tile>1</mat-grid-tile>
+    <mat-grid-tile>2</mat-grid-tile>
+    <mat-grid-tile>3</mat-grid-tile>
+    <mat-grid-tile>4</mat-grid-tile>
+    <mat-grid-tile>5</mat-grid-tile>
+    <mat-grid-tile>6</mat-grid-tile>
+  </mat-grid-list>

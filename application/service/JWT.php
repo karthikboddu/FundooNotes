@@ -5,6 +5,9 @@ use \DomainException;
 use \InvalidArgumentException;
 use \UnexpectedValueException;
 use \DateTime;
+include_once '/var/www/html/codeigniter/application/service/RedisConn.php';
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: Authorization");
 
 /**
  * JSON Web Token implementation, based on this spec:
@@ -375,5 +378,39 @@ class JWT
             return mb_strlen($str, '8bit');
         }
         return strlen($str);
+    }
+
+
+
+       /**
+     * get the passed token is valid or not.
+     *
+     * @param string
+     *
+     * @return boolean
+     */
+    public function verifytoken($token): bool
+    {
+
+        $key = "karthik";
+        list($headerEncoded, $payloadEncoded, $signatureEncoded) = explode('.', $token);
+        $dataEncoded                                             = "$headerEncoded.$payloadEncoded";
+        $signature                                               = JWT::base64UrlDecode($signatureEncoded);
+        $rawSignature                                            = hash_hmac('sha256', $dataEncoded,$key, true);
+        return hash_equals($rawSignature, $signature);
+    }
+    /**
+     * get the passed data in decoded format
+     *
+     * @param string
+     *
+     * @return string
+     */
+
+    public static function base64UrlDecode($data): string
+    {
+        $urlUnsafeData = strtr($data, '-_', '+/');
+        $paddedData    = str_pad($urlUnsafeData, strlen($data) % 4, '=', STR_PAD_RIGHT);
+        return base64_decode($paddedData);
     }
 }

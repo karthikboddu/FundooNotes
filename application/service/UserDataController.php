@@ -9,7 +9,7 @@ include '/var/www/html/codeigniter/application/Rabbitmq/sender.php';
 include '/var/www/html/codeigniter/application/static/LinkRef.php';
 include 'JWT.php';
 
-include '/var/www/html/codeigniter/application/service/RedisConn.php';
+// include '/var/www/html/codeigniter/application/service/RedisConn.php';
 use \Firebase\JWT\JWT;
 
 class UserDataController extends CI_Controller
@@ -26,7 +26,7 @@ class UserDataController extends CI_Controller
      */
     public function registration($fname, $lname, $email, $password)
     {
-
+        
         $checkemail = UserDataController::emailpresent($email);
         if (!$checkemail) {
             $datta = [
@@ -68,19 +68,23 @@ class UserDataController extends CI_Controller
      */
     public function signin($email, $password)
     {
+        $redis = new RedisConn();
+        $conn = $redis->connection();
+        $conn->set('scretkey',"karthik");
+        $key =$conn->get('scretkey');
         $data = [
             'email' => $email,
             'password' => $password,
         ];
-        $headers = apache_response_headers();
-        $token   = explode(" ", $headers['Authorization']);
+        // $headers = apache_response_headers();
+        // $token   = explode(" ", $headers['Authorization']);
         $query = "SELECT * from registeruser WHERE email ='$email' AND password = '$password' ";
         $stmt = $this->db->conn_id->prepare($query);
         $stmt->execute();
         $no = $stmt->rowCount();
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($res as $login) {
-            $key = $login['fname'];
+           
             $email = $login['email'];
             $randnum = rand(1111111111, 9999999999);
 
@@ -92,11 +96,12 @@ class UserDataController extends CI_Controller
                 "random" => $randnum,
             );
             $jwt = JWT::encode($token, $key);
+            // $verify = JWT::verifytoken($jwt,,$key,'HS256');
             $decoded = JWT::decode($jwt, $key, array('HS256'));
-            $redis = new RedisConn();
-            $conn = $redis->connection();
-            $conn->set('token', $jwt);
-            $response = $conn->get('token');
+            
+          
+            $conn->set('token'.$email, $jwt);
+            $response = $conn->get('token'.$email);
 
             $data = array(
                 "token" => $response,

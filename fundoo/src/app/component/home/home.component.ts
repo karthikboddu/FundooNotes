@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
+import {ViewService} from '../../services/view.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -7,11 +8,12 @@ import * as $ from 'jquery';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private viewservice: ViewService) { }
+  grid: boolean = false;
+  list: boolean = true;
+  maindiv: boolean = false;
 
-maindiv:boolean =false;
-
-
+  breakpoint: number;
   ngOnInit() {
     $(document).ready(function () {
       $(".ip").click(function () {
@@ -21,20 +23,34 @@ maindiv:boolean =false;
         $(".ip").css("background-color", "#F5F5F5");
       });
     });
+
+
   }
 
- toggle(){
-   this.maindiv = true;
- }
 
 
- /**
-  * @method logout()
-  */
- logout(){
-  localStorage.removeItem('email');
-  localStorage.removeItem('token');
- }
+  toggle() {
+    this.maindiv = true;
+  }
+
+  changeView() {
+    if (this.list == true) {
+      this.grid = true;
+      this.list = false;
+    } else {
+      this.list = true;
+      this.grid = false;
+    }
+    this.viewservice.gridview();
+    
+  }
+  /**
+   * @method logout()
+   */
+  logout() {
+    localStorage.removeItem('email');
+    localStorage.removeItem('token');
+  }
 
 
 

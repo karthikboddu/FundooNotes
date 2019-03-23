@@ -1,6 +1,9 @@
 <?php
-header('Access-Control-Allow-Origin: *');
+
 header("Access-Control-Allow-Headers: Authorization");
+header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin, Authorization
+');
+header("Access-Control-Request-Method: POST");
 defined('BASEPATH') or exit('No direct script access allowed');
 include "/var/www/html/codeigniter/application/service/NoteService.php";
 
@@ -22,7 +25,8 @@ class Notes extends CI_Controller
         $email = $_POST['email'];
         $title = $_POST['title'];
         $desc = $_POST['desc'];
-        $this->refService->addNotes($email,$title,$desc);
+        $rem = $_POST['remainder'];
+        $this->refService->addNotes($email,$title,$desc,$rem);
     }
 
 

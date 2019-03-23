@@ -11,6 +11,9 @@
     </button>
   </span>
 </div>
+
+
+
 <div>
   <mat-card class="matcard" *ngIf="cardshow">
     <form [formGroup]="noteform">
@@ -89,52 +92,47 @@
  
   </a>
 </mat-grid-list> -->
-<div fxLayout="wrap">
 
 
-  <div fxLayout="row">
-    <div fxFlex="80"></div>
-
-  </div>
-  <div fxFlex="26"></div>
-  <div fxFlex>
 
 
-    <div fxLayout="row wrap" fxLayoutGap="0px">
-      <mat-card *ngIf="newnote" class="cards">
+  
+
+
+
+      <!-- <mat-card *ngIf="newnote" class="cards">
         <p>{{title}}</p>
         <p> {{description}}</p>
 
-      </mat-card>
+      </mat-card> -->
 
 
-      <!-- <mat-grid-list cols="2" rowHeight="1:1.4"  gutterSize="10px"  >
-          <mat-grid-tile *ngFor="let n of note">
-              <mat-card  >
- 
-                <p>{{n.title}}</p>
+      <mat-grid-list   [cols]="6" rowHeight="60px" (window:resize)="onResize($event)">
+        <mat-grid-tile fxLayoutGap="30px" 
+            *ngFor="let n of notescollabaration"
+            [colspan]="2"
+            [rowspan]="3"
+            >
+        <button mat-button >
+           <mat-card class="gridcard">
+            <p class="para">{{n.title}}</p>
+            <p class="para"> {{n.description}}</p>
+            <p class="para"> {{n.remainder}}</p>
+          </mat-card>
+        </button>
+        </mat-grid-tile>
+      </mat-grid-list>
+      
 
-              </mat-card>
-          </mat-grid-tile>
-        </mat-grid-list> -->
-
-
-      <div class="flexcard" fxFlex="33" *ngFor="let n of note" layout-wrap>
+      <!-- <div class="flexcard" fxFlex="33" *ngFor="let n of note" layout-wrap>
         <mat-card class="cards">
           <p>{{n.title}}</p>
           <p> {{n.description}}</p>
           <p> {{n.remainder}}</p>
         </mat-card>
 
-      </div>
-    </div>
+      </div> -->
 
-
-  </div>
-
-
-
-</div>
 
 
 
