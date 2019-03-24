@@ -3,6 +3,7 @@
   <span class="iconbtn"><button mat-icon-button>
       <mat-icon class="icon">check_box</mat-icon>
     </button>
+    
     <button mat-icon-button>
       <mat-icon class="icon">brush</mat-icon>
     </button>
@@ -25,10 +26,10 @@
       <input class="ipnote takenote" matInput placeholder="Take a note ..." formControlName="desc">
       <div *ngIf="timer"> <button mat-icon-button>
           <mat-icon class="remicon">schedule</mat-icon>
-   
-            <mat-chip>
-          Today 8PM
-        </mat-chip>
+
+          <mat-chip>
+            Today 8PM
+          </mat-chip>
 
         </button><span><button mat-icon-button (click)="closetime()">
             <mat-icon class="remicon">close</mat-icon>
@@ -59,28 +60,28 @@
 
 
 
-<div  align="center" *ngIf="date_panel">
-      <mat-card class="datecard">
+  <div align="center" *ngIf="date_panel">
+    <mat-card class="datecard">
       <mat-form-field class="dateinput">
-          <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-          <mat-datepicker-toggle matSuffix [for]="picker">
-            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-          </mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>Select an option</mat-label>
-            <mat-select [(value)]="selected">
-              <mat-option>None</mat-option>
-              <mat-option value="option1">Option 1</mat-option>
-              <mat-option value="option2">Option 2</mat-option>
-              <mat-option value="option3">Option 3</mat-option>
-            </mat-select>
-          </mat-form-field>
+      <mat-form-field>
+        <mat-label>Select an option</mat-label>
+        <mat-select [(value)]="selected">
+          <mat-option>None</mat-option>
+          <mat-option value="option1">Option 1</mat-option>
+          <mat-option value="option2">Option 2</mat-option>
+          <mat-option value="option3">Option 3</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-      </mat-card>
-    </div>
+    </mat-card>
+  </div>
 
 
 </div>
@@ -96,35 +97,45 @@
 
 
 
-  
 
 
 
-      <!-- <mat-card *ngIf="newnote" class="cards">
+
+<!-- <mat-card *ngIf="newnote" class="cards">
         <p>{{title}}</p>
         <p> {{description}}</p>
 
       </mat-card> -->
 
 
-      <mat-grid-list   [cols]="6" rowHeight="60px" (window:resize)="onResize($event)">
-        <mat-grid-tile fxLayoutGap="30px" 
-            *ngFor="let n of notescollabaration"
-            [colspan]="2"
-            [rowspan]="3"
-            >
-        <button mat-button >
-           <mat-card class="gridcard">
-            <p class="para">{{n.title}}</p>
-            <p class="para"> {{n.description}}</p>
-            <p class="para"> {{n.remainder}}</p>
-          </mat-card>
-        </button>
-        </mat-grid-tile>
-      </mat-grid-list>
-      
+<!-- 
+<div>
+  <mat-grid-list [cols]="6" rowHeight="60px" (window:resize)="onResize($event)">
+    <mat-grid-tile fxLayoutGap="30px" *ngFor="let n of notescollabaration" [colspan]="2" [rowspan]="3">
+      <button mat-button>
+        <mat-card class="gridcard">
+          <p class="para">{{n.title}}</p>
+          <p class="para"> {{n.description}}</p>
+          <p class="para"> {{n.remainder}}</p>
+        </mat-card>
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
 
-      <!-- <div class="flexcard" fxFlex="33" *ngFor="let n of note" layout-wrap>
+</div>
+
+<div class="listview">
+
+    <mat-list role="list" *ngFor="let n of notescollabaration">
+        <mat-card>
+      <mat-list-item role="listitem">{{n.title}}</mat-list-item>
+      <mat-list-item role="listitem">{{n.description}}</mat-list-item>
+      <mat-list-item role="listitem">{{n.remainder}}</mat-list-item>
+    </mat-card>
+    </mat-list>
+ 
+</div> -->
+<!-- <div class="flexcard" fxFlex="33" *ngFor="let n of note" layout-wrap>
         <mat-card class="cards">
           <p>{{n.title}}</p>
           <p> {{n.description}}</p>
@@ -135,28 +146,33 @@
 
 
 
+ <div>
+  <div fxLayout="{{direction}}" fxLayoutAlign="center center">
+
+      <mat-card class="cards"  *ngFor="let n of notescollabaration">
+          <p>{{n.title}}</p>
+          <p> {{n.description}}</p>
+          <p> {{n.remainder}}</p>
+        </mat-card>
+
+  </div>
+
+
+
+ </div>     
+
 
 <mat-menu #remainder="matMenu" class="matmenu">
   <a>Remainder</a>
   <button mat-menu-item (click)="today()">Later today : 8PM</button>
   <button mat-menu-item>Tomorrow : 8PM</button>
-  <button mat-menu-item >next week</button>
+  <button mat-menu-item>next week</button>
 
   <button mat-menu-item (click)="date_panel = true">pick date and time</button>
-          
-   
+
+
 
 </mat-menu>
-
-      <mat-menu #fish="matMenu">
-          <mat-form-field class="example-full-width">
-              <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-              <mat-datepicker-toggle matSuffix [for]="picker">
-                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-              </mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field> 
-        </mat-menu>
 
 <!-- <mat-grid-list class="grid" cols="3">
   <div class="cardnotes" *ngFor="let n of note">
