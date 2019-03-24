@@ -39,11 +39,11 @@ export class HomeComponent implements OnInit {
     if (this.list == true) {
       this.grid = true;
       this.list = false;
-      this.dataservice.setCurrentdata(this.grid);
+      // this.dataservice.setCurrentdata(this.grid);
     } else {
       this.list = true;
       this.grid = false;
-      this.dataservice.setCurrentdata(this.list);
+      // this.dataservice.setCurrentdata(this.list);
     }
 
     this.viewservice.gridview();

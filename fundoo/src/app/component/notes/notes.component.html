@@ -86,17 +86,6 @@
 
 </div>
 
-<!-- <mat-grid-list cols="2" rowHeight="100px" class="crdnotes" *ngFor="let n of note">
-  <a mat-button class="matbtn"> 
- <mat-card><p>{{n.title}} </p><p>{{n.description}}</p>
-  </mat-card>
- 
-  </a>
-</mat-grid-list> -->
-
-
-
-
 
 
 
@@ -108,23 +97,24 @@
       </mat-card> -->
 
 
-<!-- 
-<div>
-  <mat-grid-list [cols]="6" rowHeight="60px" (window:resize)="onResize($event)">
-    <mat-grid-tile fxLayoutGap="30px" *ngFor="let n of notescollabaration" [colspan]="2" [rowspan]="3">
+
+  <!-- <mat-grid-list fxLayout="{{direction}}" fxLayoutAlign="center center" [cols]="4"  >
+    <div  >
+    <mat-grid-tile fxLayoutGap="30px"  [colspan]="2" [rowspan]="3">
       <button mat-button>
-        <mat-card class="gridcard">
+        <mat-card class="gridcard" *ngFor="let n of notescollabaration">
           <p class="para">{{n.title}}</p>
           <p class="para"> {{n.description}}</p>
           <p class="para"> {{n.remainder}}</p>
         </mat-card>
       </button>
     </mat-grid-tile>
-  </mat-grid-list>
+  </div>
+  </mat-grid-list> -->
 
-</div>
 
-<div class="listview">
+
+<!-- <div class="listview">
 
     <mat-list role="list" *ngFor="let n of notescollabaration">
         <mat-card>
@@ -135,6 +125,9 @@
     </mat-list>
  
 </div> -->
+
+
+
 <!-- <div class="flexcard" fxFlex="33" *ngFor="let n of note" layout-wrap>
         <mat-card class="cards">
           <p>{{n.title}}</p>
@@ -146,20 +139,17 @@
 
 
 
- <div>
-  <div fxLayout="{{direction}}" fxLayoutAlign="center center">
 
-      <mat-card class="cards"  *ngFor="let n of notescollabaration">
-          <p>{{n.title}}</p>
-          <p> {{n.description}}</p>
-          <p> {{n.remainder}}</p>
+  <div class="flexcard" fxLayout="{{layout}}" fxLayoutGap="50px" fxLayoutAlign="center center">
+
+      <mat-card *ngFor="let n of notescollabaration">
+          <p class="para">{{n.title}}</p>
+          <p class="para"> {{n.description}}</p>
+          <p class="para"> {{n.remainder}}</p>
         </mat-card>
 
   </div>
-
-
-
- </div>     
+   
 
 
 <mat-menu #remainder="matMenu" class="matmenu">

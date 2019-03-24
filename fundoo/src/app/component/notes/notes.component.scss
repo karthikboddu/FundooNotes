@@ -39,10 +39,7 @@
     margin-right: 10px;
 }
 
-.cards{
-  max-width: 300px;
-  max-height: 100px;
-}
+
 
 .iconbtn{
   margin-left: -140px;
@@ -71,10 +68,16 @@ margin-left: 302px;
   width: 531px;
 }
 .flexcard{
-  margin-top: 20px;
+  
+  margin-top: 30px;
 }
-.cards{
-  max-width: 180px;
+.colcard{
+  margin-top: 20px;
+  width: 600px;
+  max-height: 100px;
+}
+.rowcard{
+  width: 500px;
   max-height: 100px;
 }
 .spanbtn{
@@ -89,8 +92,14 @@ font-size: 17px;
 }
 
 .datecard{
-  max-width: 300px;
-  max-height: 150px;
+  margin-left: 27%;
+  margin-top: -25px;
+  position: absolute;
+  z-index: 100;
+  box-shadow: 000pxblack;
+  width: 248px;
+  height: 221px;
+  padding: 2px;
 }
 
 .dateinput{

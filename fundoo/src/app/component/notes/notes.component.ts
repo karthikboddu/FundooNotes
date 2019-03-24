@@ -12,7 +12,7 @@ import { ViewService } from 'src/app/services/view.service';
 })
 export class NotesComponent implements OnInit {
 
-
+  classcard;
   /**
    * 
    * @param fb 
@@ -23,10 +23,12 @@ export class NotesComponent implements OnInit {
     this.viewservice.getView().subscribe((res=>{
       this.view =res;
       this.direction = this.view.data;
+      this.classcard = this.view.class;
       console.log("Direction is :", this.direction);
 
 			this.layout = this.direction + " " + this.wrap;
-			console.log("Layout is ", this.layout);
+      console.log("Layout is ", this.layout);
+      console.log("class is ",this.classcard);
     }))
    }
 
