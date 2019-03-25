@@ -4,7 +4,9 @@
             <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary">
                 <mat-icon class="menuicon" aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
+            
             <img src="../../../assets/keep_48dp.png">
+        
             <span class="title">Fundoo</span>
             <span class="example-spacer"></span>
 
@@ -20,16 +22,16 @@
                     fxHide.lt-sm="true"> <mat-icon class="icon">view_agenda</mat-icon>
                 </button>
 
-                <button
-                mat-icon-button
+                <button mat-icon-button
+                class="iconbtn"
                 *ngIf="grid"
                 (click)="changeView()"
                 fxShow="true"
                 fxHide.lt-sm="true"
               >
-              <mat-icon class="icon"><img src="../../../assets/menu-grid.svg" style="width:20px;"></mat-icon>
+             <img src="../../../assets/menu-grid.svg" style="width:20px; color: #6F6F6F;">
               </button>
-                <button mat-icon-button class="iconbtn"><mat-icon class="icon">settings</mat-icon></button>
+                <button mat-icon-button class="iconbtn" [matMenuTriggerFor]="setting"><mat-icon class="icon">settings</mat-icon></button>
                 <button mat-icon-button class="iconbtn"> <mat-icon class="icon">apps</mat-icon></button>
                 <button mat-icon-button class="iconbtn"> <mat-icon class="icon" (click)="logout()">account_box</mat-icon></button>
             </div>
@@ -69,4 +71,17 @@
 
         </mat-sidenav-content>
     </mat-sidenav-container>
+
+
+    <mat-menu #setting="matMenu" class="matmenu">
+
+            <button mat-menu-item >settings</button>
+            <button mat-menu-item>send feedback</button>
+            <button mat-menu-item>help</button>
+          
+            <button mat-menu-item>App Downloads</button>
+            <button mat-menu-item>Keyboard shortcuts</button>
+          
+          
+          </mat-menu>
 </div>

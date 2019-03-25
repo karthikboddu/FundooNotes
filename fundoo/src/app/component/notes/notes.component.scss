@@ -70,6 +70,7 @@ margin-left: 302px;
 .flexcard{
   
   margin-top: 30px;
+  margin-left: 200px;
 }
 .colcard{
   margin-top: 20px;
@@ -98,13 +99,13 @@ font-size: 17px;
   z-index: 100;
   box-shadow: 000pxblack;
   width: 248px;
-  height: 221px;
+  max-height: 300px;
   padding: 2px;
 }
 
-.dateinput{
+.mat-form-field{
   
-  width:300px;
+  width:200px;;
   
 }
 .grid{
@@ -131,4 +132,8 @@ mat-button{
 
 .listview{
   margin-left: 220px;
+}
+
+.dateip{
+  max-width: 100px;
 }

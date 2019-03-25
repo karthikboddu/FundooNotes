@@ -10,6 +10,7 @@ import { NotesComponent } from './component/notes/notes.component';
 import {AuthGuardService as AuthGuard } from './services/authguard.service';
 import { DialogComponent } from './component/dialog/dialog.component';
 import { DialogdataComponent } from './component/dialogdata/dialogdata.component';
+import { GridComponent } from './grid/grid.component';
 
 const routes: Routes = [
   {path : 'login',component : LoginComponent},
@@ -23,7 +24,8 @@ const routes: Routes = [
     },
   {path : '' ,component :LoginComponent},
   {path:'dialog',component:DialogComponent},
-  {path:'dialogdata',component:DialogdataComponent}
+  {path:'dialogdata',component:DialogdataComponent},
+  {path:'grid',component:GridComponent}
 ];
 
 @NgModule({

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="CodeIgniter Application Test Suite" tests="4" assertions="4" errors="0" failures="0" skipped="0" time="0.591127">
+    <testsuite name="Result_test" file="/var/www/html/codeigniter/application/tests/controllers/Result_test.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.441339">
+      <testcase name="test_get_msg" class="Result_test" classname="Result_test" file="/var/www/html/codeigniter/application/tests/controllers/Result_test.php" line="3" assertions="1" time="0.441339"/>
+    </testsuite>
+    <testsuite name="Welcome_test" file="/var/www/html/codeigniter/application/tests/controllers/Welcome_test.php" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="0.149788">
+      <testcase name="test_index" class="Welcome_test" classname="Welcome_test" file="/var/www/html/codeigniter/application/tests/controllers/Welcome_test.php" line="13" assertions="1" time="0.092551"/>
+      <testcase name="test_method_404" class="Welcome_test" classname="Welcome_test" file="/var/www/html/codeigniter/application/tests/controllers/Welcome_test.php" line="19" assertions="1" time="0.052750"/>
+      <testcase name="test_APPPATH" class="Welcome_test" classname="Welcome_test" file="/var/www/html/codeigniter/application/tests/controllers/Welcome_test.php" line="25" assertions="1" time="0.004487"/>
+    </testsuite>
+  </testsuite>
+</testsuites>

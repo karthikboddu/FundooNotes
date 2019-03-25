@@ -23,6 +23,7 @@ import { DialogComponent } from './component/dialog/dialog.component';
 import { DialogdataComponent } from './component/dialogdata/dialogdata.component';
 import { CollabaratorComponent } from './component/collabarator/collabarator.component';
 import { EditnotesComponent } from './component/editnotes/editnotes.component';
+import { GridComponent } from './grid/grid.component';
 
 
 @NgModule({
@@ -44,6 +45,8 @@ import { EditnotesComponent } from './component/editnotes/editnotes.component';
     CollabaratorComponent,
 
     EditnotesComponent,
+
+    GridComponent,
    
   ],
   imports: [

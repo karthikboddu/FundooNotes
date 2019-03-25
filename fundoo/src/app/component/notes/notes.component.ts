@@ -36,6 +36,7 @@ export class NotesComponent implements OnInit {
 
 
   noteform: FormGroup;
+  datetimeform:FormGroup;
   notescollabaration: string[];
   email: any;
   noteshow: boolean = true;
@@ -49,8 +50,8 @@ export class NotesComponent implements OnInit {
   description:any
   title:any;
   breakpoint:number;
-
-
+  timearr:any;
+  rowcard
   wrap: string = "wrap";
 	direction: string = "row";
 	layout: string = this.direction + " " + this.wrap;
@@ -60,19 +61,50 @@ export class NotesComponent implements OnInit {
   ngOnInit() {
     this.noteform = this.fb.group({
       desc: '',
-      title: ''
+      title: '',
+
     });
+
+    this.datetimeform = this.fb.group({
+      datetime :'',
+      valuee : '',
+      value:''
+    });
+
+    
     this.timer = false;
     this.newnote = false;
+
+    setInterval(()=>{
+     
+    },1000);
     this.loadNotes();
     this.breakpoint = (window.innerWidth <= 400) ? 1 : 6;
 
     this.viewservice.getView().subscribe((res=>{
         this.view = res;
         this.direction = this.view.data;
+        this.rowcard = this.view.class;
         this.layout = this.direction + " "+this.wrap;
     }))
 
+    this.timearr = {name:"asdas",afternoon:['13:00','18:00','21:00']};
+    
+  }
+
+  hide(){
+
+  }
+  time
+  period
+  date_panel
+  datetime(value:any){
+    this.date = value.datetime;
+    this.time = value.value;
+    this.period = value.valuee;
+    this.date_panel=false;
+
+    console.log(value);
   }
 
   onResize(event) {
@@ -103,6 +135,7 @@ export class NotesComponent implements OnInit {
       let notesobs = this.notes.fetchNotes(emailid);
 
       notesobs.subscribe((data: any) => {
+        debugger
         this.notescollabaration = data as string[];
 
       });
@@ -119,7 +152,7 @@ export class NotesComponent implements OnInit {
     debugger
     this.cardshow = false;
     this.noteshow = true;
-
+    this.date_panel=false;
     this.newnote = true;
     this.title = value.title;
     this.description = value.desc;
@@ -147,6 +180,9 @@ export class NotesComponent implements OnInit {
     this.currentdate = moment(this.date).format('DD/MM/YY');
     this.timedate = this.currentdate + " " + "8:00";
     this.timer = true;
+  }
+  remainder(){
+    
   }
 
   closetime(){
