@@ -68,18 +68,25 @@ margin-left: 302px;
   width: 531px;
 }
 .flexcard{
-  
+  margin-left: 150px;
   margin-top: 30px;
-  margin-left: 200px;
+
 }
 .colcard{
-  margin-top: 20px;
+  border: solid 1px rgba(0, 0, 0, 0.2);
   width: 600px;
-  max-height: 100px;
+  padding: 5px 5px 5px 5px;
+  border-radius: 10px;
+  max-height: 120px;
+
 }
-.rowcard{
-  width: 500px;
-  max-height: 100px;
+.row{
+  border-radius: 10px;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  max-width: 180px;
+  margin-bottom: 20px;
+  padding: 5px 5px 5px 5px;
+  max-height: 150px;
 }
 .spanbtn{
   width: 100px;

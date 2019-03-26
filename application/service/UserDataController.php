@@ -21,6 +21,22 @@ class UserDataController extends CI_Controller
 
     }
 
+    public function testget(){
+        $query = "SELECT * from registeruser";
+        $stmt = $this->db->conn_id->prepare($query);
+        $result = $stmt->execute();
+        $no = $stmt->rowCount();
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // if($result){
+        //     // $data = array(
+        //     //     "status" => "300",
+        //     // );
+
+        //     // print json_encode($data);
+        // }
+    }
+
     /**
      * @param fname,lname,email,password
      */

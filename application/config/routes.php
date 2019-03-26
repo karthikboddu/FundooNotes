@@ -63,7 +63,7 @@ $route['fetchemail'] = 'UserData/fetchemail';
 $route['resetpass'] = 'UserData/resetpassword';
 $route['createnotes'] = 'Notes/createNotes';
 $route['fetchnotes'] = 'Notes/fetchNotes';
-
+$route['testapi'] = 'UserData/test';
 
 
 

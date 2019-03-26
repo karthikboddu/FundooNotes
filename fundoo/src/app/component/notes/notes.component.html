@@ -27,16 +27,17 @@
       <input class="ipnote takenote" matInput placeholder="Take a note ..." formControlName="desc">
       <div *ngIf="timer"> <button mat-icon-button>
           <mat-icon class="remicon">schedule</mat-icon>
-
-          <mat-chip>
-            Today 8PM{{timedate}}
+          <span>          <mat-chip>
+            {{timedate}}
           </mat-chip>
+        </span>
 
-        </button><span><button mat-icon-button (click)="closetime()">
+        </button>
+        <button mat-icon-button (click)="closetime()">
             <mat-icon class="remicon">close</mat-icon>
 
           </button>
-        </span>
+        
       </div>
       <span class="spanbtn">
         <button mat-icon-button class="pinbtn" (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">
@@ -162,7 +163,8 @@
 
 <div class="flexcard" fxLayout="{{layout}}" fxLayoutGap="50px" fxLayoutAlign="center center">
 
-  <mat-card class="rowcard"  *ngFor="let n of notescollabaration">
+  <mat-card class="colcard"  *ngFor="let n of notescollabaration" [ngClass]="direction == 'row' ? 'row': 'column' " 
+  >
     <p class="para">{{n.title}}</p>
     <p class="para"> {{n.description}}</p>
     <p class="para"><mat-chip> {{n.remainder}}</mat-chip></p>
@@ -174,7 +176,7 @@
 
 <mat-menu #remainder="matMenu" class="matmenu">
   <mat-label>Remainder</mat-label>
-  <button mat-menu-item (click)="today()">Later today : 8PM</button>
+  <button mat-menu-item (click)="today()" >Later today : 8PM</button>
   <button mat-menu-item>Tomorrow : 8PM</button>
   <button mat-menu-item>next week</button>
 

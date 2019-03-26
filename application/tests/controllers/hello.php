@@ -4,7 +4,10 @@
             $output = $this->request('GET',['unittest','hello']);
             $expected = '<h2>hello</h2>';
             $this->assertContains($expected,$output);
+            $dealer = Phake::mock('dealer');
+            
         }
+        
     }
 
 ?>

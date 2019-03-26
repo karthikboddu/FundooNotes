@@ -5,6 +5,7 @@ import * as moment from "moment";
 import decode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { ViewService } from 'src/app/services/view.service';
+
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -50,8 +51,9 @@ export class NotesComponent implements OnInit {
   description:any
   title:any;
   breakpoint:number;
-  timearr:any;
-  rowcard
+  timearr :any;
+  rowcard //css class
+
   wrap: string = "wrap";
 	direction: string = "row";
 	layout: string = this.direction + " " + this.wrap;
@@ -71,20 +73,22 @@ export class NotesComponent implements OnInit {
       value:''
     });
 
-    
     this.timer = false;
     this.newnote = false;
 
     setInterval(()=>{
-     
+      this.loadNotes();
     },1000);
-    this.loadNotes();
+    
     this.breakpoint = (window.innerWidth <= 400) ? 1 : 6;
+
+
 
     this.viewservice.getView().subscribe((res=>{
         this.view = res;
         this.direction = this.view.data;
         this.rowcard = this.view.class;
+        
         this.layout = this.direction + " "+this.wrap;
     }))
 
@@ -98,12 +102,19 @@ export class NotesComponent implements OnInit {
   time
   period
   date_panel
+  newdate
   datetime(value:any){
     this.date = value.datetime;
     this.time = value.value;
     this.period = value.valuee;
     this.date_panel=false;
+    this.timer = true;
 
+
+    var moment = require('moment');
+    console.log(this.time+"time is " );
+this.timedate=moment(this.date).format('DD-MMM')+" "+this.period;
+   console.log(this.timedate);
     console.log(value);
   }
 
@@ -154,6 +165,7 @@ export class NotesComponent implements OnInit {
     this.noteshow = true;
     this.date_panel=false;
     this.newnote = true;
+  
     this.title = value.title;
     this.description = value.desc;
     this.loadNotes();
@@ -174,9 +186,10 @@ export class NotesComponent implements OnInit {
    * @description generate the date
    * @method today()
    */
+  datee
   today() {
     var date = new Date();
-    this.date = date.toDateString();
+    this.datee = date.toDateString();
     this.currentdate = moment(this.date).format('DD/MM/YY');
     this.timedate = this.currentdate + " " + "8:00";
     this.timer = true;

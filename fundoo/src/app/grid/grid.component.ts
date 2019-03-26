@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Input, Output, EventEmitter} from '@angular/core';
 import { NotesService } from '../services/notes.service';
 import { Router } from '@angular/router';
 import { ViewService } from '../services/view.service';
 import * as moment from "moment";
 import decode from 'jwt-decode';
+import { count } from 'rxjs/operators';
 
 export interface Tile {
   color: string;
@@ -16,6 +17,7 @@ export interface Tile {
   selector: 'app-grid',
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss']
+  
 })
 
 
@@ -42,8 +44,17 @@ export class GridComponent implements OnInit {
     }))
    }
 
+   @Input() count: number; 
+   @Output() countChange = new EventEmitter(); 
+
+
    view;
 
+
+   updateCount(){
+     this.count = this.count+1;
+     this.countChange.emit(this.count); 
+   }
 
   notescollabaration: string[];
   email: any;

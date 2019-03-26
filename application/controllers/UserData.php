@@ -41,6 +41,10 @@ class UserData extends CI_Controller
         return $res;
     }
 
+    public function test(){
+        $res = $this->refService->testget();   
+    }
+
     /**
      * @method forgotpass()
      */
