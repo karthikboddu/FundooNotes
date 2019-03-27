@@ -68,22 +68,26 @@ margin-left: 302px;
   width: 531px;
 }
 .flexcard{
-  margin-left: 150px;
+  margin-left: 260px;
   margin-top: 30px;
 
 }
-.colcard{
+mat-chip {
+  font-weight: 400;
+  background-color: #F5F5F5;
+}
+.column{
   border: solid 1px rgba(0, 0, 0, 0.2);
   width: 600px;
   padding: 5px 5px 5px 5px;
   border-radius: 10px;
-  max-height: 120px;
+  max-height: 145px;
 
 }
 .row{
   border-radius: 10px;
   border: solid 1px rgba(0, 0, 0, 0.2);
-  max-width: 180px;
+  max-width: 210px;
   margin-bottom: 20px;
   padding: 5px 5px 5px 5px;
   max-height: 150px;
@@ -125,6 +129,7 @@ font-size: 17px;
 
 .para{
   text-align: center;
+  font-weight: 500;
   font-family: 'Google Sans',Roboto,Arial,sans-serif;
   text-align: justify
 }

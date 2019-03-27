@@ -74,4 +74,36 @@ class NoteService extends CI_Controller
     }
 
 
+    public function notesUpdate($title,$desc,$id){
+        $flag = 0;
+        if(empty($title)||empty($desc)){
+            $flag = 1;
+        }
+      
+                
+      
+        if($flag==0){
+            $query = $query = "UPDATE notes SET title = '$title', description ='$desc' where id = '$id'";
+            $stmt = $this->db->conn_id->prepare($query);
+            $res = $stmt->execute();
+            if ($res) {
+                $data = array(
+                    "status" => "200",
+                );
+                print json_encode($data);
+    
+            } else {
+                $data = array(
+                    "status" => "204",
+                );
+                print json_encode($data);
+                return "204";
+    
+            }
+    
+        }
+       
+    }
+
+
 }

@@ -42,4 +42,13 @@ export class NotesService {
       
     return this.http.post(this.serviceurl.host+this.serviceurl.fetchnotes,emaildata);
   }
+
+  updateNotes(data,id){
+    debugger
+    let update = new FormData();
+    update.append("title",data.title);
+    update.append("description",data.description);
+    update.append("id",id);
+    return this.http.post(this.serviceurl.host+this.serviceurl.updatenotes,update);
+  }
 }

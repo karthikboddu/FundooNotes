@@ -1,3 +1,13 @@
-<p>
-  editnotes works!
-</p>
+
+
+<mat-dialog-content [formGroup]="form">
+    
+  <input matInput class="ipnote" formControlName="title" value="{{title}}" >
+
+ <input matInput class="ipnote" formControlName="description" value="{{description}}">
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="mat-raised-button"(click)="close(form.value)">Close</button>
+</mat-dialog-actions>

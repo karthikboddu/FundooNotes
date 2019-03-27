@@ -16,4 +16,5 @@ export class ServiceUrlService {
   public fetchmail = "fetchemail";
   public createnotes = "createnotes";
   public fetchnotes = "fetchnotes";
+  public updatenotes = "updatenote";
 }

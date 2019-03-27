@@ -61,6 +61,6 @@ import { GridComponent } from './grid/grid.component';
   ],
   providers: [RegisterService],
   bootstrap: [AppComponent],
-  entryComponents : [DialogdataComponent]
+  entryComponents : [EditnotesComponent]
 })
 export class AppModule { }

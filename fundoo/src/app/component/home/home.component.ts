@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   }
 
   changeView() {
-    if (this.list == true) {
+    if (this.list) {
       this.grid = true;
       this.list = false;
       // this.dataservice.setCurrentdata(this.grid);

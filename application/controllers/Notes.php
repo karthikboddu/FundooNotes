@@ -35,5 +35,12 @@ class Notes extends CI_Controller
         $this->refService->noteFetch($email);
     }
 
+    public function updateNotes(){
+        $title = $_POST['title'];
+        $desc = $_POST['description'];
+        $id = $_POST['id'];
+        $this->refService->notesUpdate($title,$desc,$id);
+    }
+
 
 }

@@ -21,16 +21,17 @@
     <form [formGroup]="noteform">
       <input matInput class="ipnote" placeholder="Title" formControlName="title">
       <button mat-icon-button class="pinbtn">
-        <mat-icon class="icon">notification_important</mat-icon>
+        <mat-icon class="icon"><img src="../../../assets/pin.svg"></mat-icon>
       </button>
 
       <input class="ipnote takenote" matInput placeholder="Take a note ..." formControlName="desc">
-      <div *ngIf="timer"> <button mat-icon-button>
+      <div *ngIf="timer">
+         <button mat-icon-button>
           <mat-icon class="remicon">schedule</mat-icon>
-          <span>          <mat-chip>
+                <mat-chip>
             {{timedate}}
           </mat-chip>
-        </span>
+        
 
         </button>
         <button mat-icon-button (click)="closetime()">
@@ -160,15 +161,34 @@
 
 
 
+<div hoverchange><h2>sadsa</h2></div>
+<div  class="flexcard" fxLayout="{{direction}} wrap" fxLayoutGap="50px" fxLayoutAlign="start center">
 
-<div class="flexcard" fxLayout="{{layout}}" fxLayoutGap="50px" fxLayoutAlign="center center">
-
-  <mat-card class="colcard"  *ngFor="let n of notescollabaration" [ngClass]="direction == 'row' ? 'row': 'column' " 
-  >
+  <mat-card   *ngFor="let n of notescollabaration" [ngClass]="direction == 'row' ? 'row': 'column' " 
+  (click) =openNotes(n) >
     <p class="para">{{n.title}}</p>
     <p class="para"> {{n.description}}</p>
-    <p class="para"><mat-chip> {{n.remainder}}</mat-chip></p>
+    <p class="para"><mat-chip [matMenuTriggerFor]="remainder" > {{n.remainder}}</mat-chip></p>
+    <span  class="spanbtn">
+      <button mat-icon-button class="pinbtn" (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">
+        <mat-icon class="icon">notification_important</mat-icon>
+      </button>
+      <button mat-icon-button class="pinbtn">
+        <mat-icon class="icon">color_lens</mat-icon>
+      </button>
+      <button mat-icon-button class="pinbtn">
+        <mat-icon class="icon">archive</mat-icon>
+      </button>
+      <button mat-icon-button class="pinbtn">
+        <mat-icon class="icon">person_add</mat-icon>
+      </button>
+      <button mat-icon-button class="pinbtn">
+        <mat-icon class="icon">more_vert</mat-icon>
+      </button>
+     
+    </span>
   </mat-card>
+  
 
 </div>
 
