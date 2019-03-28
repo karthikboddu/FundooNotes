@@ -11,14 +11,14 @@ export class NotesService {
 
   }
   tokens;
-  createNotes(notes,email,time){
+  createNotes(notes,id,time){
 
 
     
   //  this.tokens= localStorage.getItem('token');
   //   headses.set('Authorization',this.tokens);
       let createnotes = new FormData();
-      createnotes.append("email",email);
+      createnotes.append("id",id);
       createnotes.append("title",notes.title);
       createnotes.append("desc",notes.desc);
       createnotes.append("remainder",time);
@@ -38,7 +38,7 @@ export class NotesService {
 
   fetchNotes(data){
     let emaildata = new FormData();
-     emaildata.append("email",data);
+     emaildata.append("id",data);
       
     return this.http.post(this.serviceurl.host+this.serviceurl.fetchnotes,emaildata);
   }

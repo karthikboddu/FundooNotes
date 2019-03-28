@@ -1,6 +1,6 @@
 
-
-<mat-dialog-content [formGroup]="form">
+<div >
+<mat-dialog-content [formGroup]="form" [ngStyle]="{'background-color': form.value.color}"  >
     
   <input matInput class="ipnote" formControlName="title" value="{{title}}" >
 
@@ -9,5 +9,30 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button class="mat-raised-button"(click)="close(form.value)">Close</button>
+  
+  <button mat-button (click)="close(form.value)">
+    close
+  </button>
+  <button
+  class="mainbutton"
+  matTooltip="Change color "
+  [matMenuTriggerFor]="buttonMenu"
+  mat-icon-button
+>ss</button>
+
+
+<mat-menu [overlapTrigger]="false" #buttonMenu="matMenu" >
+  
+  <button *ngFor="let item of defaultColors"
+    matTooltip="Yellow"
+    (click)="form.value.color =item"
+    mat-mini-fab
+    class="colorlens"
+    [ngStyle]="{'background': item}"
+  ></button>
+
+</mat-menu>
+
 </mat-dialog-actions>
+
+</div>

@@ -1,118 +1,118 @@
-<div style="height: 90vh; width: 1024px;" >
-<div fxShow="true" fxHide.lt-sm="true">
-  <input class="ipnotes" *ngIf="noteshow" (click)="toggle()" placeholder="Take a note">
-  <span class="iconbtn"><button mat-icon-button>
-      <mat-icon class="icon">check_box</mat-icon>
-    </button>
-
-    <button mat-icon-button>
-      <mat-icon class="icon">brush</mat-icon>
-    </button>
-    <button mat-icon-button>
-      <mat-icon class="icon">insert_photo</mat-icon>
-    </button>
-  </span>
-</div>
-
-
-
-<div>
-  <mat-card class="matcard" *ngIf="cardshow">
-    <form [formGroup]="noteform">
-      <input matInput class="ipnote" placeholder="Title" formControlName="title">
-      <button mat-icon-button class="pinbtn">
-        <mat-icon class="icon"><img src="../../../assets/pin.svg"></mat-icon>
+<div style="height: 90vh; width: 1024px;">
+  <div fxShow="true" fxHide.lt-sm="true">
+    <input class="ipnotes" *ngIf="noteshow" (click)="toggle()" placeholder="Take a note">
+    <span class="iconbtn"><button mat-icon-button>
+        <mat-icon class="icon">check_box</mat-icon>
       </button>
 
-      <input class="ipnote takenote" matInput placeholder="Take a note ..." formControlName="desc">
-      <div *ngIf="timer">
-         <button mat-icon-button>
-          <mat-icon class="remicon">schedule</mat-icon>
-                <mat-chip>
-            {{timedate}}
-          </mat-chip>
-        
-
-        </button>
-        <button mat-icon-button (click)="closetime()">
-            <mat-icon class="remicon">close</mat-icon>
-
-          </button>
-        
-      </div>
-      <span class="spanbtn">
-        <button mat-icon-button class="pinbtn" (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">
-          <mat-icon class="icon">notification_important</mat-icon>
-        </button>
-        <button mat-icon-button class="pinbtn">
-          <mat-icon class="icon">color_lens</mat-icon>
-        </button>
-        <button mat-icon-button class="pinbtn">
-          <mat-icon class="icon">archive</mat-icon>
-        </button>
-        <button mat-icon-button class="pinbtn">
-          <mat-icon class="icon">person_add</mat-icon>
-        </button>
-        <button mat-icon-button class="pinbtn">
-          <mat-icon class="icon">more_vert</mat-icon>
-        </button>
-        <button mat-button class="close" (click)="noteSubmit(noteform.value)">Close</button>
-      </span>
-    </form>
-  </mat-card>
-
-
-
-  <div align="center" *ngIf="date_panel">
-    <mat-card class="datecard">
-      <button mat-icon-button class="pinbtn" [matMenuTriggerFor]="remainder" (click)="datetime(datetimeform.value)">
-        <mat-icon class="icon">keyboard_backspace</mat-icon>
+      <button mat-icon-button>
+        <mat-icon class="icon">brush</mat-icon>
       </button>
-      <mat-label>select date and time</mat-label>
-      <mat-divider></mat-divider>
-
-      <form [formGroup]="datetimeform">
-      <mat-form-field class="dateinput">
-        <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="datetime">
-        <mat-datepicker-toggle matSuffix [for]="picker">
-          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-        </mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-label>time</mat-label>
-        <mat-select [(value)]="selected" formControlName="valuee">
-          
-          <mat-option value="13:00">Afternon <span>13:00</span></mat-option>
-          <mat-option value="18:00">Evening <span>18:00</span> </mat-option>
-          <mat-option value="21:00">Night <span>21:00</span> </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>set </mat-label>
-        <mat-select [(value)]="selected" formControlName="value">
-          <mat-option>None</mat-option>
-          <mat-option value="Daily">Daily </mat-option>
-          <mat-option value="Weekly">Weekly</mat-option>
-          <mat-option value="Monthly">Monthly</mat-option>
-          <mat-option value="yearly">Yearly</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <button mat-button (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">save</button>
-    </form>
-    </mat-card>
+      <button mat-icon-button>
+        <mat-icon class="icon">insert_photo</mat-icon>
+      </button>
+    </span>
   </div>
 
 
-</div>
+
+  <div>
+    <mat-card class="matcard" *ngIf="cardshow">
+      <form [formGroup]="noteform">
+        <input matInput class="ipnote" placeholder="Title" formControlName="title">
+        <button mat-icon-button class="pinbtn">
+          <mat-icon class="icon"><img src="../../../assets/pin.svg"></mat-icon>
+        </button>
+
+        <input class="ipnote takenote" matInput placeholder="Take a note ..." formControlName="desc">
+        <div *ngIf="timer">
+          <button mat-icon-button>
+            <mat-icon class="remicon">schedule</mat-icon>
+            <mat-chip>
+              {{timedate}}
+            </mat-chip>
+
+
+          </button>
+          <button mat-icon-button class="btnclose" (click)="closetime()">
+            <mat-icon class="remicon">close</mat-icon>
+
+          </button>
+
+        </div>
+        <span class="spanbutton">
+          <button mat-icon-button class="pinbtn" (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">
+            <mat-icon class="icon">notification_important</mat-icon>
+          </button>
+          <button mat-icon-button class="pinbtn">
+            <mat-icon class="icon">color_lens</mat-icon>
+          </button>
+          <button mat-icon-button class="pinbtn">
+            <mat-icon class="icon">archive</mat-icon>
+          </button>
+          <button mat-icon-button class="pinbtn">
+            <mat-icon class="icon">person_add</mat-icon>
+          </button>
+          <button mat-icon-button class="pinbtn">
+            <mat-icon class="icon">more_vert</mat-icon>
+          </button>
+          <button mat-button class="close" (click)="noteSubmit(noteform.value)">Close</button>
+        </span>
+      </form>
+    </mat-card>
+
+
+
+    <div align="center" *ngIf="date_panel">
+      <mat-card class="datecard">
+        <button mat-icon-button class="pinbtn" [matMenuTriggerFor]="remainder" (click)="datetime(datetimeform.value)">
+          <mat-icon class="icon">keyboard_backspace</mat-icon>
+        </button>
+        <mat-label>select date and time</mat-label>
+        <mat-divider></mat-divider>
+
+        <form [formGroup]="datetimeform">
+          <mat-form-field class="dateinput">
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="datetime">
+            <mat-datepicker-toggle matSuffix [for]="picker">
+              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>time</mat-label>
+            <mat-select [(value)]="selected" formControlName="valuee">
+
+              <mat-option value="13:00">Afternon <span>13:00</span></mat-option>
+              <mat-option value="18:00">Evening <span>18:00</span> </mat-option>
+              <mat-option value="21:00">Night <span>21:00</span> </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>set </mat-label>
+            <mat-select [(value)]="selected" formControlName="value">
+              <mat-option>None</mat-option>
+              <mat-option value="Daily">Daily </mat-option>
+              <mat-option value="Weekly">Weekly</mat-option>
+              <mat-option value="Monthly">Monthly</mat-option>
+              <mat-option value="yearly">Yearly</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button mat-button (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">save</button>
+        </form>
+      </mat-card>
+    </div>
+
+
+  </div>
 
 
 
 
 
-<!-- <mat-card *ngIf="newnote" class="cards">
+  <!-- <mat-card *ngIf="newnote" class="cards">
         <p>{{title}}</p>
         <p> {{description}}</p>
 
@@ -120,7 +120,7 @@
 
 
 
-<!-- <mat-grid-list fxLayout="{{direction}}" fxLayoutAlign="center center" [cols]="4"  >
+  <!-- <mat-grid-list fxLayout="{{direction}}" fxLayoutAlign="center center" [cols]="4"  >
     <div  >
     <mat-grid-tile fxLayoutGap="30px"  [colspan]="2" [rowspan]="3">
       <button mat-button>
@@ -136,7 +136,7 @@
 
 
 
-<!-- <div class="listview">
+  <!-- <div class="listview">
 
     <mat-list role="list" *ngFor="let n of notescollabaration">
         <mat-card>
@@ -150,7 +150,7 @@
 
 
 
-<!-- <div class="flexcard" fxFlex="33" *ngFor="let n of note" layout-wrap>
+  <!-- <div class="flexcard" fxFlex="33" *ngFor="let n of note" layout-wrap>
         <mat-card class="cards">
           <p>{{n.title}}</p>
           <p> {{n.description}}</p>
@@ -161,49 +161,52 @@
 
 
 
-<div hoverchange><h2>sadsa</h2></div>
-<div  class="flexcard" fxLayout="{{direction}} wrap" fxLayoutGap="50px" fxLayoutAlign="start center">
 
-  <mat-card   *ngFor="let n of notescollabaration" [ngClass]="direction == 'row' ? 'row': 'column' " 
-  (click) =openNotes(n) >
-    <p class="para">{{n.title}}</p>
-    <p class="para"> {{n.description}}</p>
-    <p class="para"><mat-chip [matMenuTriggerFor]="remainder" > {{n.remainder}}</mat-chip></p>
-    <span  class="spanbtn">
-      <button mat-icon-button class="pinbtn" (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">
-        <mat-icon class="icon">notification_important</mat-icon>
-      </button>
-      <button mat-icon-button class="pinbtn">
-        <mat-icon class="icon">color_lens</mat-icon>
-      </button>
-      <button mat-icon-button class="pinbtn">
-        <mat-icon class="icon">archive</mat-icon>
-      </button>
-      <button mat-icon-button class="pinbtn">
-        <mat-icon class="icon">person_add</mat-icon>
-      </button>
-      <button mat-icon-button class="pinbtn">
-        <mat-icon class="icon">more_vert</mat-icon>
-      </button>
-     
-    </span>
-  </mat-card>
-  
+  <div  class="flexcard" fxLayout="{{direction}} wrap" fxLayoutGap="50px" fxLayoutAlign="start center">
 
-</div>
+    <mat-card btnhover   *ngFor="let n of notescollabaration" [ngClass]="direction == 'row' ? 'row': 'column' ">
+      <div class="cardtext" (click)=openNotes(n)>
+        <p class="para">{{n.title}}</p>
+        <p class="para"> {{n.description}}</p>
+        <p class="para">
+          <mat-chip [matMenuTriggerFor]="remainder"> {{n.remainder}}</mat-chip>
+        </p>
+      </div>
+      <div class="spanbtn" [style.display]="'none'">      <span  >
+        <button mat-icon-button class="pinbtn" (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">
+          <mat-icon class="icon">notification_important</mat-icon>
+        </button>
+        <button mat-icon-button class="pinbtn">
+          <mat-icon class="icon">color_lens</mat-icon>
+        </button>
+        <button mat-icon-button class="pinbtn">
+          <mat-icon class="icon">archive</mat-icon>
+        </button>
+        <button mat-icon-button class="pinbtn">
+          <mat-icon class="icon">person_add</mat-icon>
+        </button>
+        <button mat-icon-button class="pinbtn">
+          <mat-icon class="icon">more_vert</mat-icon>
+        </button>
+
+      </span>
+    </div>
 
 
+    </mat-card>
 
-<mat-menu #remainder="matMenu" class="matmenu">
-  <mat-label>Remainder</mat-label>
-  <button mat-menu-item (click)="today()" >Later today : 8PM</button>
-  <button mat-menu-item>Tomorrow : 8PM</button>
-  <button mat-menu-item>next week</button>
 
-  <button mat-menu-item (click)="date_panel = true">pick date and time</button>
-</mat-menu>
+  </div>
 
 
 
+  <mat-menu #remainder="matMenu" class="matmenu">
+    <mat-label>Remainder</mat-label>
+    <button mat-menu-item (click)="today(10)">Later today : 8PM</button>
+    <button mat-menu-item (click)="today(20)">Tomorrow : 8PM</button>
+    <button mat-menu-item >next week</button>
+
+    <button mat-menu-item (click)="date_panel = true">pick date and time</button>
+  </mat-menu>
 
 </div>

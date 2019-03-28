@@ -9,13 +9,14 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { EditnotesComponent } from '../editnotes/editnotes.component';
 
 
-@Directive({
-  selector: '[hoverchange]'
-})
+
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss']
+})
+@Directive({
+  selector: "[btnhover]"
 })
 export class NotesComponent implements OnInit {
 
@@ -38,12 +39,45 @@ export class NotesComponent implements OnInit {
       console.log("class is ", this.classcard);
     }))
   }
-  ChangeBgColor(color: string) {
-    this.renderer.setElementStyle(this.el.nativeElement, 'color', color);
-  }
+
+  public defaultColors: string[] = [
+    '#ffffff',
+    '#000105',
+    '#3e6158',
+    '#3f7a89',
+    '#96c582',
+    '#b7d5c4',
+    '#bcd6e7',
+    '#7c90c1',
+    '#9d8594',
+    '#dad0d8',
+    '#4b4fce',
+    '#4e0a77',
+    '#a367b5',
+    '#ee3e6d',
+    '#d63d62',
+    '#c6a670',
+    '#f46600',
+    '#cf0500',
+    '#efabbd',
+    '#8e0622',
+    '#f0b89a',
+    '#f0ca68',
+    '#62382f',
+    '#c97545',
+    '#c1800b'
+  ];
+
 
   @HostListener('mouseover') onMouseOver() {
-    this.ChangeBgColor('red');
+    let text = this.el.nativeElement.querySelector('.spanbtn');
+    this.renderer.setElementStyle(text,'display','inline');
+  }
+
+  @HostListener('mouseout') onMouseOut() {
+    let text = this.el.nativeElement.querySelector('.spanbtn');
+    this.renderer.setElementStyle(text,'display','none');
+    
   }
   view;
 
@@ -89,7 +123,7 @@ export class NotesComponent implements OnInit {
     this.newnote = false;
 
     setInterval(() => {
-
+     
     }, 1000);
     this.loadNotes();
 
@@ -147,6 +181,7 @@ export class NotesComponent implements OnInit {
    * @description loadnotes from the database
    * @method loadNotes()
    */
+  rem
   loadNotes() {
 
     const token = localStorage.getItem('token');
@@ -155,44 +190,22 @@ export class NotesComponent implements OnInit {
     } else {
       const tokenPayload = decode(token);
       const emailid = tokenPayload.email;
+      const uid = tokenPayload.id;
 
-      let notesobs = this.notes.fetchNotes(emailid);
+      let notesobs = this.notes.fetchNotes(uid);
 
       notesobs.subscribe((data: any) => {
-
+        debugger
         this.notescollabaration = data as string[];
+        this.rem = moment(data.remainder).format("HH:mm A");
+
 
       });
     }
 
   }
 
-  /**
-   * @description submit title descrption data
-   * @method :noteSubmit()
-   * @param value 
-   */
-  noteSubmit(value: any) {
-    debugger
-    this.cardshow = false;
-    this.noteshow = true;
-    this.date_panel = false;
-    this.newnote = true;
 
-    this.title = value.title;
-    this.description = value.desc;
-    this.loadNotes();
-    const email = localStorage.getItem('email');
-    let createobs = this.notes.createNotes(value, email, this.timedate);
-
-    createobs.subscribe((res: any) => {
-      debugger
-      console.log(res.status);
-      if (res.status == "200") {
-        this.token1 = res.token;
-      }
-    })
-  }
 
   openNotes(notes) {
     debugger
@@ -219,24 +232,77 @@ export class NotesComponent implements OnInit {
    */
   datee
   cc
-  today() {
+  todaydb
+  today(n) {
+    debugger;
     var date = new Date();
     this.datee = date.toDateString();
     // if(this.date == ""){
     //   this.timer =false;
     //   return;
     // }
+    if(n=10){
 
+      this.timedate = moment(8, "HH");
+      this.todaydb = "Today "+moment(this.timedate).format('hh:mm:ss A');
+      console.log("db"+this.todaydb);
+      console.log(this.timedate);
+      this.timedate ="Today "+ moment(this.timedate).format('HH:mm A');
+    }
 
-    this.timedate = moment(8, "HH");
-
-    this.currentdate = moment(8, "HH").format('H HH');
+    if(n=20){
+      this.timedate = moment(8, "HH");
+      this.todaydb = "Tomorrow "+moment(this.timedate).format('hh:mm:ss A');
+      this.timedate ="Tomorrow "+ moment(this.timedate).format('HH:mm A');
+    }
+    
     console.log(this.currentdate);
     //  this.timedate = moment(this.date).format('H HH') + " " + this.period;
     this.timer = true;
   }
+
+
+
   remainder() {
 
+  }
+
+
+
+  /**
+   * @description submit title descrption data
+   * @method :noteSubmit()
+   * @param value 
+   */
+  noteSubmit(value: any) {
+    debugger
+    this.cardshow = false;
+    this.noteshow = true;
+    this.date_panel = false;
+    this.newnote = true;
+
+    const token = localStorage.getItem('token');
+    const tokenPayload = decode(token);
+    const uid = tokenPayload.id;
+
+    this.title = value.title;
+    this.description = value.desc;
+    this.loadNotes();
+    const email = localStorage.getItem('email');
+    let createobs = this.notes.createNotes(value, uid, this.todaydb);
+
+    createobs.subscribe((res: any) => {
+      debugger
+      console.log(res.status);
+      if (res.status == "200") {
+        this.token1 = res.token;
+      }
+    })
+  }
+
+
+  remainderchange(){
+    
   }
 
   closetime() {
