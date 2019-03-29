@@ -1,0 +1,20 @@
+<div>
+
+  <mat-card btnhover 
+    [ngClass]="direction == 'row' ? 'row': 'column' ">
+    <div class="cardtext" (click)=openNotes(n)>
+      <!-- <p class="para">{{n.title}}</p>
+      <p class="para"> {{n.description}}</p>
+      <p class="para">
+        <mat-chip [matMenuTriggerFor]="remainder"> {{n.remainder}}</mat-chip>
+      </p> -->
+    </div>
+
+    <span class="spanbtn">
+      <button mat-icon-button class="pinbtn" *ngFor="let item of maticons">
+        <mat-icon class="icon">{{item}}</mat-icon>
+      </button>
+    </span>
+
+  </mat-card>
+</div>

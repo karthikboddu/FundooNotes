@@ -5,3 +5,17 @@
     border: none;
     outline: none;
   }
+  ::ng-deep .mat-dialog-container {
+    border-radius: 10px;
+
+    width: 600px;
+    max-height: 210px;
+  }
+  .icon{
+    color: #6F6F6F;
+    padding:3px 10px;
+    
+  }
+  .close{
+    margin-left: 270px;
+  }

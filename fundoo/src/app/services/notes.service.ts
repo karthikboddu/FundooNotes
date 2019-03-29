@@ -12,9 +12,6 @@ export class NotesService {
   }
   tokens;
   createNotes(notes,id,time){
-
-
-    
   //  this.tokens= localStorage.getItem('token');
   //   headses.set('Authorization',this.tokens);
       let createnotes = new FormData();
@@ -22,6 +19,7 @@ export class NotesService {
       createnotes.append("title",notes.title);
       createnotes.append("desc",notes.desc);
       createnotes.append("remainder",time);
+      createnotes.append("color",notes.color);
       let headers_object = new HttpHeaders().set("Authorization",
 			
       localStorage.getItem("token")
@@ -50,5 +48,18 @@ export class NotesService {
     update.append("description",data.description);
     update.append("id",id);
     return this.http.post(this.serviceurl.host+this.serviceurl.updatenotes,update);
+  }
+
+
+  setColor(id,color){
+    let setcol = new FormData();
+    setcol.append("id",id);
+    setcol.append("color",color);
+    return this.http.post(this.serviceurl.host+this.serviceurl.setcolor,setcol);
+  }
+
+
+  reminderFetch(){
+    
   }
 }

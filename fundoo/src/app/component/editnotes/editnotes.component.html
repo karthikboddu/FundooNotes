@@ -1,38 +1,52 @@
+<body [ngStyle]="{'background-color': data.notesdata.color}">
+  <mat-dialog-content [formGroup]="form">
 
-<div >
-<mat-dialog-content [formGroup]="form" [ngStyle]="{'background-color': form.value.color}"  >
+    <input [ngStyle]="{'background-color': data.notesdata.color}" class="ipnote" formControlName="title" value="{{title}}">
+
+    <input [ngStyle]="{'background-color': data.notesdata.color}" class="ipnote" formControlName="description"
+      value="{{description}}">
+
+
+
+  </mat-dialog-content> 
+  <mat-dialog-actions>
+      <span class="spanbutton">
+          <button mat-icon-button class="pinbtn" (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">
+            <mat-icon class="icon">notification_important</mat-icon>
+          </button>
+          <button mat-icon-button class="pinbtn">
+            <mat-icon class="icon" matTooltip="Change color " [matMenuTriggerFor]="buttonMenu">color_lens</mat-icon>
+          </button>
+          <button mat-icon-button class="pinbtn">
+            <mat-icon class="icon">archive</mat-icon>
+          </button>
+          <button mat-icon-button class="pinbtn">
+            <mat-icon class="icon">person_add</mat-icon>
+          </button>
+          <button mat-icon-button class="pinbtn">
+            <mat-icon class="icon" [matMenuTriggerFor]="moreopt">more_vert</mat-icon>
+          </button>
+          <button mat-button class="close" (click)="close(form.value)">Close</button>
+        </span>
+  </mat-dialog-actions>
+  <mat-menu [overlapTrigger]="false" #buttonMenu="matMenu">
+
+    <button *ngFor="let item of defaultColors" matTooltip="Yellow" (click)="data.notesdata.color =item" mat-mini-fab
+      class="colorlens" [ngStyle]="{'background': item}"></button>
+
+  </mat-menu>
+
+
+  <mat-menu #moreopt="matMenu" class="matmenu">
+
+      <button mat-menu-item >settings</button>
+      <button mat-menu-item>send feedback</button>
+      <button mat-menu-item>help</button>
     
-  <input matInput class="ipnote" formControlName="title" value="{{title}}" >
+      <button mat-menu-item>App Downloads</button>
+      <button mat-menu-item>Keyboard shortcuts</button>
+    
+    
+    </mat-menu>
 
- <input matInput class="ipnote" formControlName="description" value="{{description}}">
-
-</mat-dialog-content>
-
-<mat-dialog-actions>
-  
-  <button mat-button (click)="close(form.value)">
-    close
-  </button>
-  <button
-  class="mainbutton"
-  matTooltip="Change color "
-  [matMenuTriggerFor]="buttonMenu"
-  mat-icon-button
->ss</button>
-
-
-<mat-menu [overlapTrigger]="false" #buttonMenu="matMenu" >
-  
-  <button *ngFor="let item of defaultColors"
-    matTooltip="Yellow"
-    (click)="form.value.color =item"
-    mat-mini-fab
-    class="colorlens"
-    [ngStyle]="{'background': item}"
-  ></button>
-
-</mat-menu>
-
-</mat-dialog-actions>
-
-</div>
+</body>

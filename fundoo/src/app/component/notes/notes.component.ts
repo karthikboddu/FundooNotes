@@ -1,4 +1,4 @@
-import { Component, OnInit, Directive, HostListener, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, Directive, HostListener, ElementRef, Renderer, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NotesService } from '../../services/notes.service';
 import * as moment from "moment";
@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
 import { ViewService } from 'src/app/services/view.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { EditnotesComponent } from '../editnotes/editnotes.component';
-
+import { Notes } from '../../models/notes.model';
+import { EventEmitter } from 'protractor';
 
 
 @Component({
@@ -21,13 +22,14 @@ import { EditnotesComponent } from '../editnotes/editnotes.component';
 export class NotesComponent implements OnInit {
 
   classcard;
+  notes: Notes[] = [];
   /**
    * 
    * @param fb 
    * @param notes 
    * @param route 
    */
-  constructor(private fb: FormBuilder, private notes: NotesService, private dialog: MatDialog, private route: Router, private viewservice: ViewService, private el: ElementRef, private renderer: Renderer) {
+  constructor(private fb: FormBuilder, private noteserv: NotesService, private dialog: MatDialog, private route: Router, private viewservice: ViewService, private el: ElementRef, private renderer: Renderer) {
     this.viewservice.getView().subscribe((res => {
       this.view = res;
       this.direction = this.view.data;
@@ -40,51 +42,46 @@ export class NotesComponent implements OnInit {
     }))
   }
 
+
   public defaultColors: string[] = [
+    '#fcf476',
+    '#f8bc04',
+    '#f28b82',
     '#ffffff',
-    '#000105',
-    '#3e6158',
-    '#3f7a89',
-    '#96c582',
-    '#b7d5c4',
-    '#bcd6e7',
-    '#7c90c1',
-    '#9d8594',
-    '#dad0d8',
-    '#4b4fce',
-    '#4e0a77',
-    '#a367b5',
-    '#ee3e6d',
-    '#d63d62',
-    '#c6a670',
-    '#f46600',
-    '#cf0500',
-    '#efabbd',
-    '#8e0622',
-    '#f0b89a',
-    '#f0ca68',
-    '#62382f',
-    '#c97545',
-    '#c1800b'
+    '#aecbfa',
+    '#cbf0f8',
+    '#a7ffea',
+    '#ccff90',
+    '#e8eaed',
+    '#e6c9a8',
+    '#fccfe8',
+    '#d7aefb',
+  ];
+  public maticons: string[] = [
+    'notification_important',
+    'color_lens',
+    'archive',
+    'person_add',
+    'more_vert',
   ];
 
 
-  @HostListener('mouseover') onMouseOver() {
-    let text = this.el.nativeElement.querySelector('.spanbtn');
-    this.renderer.setElementStyle(text,'display','inline');
-  }
+  // @HostListener('mouseover') onMouseOver() {
+  //   let text = this.el.nativeElement.querySelector('.spanbtn');
+  //   this.renderer.setElementStyle(text,'display','inline');
+  // }
 
-  @HostListener('mouseout') onMouseOut() {
-    let text = this.el.nativeElement.querySelector('.spanbtn');
-    this.renderer.setElementStyle(text,'display','none');
-    
-  }
+  // @HostListener('mouseout') onMouseOut() {
+  //   let text = this.el.nativeElement.querySelector('.spanbtn');
+  //   this.renderer.setElementStyle(text,'display','none');
+
+  // }
   view;
 
 
   noteform: FormGroup;
   datetimeform: FormGroup;
-  notescollabaration: string[];
+  notescollabaration;
   email: any;
   noteshow: boolean = true;
   cardshow: boolean = false;
@@ -123,7 +120,7 @@ export class NotesComponent implements OnInit {
     this.newnote = false;
 
     setInterval(() => {
-     
+
     }, 1000);
     this.loadNotes();
 
@@ -192,17 +189,22 @@ export class NotesComponent implements OnInit {
       const emailid = tokenPayload.email;
       const uid = tokenPayload.id;
 
-      let notesobs = this.notes.fetchNotes(uid);
+      let notesobs = this.noteserv.fetchNotes(uid);
 
       notesobs.subscribe((data: any) => {
         debugger
-        this.notescollabaration = data as string[];
+        this.notes = data;
+        this.notes;
         this.rem = moment(data.remainder).format("HH:mm A");
 
 
       });
     }
 
+  }
+
+  getId(notes){
+    
   }
 
 
@@ -212,9 +214,9 @@ export class NotesComponent implements OnInit {
     const dialogconfg = new MatDialogConfig();
 
     dialogconfg.autoFocus = true;
-    dialogconfg.width = "600px"
-    dialogconfg.height = "180px"
-    dialogconfg.panelClass = 'custom-dialog-container'
+
+    
+    dialogconfg.panelClass = 'myClass'
     dialogconfg.data = {
       //   titles : notes['title'],
       //   description : notes.description,
@@ -241,21 +243,21 @@ export class NotesComponent implements OnInit {
     //   this.timer =false;
     //   return;
     // }
-    if(n=10){
+    if (n = 10) {
 
       this.timedate = moment(8, "HH");
-      this.todaydb = "Today "+moment(this.timedate).format('hh:mm:ss A');
-      console.log("db"+this.todaydb);
+      this.todaydb = "Today " + moment(this.timedate).format('hh:mm:ss A');
+      console.log("db" + this.todaydb);
       console.log(this.timedate);
-      this.timedate ="Today "+ moment(this.timedate).format('HH:mm A');
+      this.timedate = "Today " + moment(this.timedate).format('HH:mm A');
     }
 
-    if(n=20){
+    if (n = 20) {
       this.timedate = moment(8, "HH");
-      this.todaydb = "Tomorrow "+moment(this.timedate).format('hh:mm:ss A');
-      this.timedate ="Tomorrow "+ moment(this.timedate).format('HH:mm A');
+      this.todaydb = "Tomorrow " + moment(this.timedate).format('hh:mm:ss A');
+      this.timedate = "Tomorrow " + moment(this.timedate).format('HH:mm A');
     }
-    
+
     console.log(this.currentdate);
     //  this.timedate = moment(this.date).format('H HH') + " " + this.period;
     this.timer = true;
@@ -289,7 +291,7 @@ export class NotesComponent implements OnInit {
     this.description = value.desc;
     this.loadNotes();
     const email = localStorage.getItem('email');
-    let createobs = this.notes.createNotes(value, uid, this.todaydb);
+    let createobs = this.noteserv.createNotes(value, uid, this.todaydb);
 
     createobs.subscribe((res: any) => {
       debugger
@@ -301,9 +303,37 @@ export class NotesComponent implements OnInit {
   }
 
 
-  remainderchange(){
-    
+  remainderchange() {
+
   }
+  stat
+  notesChaneColor(id, colorid, flag) {
+    debugger
+    if (id == "undefined") {
+      return;
+    }
+    this.notes.forEach(element => {
+      if (element.id == id) {
+        if (flag == "color") {
+          element.color = colorid;
+        }
+      }
+
+    });
+    let colorObs = this.noteserv.setColor(id, colorid);
+    colorObs.subscribe((res: any) => {
+      if (res.status == "200") {
+        this.stat = "color updated";
+      }
+    })
+
+
+  }
+
+ 
+
+
+
 
   closetime() {
     this.timer = false;

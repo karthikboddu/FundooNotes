@@ -1,4 +1,5 @@
 <div style="height: 90vh; width: 1024px;">
+
   <div fxShow="true" fxHide.lt-sm="true">
     <input class="ipnotes" *ngIf="noteshow" (click)="toggle()" placeholder="Take a note">
     <span class="iconbtn"><button mat-icon-button>
@@ -15,20 +16,22 @@
   </div>
 
 
+  <!--note create starts-->
 
   <div>
-    <mat-card class="matcard" *ngIf="cardshow">
-      <form [formGroup]="noteform">
-        <input matInput class="ipnote" placeholder="Title" formControlName="title">
+    <!--notes create show hide-->
+    <mat-card class="matcard" *ngIf="cardshow" [ngStyle]="{'background-color': noteform.value.color}">
+      <form [formGroup]="noteform" >
+        <input matInput [ngStyle]="{'background-color': noteform.value.color}"  class="ipnote" placeholder="Title" formControlName="title">
         <button mat-icon-button class="pinbtn">
           <mat-icon class="icon"><img src="../../../assets/pin.svg"></mat-icon>
         </button>
 
-        <input class="ipnote takenote" matInput placeholder="Take a note ..." formControlName="desc">
+        <input class="ipnote takenote" [ngStyle]="{'background-color': noteform.value.color}" matInput placeholder="Take a note ..." formControlName="desc">
         <div *ngIf="timer">
           <button mat-icon-button>
             <mat-icon class="remicon">schedule</mat-icon>
-            <mat-chip>
+            <mat-chip class="chip">
               {{timedate}}
             </mat-chip>
 
@@ -45,7 +48,7 @@
             <mat-icon class="icon">notification_important</mat-icon>
           </button>
           <button mat-icon-button class="pinbtn">
-            <mat-icon class="icon">color_lens</mat-icon>
+            <mat-icon class="icon" [matMenuTriggerFor]="colorMenu">color_lens</mat-icon>
           </button>
           <button mat-icon-button class="pinbtn">
             <mat-icon class="icon">archive</mat-icon>
@@ -62,9 +65,9 @@
     </mat-card>
 
 
-
-    <div align="center" *ngIf="date_panel">
-      <mat-card class="datecard">
+    <!--notes remainder -->
+    <div align="center"  *ngIf="date_panel">
+      <mat-card class="datecard" >
         <button mat-icon-button class="pinbtn" [matMenuTriggerFor]="remainder" (click)="datetime(datetimeform.value)">
           <mat-icon class="icon">keyboard_backspace</mat-icon>
         </button>
@@ -99,72 +102,19 @@
               <mat-option value="yearly">Yearly</mat-option>
             </mat-select>
           </mat-form-field>
-
           <button mat-button (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">save</button>
         </form>
       </mat-card>
     </div>
-
-
+    <!--note remainder ends-->
   </div>
+  <!--note create ends-->
 
 
-
-
-
-  <!-- <mat-card *ngIf="newnote" class="cards">
-        <p>{{title}}</p>
-        <p> {{description}}</p>
-
-      </mat-card> -->
-
-
-
-  <!-- <mat-grid-list fxLayout="{{direction}}" fxLayoutAlign="center center" [cols]="4"  >
-    <div  >
-    <mat-grid-tile fxLayoutGap="30px"  [colspan]="2" [rowspan]="3">
-      <button mat-button>
-        <mat-card class="gridcard" *ngFor="let n of notescollabaration">
-          <p class="para">{{n.title}}</p>
-          <p class="para"> {{n.description}}</p>
-          <p class="para"> {{n.remainder}}</p>
-        </mat-card>
-      </button>
-    </mat-grid-tile>
-  </div>
-  </mat-grid-list> -->
-
-
-
-  <!-- <div class="listview">
-
-    <mat-list role="list" *ngFor="let n of notescollabaration">
-        <mat-card>
-      <mat-list-item role="listitem">{{n.title}}</mat-list-item>
-      <mat-list-item role="listitem">{{n.description}}</mat-list-item>
-      <mat-list-item role="listitem">{{n.remainder}}</mat-list-item>
-    </mat-card>
-    </mat-list>
- 
-</div> -->
-
-
-
-  <!-- <div class="flexcard" fxFlex="33" *ngFor="let n of note" layout-wrap>
-        <mat-card class="cards">
-          <p>{{n.title}}</p>
-          <p> {{n.description}}</p>
-          <p> {{n.remainder}}</p>
-        </mat-card>
-
-      </div> -->
-
-
-
-
-  <div  class="flexcard" fxLayout="{{direction}} wrap" fxLayoutGap="50px" fxLayoutAlign="start center">
-
-    <mat-card btnhover   *ngFor="let n of notescollabaration" [ngClass]="direction == 'row' ? 'row': 'column' ">
+  <!--notes show in grid and list view -->
+  <div class="flexcard" fxLayout="{{direction}} wrap" fxLayoutGap="50px" fxLayoutAlign="start center">
+    <mat-card btnhover [ngStyle]="{'background-color': n.color}" *ngFor="let n of notes"
+      [ngClass]="direction == 'row' ? 'row': 'column' ">
       <div class="cardtext" (click)=openNotes(n)>
         <p class="para">{{n.title}}</p>
         <p class="para"> {{n.description}}</p>
@@ -172,12 +122,14 @@
           <mat-chip [matMenuTriggerFor]="remainder"> {{n.remainder}}</mat-chip>
         </p>
       </div>
-      <div class="spanbtn" [style.display]="'none'">      <span  >
+      <!-- [style.display]="'none'" -->
+      <!-- <div  >      -->
+      <span class="spanbtn">
         <button mat-icon-button class="pinbtn" (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">
           <mat-icon class="icon">notification_important</mat-icon>
         </button>
-        <button mat-icon-button class="pinbtn">
-          <mat-icon class="icon">color_lens</mat-icon>
+        <button mat-icon-button [matMenuTriggerFor]="buttonMenu" class="pinbtn">
+          <mat-icon class="icon" (click)="noteform.value.id=n.id">color_lens</mat-icon>
         </button>
         <button mat-icon-button class="pinbtn">
           <mat-icon class="icon">archive</mat-icon>
@@ -186,27 +138,52 @@
           <mat-icon class="icon">person_add</mat-icon>
         </button>
         <button mat-icon-button class="pinbtn">
-          <mat-icon class="icon">more_vert</mat-icon>
+          <mat-icon class="icon" [matMenuTriggerFor]="moreopt">more_vert</mat-icon>
         </button>
-
       </span>
+      <!-- </div> -->
+    </mat-card>
+  </div>
+  <!--notes show in grid and list view ends-->
+
+
+  <mat-menu [overlapTrigger]="false" #buttonMenu="matMenu">
+    <div class="colorbtn">
+      <button *ngFor="let item of defaultColors" matTooltip="Yellow"
+        (click)="notesChaneColor(noteform.value.id,item,'color')" mat-mini-fab class="colorlens"
+        [ngStyle]="{'background': item}"></button>
     </div>
 
+  </mat-menu>
 
-    </mat-card>
+  <mat-menu [overlapTrigger]="false" #colorMenu="matMenu">
+    <div class="colorbtn">
+      <button *ngFor="let item of defaultColors" matTooltip="Yellow" (click)="noteform.value.color = item" mat-mini-fab
+        class="colorlens" [ngStyle]="{'background': item}"></button>
+    </div>
 
-
-  </div>
-
-
+  </mat-menu>
 
   <mat-menu #remainder="matMenu" class="matmenu">
     <mat-label>Remainder</mat-label>
     <button mat-menu-item (click)="today(10)">Later today : 8PM</button>
     <button mat-menu-item (click)="today(20)">Tomorrow : 8PM</button>
-    <button mat-menu-item >next week</button>
+    <button mat-menu-item>next week</button>
 
     <button mat-menu-item (click)="date_panel = true">pick date and time</button>
   </mat-menu>
+
+
+  <mat-menu #moreopt="matMenu" class="matmenu">
+
+      <button mat-menu-item >Delete note</button>
+      <button mat-menu-item>Add label</button>
+      <button mat-menu-item>Add Drawing</button>
+    
+      <button mat-menu-item>Make a copy</button>
+      <button mat-menu-item>Show tick boxes</button>
+      <button mat-menu-item>Copy to Google Docs</button>
+    
+    </mat-menu>
 
 </div>

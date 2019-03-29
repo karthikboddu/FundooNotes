@@ -44,6 +44,7 @@ class UserDataController extends CI_Controller
     {
         
         $checkemail = UserDataController::emailpresent($email);
+        $uid = uniqid();
         if (!$checkemail) {
             $datta = [
                 'fname' => $fname,
@@ -51,7 +52,7 @@ class UserDataController extends CI_Controller
                 'email' => $email,
                 'password' => $password,
             ];
-            $query = "INSERT into registeruser (fname,lname,email,password) values ('$fname','$lname','$email','$password')";
+            $query = "INSERT into registeruser (user_id,fname,lname,email,password) values ('$uid','$fname','$lname','$email','$password')";
             $stmt = $this->db->conn_id->prepare($query);
             $res = $stmt->execute($datta);
             if ($res) {
@@ -100,7 +101,7 @@ class UserDataController extends CI_Controller
         $no = $stmt->rowCount();
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($res as $login) {
-           
+            $uid = $login['user_id'];
             $email = $login['email'];
             $randnum = rand(1111111111, 9999999999);
 
@@ -108,6 +109,7 @@ class UserDataController extends CI_Controller
         if ($no > 0) {
 
             $token = array(
+                "id"=>$uid,
                 "email" => $email,
                 "random" => $randnum,
             );

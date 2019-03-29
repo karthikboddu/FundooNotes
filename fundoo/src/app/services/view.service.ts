@@ -17,11 +17,11 @@ export class ViewService {
   }
   gridview(){
     if(this.result){
-      this.subject.next({data:"row"});
+      this.subject.next({data:"column"});
       this.result = false;
     }
     else{
-      this.subject.next({data:"column"});
+      this.subject.next({data:"row"});
       this.result = true;
     }
   } 

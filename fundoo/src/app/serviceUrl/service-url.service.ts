@@ -17,4 +17,5 @@ export class ServiceUrlService {
   public createnotes = "createnotes";
   public fetchnotes = "fetchnotes";
   public updatenotes = "updatenote";
+  public setcolor = "setcolor";
 }

@@ -11,6 +11,7 @@ import {AuthGuardService as AuthGuard } from './services/authguard.service';
 import { DialogComponent } from './component/dialog/dialog.component';
 import { DialogdataComponent } from './component/dialogdata/dialogdata.component';
 import { GridComponent } from './grid/grid.component';
+import { ReminderComponent } from './component/reminder/reminder.component';
 
 const routes: Routes = [
   {path : 'login',component : LoginComponent},
@@ -20,13 +21,15 @@ const routes: Routes = [
   {path:'home',component:HomeComponent,
            children : [
             { path:'',component:NotesComponent},
+             {path:'reminder',component:ReminderComponent}
             ],
  
     },
   {path : '' ,component :LoginComponent},
   {path:'dialog',component:DialogComponent},
   {path:'dialogdata',component:DialogdataComponent},
-  {path:'grid',component:GridComponent}
+  {path:'grid',component:GridComponent},
+ 
 ];
 
 @NgModule({

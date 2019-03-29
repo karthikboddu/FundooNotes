@@ -22,16 +22,17 @@ class Notes extends CI_Controller
     }
 
     public function createNotes(){
-        $email = $_POST['email'];
+        $email = $_POST['id'];
         $title = $_POST['title'];
         $desc = $_POST['desc'];
         $rem = $_POST['remainder'];
-        $this->refService->addNotes($email,$title,$desc,$rem);
+        $color = $_POST['color'];
+        $this->refService->addNotes($email,$title,$desc,$rem,$color);
     }
 
 
     public function fetchNotes(){
-        $email = $_POST['email'];
+        $email = $_POST['id'];
         $this->refService->noteFetch($email);
     }
 
@@ -41,6 +42,10 @@ class Notes extends CI_Controller
         $id = $_POST['id'];
         $this->refService->notesUpdate($title,$desc,$id);
     }
-
+    public function setColor(){
+        $id = $_POST['id'];
+        $color = $_POST['color'];
+        $this->refService->colorSet($id,$color);
+    }
 
 }

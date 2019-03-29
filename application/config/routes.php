@@ -64,6 +64,8 @@ $route['resetpass'] = 'UserData/resetpassword';
 $route['createnotes'] = 'Notes/createNotes';
 $route['fetchnotes'] = 'Notes/fetchNotes';
 $route['updatenote'] = 'Notes/updateNotes';
+$route['setcolor'] = 'Notes/setColor';
+$route['fetchremnotes'] = 'Reminder/fetchReminderNotes';
 $route['testapi'] = 'UserData/test';
 
 
