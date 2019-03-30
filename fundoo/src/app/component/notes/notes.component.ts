@@ -1,14 +1,14 @@
-import { Component, OnInit, Directive, HostListener, ElementRef, Renderer, Output } from '@angular/core';
+import { Component, OnInit, Directive, HostListener, ElementRef, Renderer, Output, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NotesService } from '../../services/notes.service';
 import * as moment from "moment";
 import decode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { ViewService } from 'src/app/services/view.service';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBarConfig } from '@angular/material';
 import { EditnotesComponent } from '../editnotes/editnotes.component';
 import { Notes } from '../../models/notes.model';
-import { EventEmitter } from 'protractor';
+
 
 
 @Component({
@@ -29,7 +29,9 @@ export class NotesComponent implements OnInit {
    * @param notes 
    * @param route 
    */
-  constructor(private fb: FormBuilder, private noteserv: NotesService, private dialog: MatDialog, private route: Router, private viewservice: ViewService, private el: ElementRef, private renderer: Renderer) {
+  constructor(private fb: FormBuilder, private noteserv: NotesService, private dialog: MatDialog, 
+    private route: Router, private viewservice: ViewService, 
+    private el: ElementRef, private renderer: Renderer,private snackBar: MatSnackBar) {
     this.viewservice.getView().subscribe((res => {
       this.view = res;
       this.direction = this.view.data;
@@ -41,7 +43,6 @@ export class NotesComponent implements OnInit {
       console.log("class is ", this.classcard);
     }))
   }
-
 
   public defaultColors: string[] = [
     '#fcf476',
@@ -57,6 +58,7 @@ export class NotesComponent implements OnInit {
     '#fccfe8',
     '#d7aefb',
   ];
+
   public maticons: string[] = [
     'notification_important',
     'color_lens',
@@ -76,6 +78,9 @@ export class NotesComponent implements OnInit {
   //   this.renderer.setElementStyle(text,'display','none');
 
   // }
+
+
+
   view;
 
 
@@ -93,7 +98,7 @@ export class NotesComponent implements OnInit {
   timer: any;
   description: any
   title: any;
-
+  public isArchived = "n";
   timearr: any;
   rowcard //css class
 
@@ -124,16 +129,13 @@ export class NotesComponent implements OnInit {
     }, 1000);
     this.loadNotes();
 
-
+    this.remainder123();
     this.viewservice.getView().subscribe((res => {
       this.view = res;
       this.direction = this.view.data;
-
-
-      this.layout = this.direction + " " + this.wrap;
+       this.layout = this.direction + " " + this.wrap;
     }))
 
-    this.timearr = { name: "asdas", afternoon: ['13:00', '18:00', '21:00'] };
 
   }
 
@@ -157,7 +159,6 @@ export class NotesComponent implements OnInit {
       this.timer = false;
       return;
     }
-
     // var moment = require('moment');
     console.log(this.time + "time is ");
     this.timedate = moment(this.date).format('DD-MMM') + " " + this.period;
@@ -197,25 +198,41 @@ export class NotesComponent implements OnInit {
         this.notes;
         this.rem = moment(data.remainder).format("HH:mm A");
 
-
       });
     }
-
   }
 
-  getId(notes){
-    
+  getId(notes) {
+
   }
+  currentDateAndTime
+	remainder123() {
+		// this.toasterservice.success("ddd", "asfasdf");
+debugger
+		var day = new Date();
+		var fulldate =
+			day.toDateString() + " " + (day.getHours() % 12) + ":" + day.getMinutes();
+		fulldate = moment(fulldate).format("DD/MM/YYYY hh:mm") + " pm";
 
-
+		this.notes.forEach(element => {
+			let DateAndTime = fulldate;
+			this.currentDateAndTime = DateAndTime;
+			/**
+			 * compare with present time if equal alert remainder
+			 */
+			if (DateAndTime == element.remainder) {
+				this.snackBar.open(element.notes, "", {
+					duration: 2000
+				});
+			}
+		});
+	}
 
   openNotes(notes) {
     debugger
     const dialogconfg = new MatDialogConfig();
 
     dialogconfg.autoFocus = true;
-
-    
     dialogconfg.panelClass = 'myClass'
     dialogconfg.data = {
       //   titles : notes['title'],
@@ -264,7 +281,6 @@ export class NotesComponent implements OnInit {
   }
 
 
-
   remainder() {
 
   }
@@ -306,8 +322,11 @@ export class NotesComponent implements OnInit {
   remainderchange() {
 
   }
+
+
+
   stat
-  notesChaneColor(id, colorid, flag) {
+  notestools(id, colorid, flag) {
     debugger
     if (id == "undefined") {
       return;
@@ -320,7 +339,7 @@ export class NotesComponent implements OnInit {
       }
 
     });
-    let colorObs = this.noteserv.setColor(id, colorid);
+    let colorObs = this.noteserv.setColor(id, colorid,flag);
     colorObs.subscribe((res: any) => {
       if (res.status == "200") {
         this.stat = "color updated";
@@ -330,12 +349,30 @@ export class NotesComponent implements OnInit {
 
   }
 
- 
-
-
-
-
   closetime() {
     this.timer = false;
+  }
+  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+  action:boolean = true;
+  setAutoHide: boolean = true;
+  autoHide: number = 2000;
+  addExtraClass: boolean = false;
+  actionButtonLabel: string = 'Undo';
+  deletenote(id) {
+    debugger
+    let delobs = this.noteserv.notedelete(id);
+    let config = new MatSnackBarConfig();
+    config.verticalPosition = this.verticalPosition;
+    config.horizontalPosition = this.horizontalPosition;
+    config.duration = this.setAutoHide ? this.autoHide : 0;
+    
+    delobs.subscribe((res: any) => {
+      if (res.status == "200") {
+        this.stat = "Note bined";
+        this.snackBar.open(this.stat, this.action ? this.actionButtonLabel : undefined, config);
+      }
+    })
+
   }
 }

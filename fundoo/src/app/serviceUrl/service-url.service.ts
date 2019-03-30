@@ -18,4 +18,8 @@ export class ServiceUrlService {
   public fetchnotes = "fetchnotes";
   public updatenotes = "updatenote";
   public setcolor = "setcolor";
+  public notedelete = "deletenote";
+  public fetchrem = "fetchreminder";
+  public fetchArch = "fetcharchive";
+  public unarchived = "unarchive";
 }

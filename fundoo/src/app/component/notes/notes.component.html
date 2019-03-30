@@ -42,6 +42,8 @@
 
           </button>
 
+       
+
         </div>
         <span class="spanbutton">
           <button mat-icon-button class="pinbtn" (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">
@@ -51,7 +53,7 @@
             <mat-icon class="icon" [matMenuTriggerFor]="colorMenu">color_lens</mat-icon>
           </button>
           <button mat-icon-button class="pinbtn">
-            <mat-icon class="icon">archive</mat-icon>
+            <mat-icon class="icon" >archive</mat-icon>
           </button>
           <button mat-icon-button class="pinbtn">
             <mat-icon class="icon">person_add</mat-icon>
@@ -132,13 +134,13 @@
           <mat-icon class="icon" (click)="noteform.value.id=n.id">color_lens</mat-icon>
         </button>
         <button mat-icon-button class="pinbtn">
-          <mat-icon class="icon">archive</mat-icon>
+          <mat-icon class="icon" (click)="notestools(noteform.value.id = n.id,1,'Archive')">archive</mat-icon>
         </button>
         <button mat-icon-button class="pinbtn">
           <mat-icon class="icon">person_add</mat-icon>
         </button>
         <button mat-icon-button class="pinbtn">
-          <mat-icon class="icon" [matMenuTriggerFor]="moreopt">more_vert</mat-icon>
+          <mat-icon class="icon" (click)="noteform.value.id=n.id" [matMenuTriggerFor]="moreopt">more_vert</mat-icon>
         </button>
       </span>
       <!-- </div> -->
@@ -150,7 +152,7 @@
   <mat-menu [overlapTrigger]="false" #buttonMenu="matMenu">
     <div class="colorbtn">
       <button *ngFor="let item of defaultColors" matTooltip="Yellow"
-        (click)="notesChaneColor(noteform.value.id,item,'color')" mat-mini-fab class="colorlens"
+        (click)="notestools(noteform.value.id,item,'color')" mat-mini-fab class="colorlens"
         [ngStyle]="{'background': item}"></button>
     </div>
 
@@ -176,8 +178,8 @@
 
   <mat-menu #moreopt="matMenu" class="matmenu">
 
-      <button mat-menu-item >Delete note</button>
-      <button mat-menu-item>Add label</button>
+      <button mat-menu-item (click)="deletenote(noteform.value.id)" >Delete note</button>
+      <button mat-menu-item (click)="expression">Add label</button>
       <button mat-menu-item>Add Drawing</button>
     
       <button mat-menu-item>Make a copy</button>

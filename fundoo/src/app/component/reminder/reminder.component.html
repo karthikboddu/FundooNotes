@@ -1,15 +1,14 @@
-<div>
+<div class="flexcard" fxLayout="{{direction}} wrap" fxLayoutGap="50px" fxLayoutAlign="start center">
 
-  <mat-card btnhover 
-    [ngClass]="direction == 'row' ? 'row': 'column' ">
-    <div class="cardtext" (click)=openNotes(n)>
-      <!-- <p class="para">{{n.title}}</p>
-      <p class="para"> {{n.description}}</p>
+  <mat-card btnhover *ngFor="let items of notes" [ngClass]="direction == 'row' ? 'row': 'column' "
+    [ngStyle]="{'background-color': items.color}">
+    <div class="cardtext">
+      <p class="para">{{items.title}}</p>
+      <p class="para"> {{items.description}}</p>
       <p class="para">
-        <mat-chip [matMenuTriggerFor]="remainder"> {{n.remainder}}</mat-chip>
-      </p> -->
+        <mat-chip> {{items.remainder}}</mat-chip>
+      </p>
     </div>
-
     <span class="spanbtn">
       <button mat-icon-button class="pinbtn" *ngFor="let item of maticons">
         <mat-icon class="icon">{{item}}</mat-icon>
@@ -17,4 +16,5 @@
     </span>
 
   </mat-card>
+
 </div>

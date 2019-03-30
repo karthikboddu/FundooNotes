@@ -10,8 +10,9 @@ import { NotesComponent } from './component/notes/notes.component';
 import {AuthGuardService as AuthGuard } from './services/authguard.service';
 import { DialogComponent } from './component/dialog/dialog.component';
 import { DialogdataComponent } from './component/dialogdata/dialogdata.component';
-import { GridComponent } from './grid/grid.component';
+
 import { ReminderComponent } from './component/reminder/reminder.component';
+import { ArchiveComponent } from './component/archive/archive.component';
 
 const routes: Routes = [
   {path : 'login',component : LoginComponent},
@@ -21,14 +22,15 @@ const routes: Routes = [
   {path:'home',component:HomeComponent,
            children : [
             { path:'',component:NotesComponent},
-             {path:'reminder',component:ReminderComponent}
+             {path:'reminder',component:ReminderComponent},
+             {path:'archive',component:ArchiveComponent}
             ],
  
     },
   {path : '' ,component :LoginComponent},
   {path:'dialog',component:DialogComponent},
   {path:'dialogdata',component:DialogdataComponent},
-  {path:'grid',component:GridComponent},
+
  
 ];
 

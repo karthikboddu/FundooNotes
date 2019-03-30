@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import decode from 'jwt-decode';
+import { ReminderService } from 'src/app/services/reminder.service';
+import { Notes } from '../../models/notes.model';
 @Component({
   selector: 'app-reminder',
   templateUrl: './reminder.component.html',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReminderComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private remservice : ReminderService) { }
+  notes: Notes[] = [];
   ngOnInit() {
+    this.reminder();
   }
 
   public maticons: string[] = [
@@ -20,4 +23,14 @@ export class ReminderComponent implements OnInit {
     'more_vert',
   ];
 
+  reminder(){
+
+    const token = localStorage.getItem('token');
+    const tokenPayload = decode(token);
+    const uid = tokenPayload.id;
+    let remobs = this.remservice.fetchreminders(uid);
+    remobs.subscribe((res:any)=>{
+      this.notes = res;
+    })
+  }
 }

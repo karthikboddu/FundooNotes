@@ -23,8 +23,10 @@ import { DialogComponent } from './component/dialog/dialog.component';
 import { DialogdataComponent } from './component/dialogdata/dialogdata.component';
 import { CollabaratorComponent } from './component/collabarator/collabarator.component';
 import { EditnotesComponent } from './component/editnotes/editnotes.component';
-import { GridComponent } from './grid/grid.component';
+
 import { ReminderComponent } from './component/reminder/reminder.component';
+import { ArchiveComponent } from './component/archive/archive.component';
+import { LabelsComponent } from './component/labels/labels.component';
 
 
 @NgModule({
@@ -47,9 +49,11 @@ import { ReminderComponent } from './component/reminder/reminder.component';
 
     EditnotesComponent,
 
-    GridComponent,
-
     ReminderComponent,
+
+    ArchiveComponent,
+
+    LabelsComponent,
    
   ],
   imports: [

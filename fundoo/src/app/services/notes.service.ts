@@ -51,15 +51,22 @@ export class NotesService {
   }
 
 
-  setColor(id,color){
+  setColor(id,color,flag){
     let setcol = new FormData();
     setcol.append("id",id);
     setcol.append("color",color);
+    setcol.append("flag",flag);
     return this.http.post(this.serviceurl.host+this.serviceurl.setcolor,setcol);
   }
 
 
   reminderFetch(){
     
+  }
+
+  notedelete(id){
+    let del = new FormData();
+    del.append("id",id);
+    return this.http.post(this.serviceurl.host+this.serviceurl.notedelete,del);
   }
 }

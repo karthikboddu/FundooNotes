@@ -1,0 +1,21 @@
+
+<div class="flexcard" fxLayoutGap="50px" fxLayoutAlign="start center">
+
+  <mat-card btnhover *ngFor="let item of notes" [ngStyle]="{'background-color': item.color}"
+    >
+    <div class="cardtext"  >
+      <p class="para">{{item.title}}</p>
+      <p class="para"> {{item.description}}</p>
+      <p class="para">
+        <mat-chip> {{item.remainder}}</mat-chip>
+      </p>
+    </div>
+    <span class="spanbtn">
+      <button mat-icon-button class="pinbtn" *ngFor="let items of maticons">
+        <mat-icon class="icon" (click)="unarchive(item.id,'0')">{{items}}</mat-icon>
+      </button>
+    </span>
+
+  </mat-card>
+
+</div>
