@@ -72,6 +72,7 @@ export class EditnotesComponent implements OnInit {
 stat
 notebg
 close(value:any) {
+  debugger
   console.log(value);
   this.notebg = value.color;
     this.dialogRef.close();

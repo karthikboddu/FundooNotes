@@ -22,4 +22,6 @@ export class ServiceUrlService {
   public fetchrem = "fetchreminder";
   public fetchArch = "fetcharchive";
   public unarchived = "unarchive";
+  public setlabel ="setlabel";
+  public fetchlabel = "fetchlabel";
 }

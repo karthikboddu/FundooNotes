@@ -17,7 +17,7 @@ export class ArchiveComponent implements OnInit {
   public maticons: string[] = [
     'notification_important',
     'color_lens',
-    'archive',
+    'unarchive',
     'person_add',
     'more_vert',
   ];

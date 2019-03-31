@@ -4,6 +4,10 @@ import {ViewService} from '../../services/view.service';
 import { DataserviceService } from 'src/app/services/dataservice.service';
 import { NotesService } from 'src/app/services/notes.service';
 import decode from 'jwt-decode';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { LabelsComponent } from '../labels/labels.component';
+import { LabelService } from 'src/app/services/label.service';
+import { Label } from '../../models/label.model';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,11 +15,15 @@ import decode from 'jwt-decode';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private viewservice: ViewService, private noteserv: NotesService, private dataservice:DataserviceService) { }
+  constructor(private viewservice: ViewService, private noteserv: NotesService, 
+    private dataservice:DataserviceService,private dialog:MatDialog,private labelservice:LabelService) { }
   grid: boolean = false;
   list: boolean = true;
   maindiv: boolean = false;
- 
+  labels : Label[];
+  token;
+  tokenPayload;
+  uid;
   breakpoint: number;
   ngOnInit() {
     $(document).ready(function () {
@@ -26,6 +34,18 @@ export class HomeComponent implements OnInit {
         $(".ip").css("background-color", "#F5F5F5");
       });
     });
+
+    
+
+    this.token = localStorage.getItem('token');
+    this.tokenPayload = decode(this.token);
+    this.uid = this.tokenPayload.id;
+
+    let labelobs = this.labelservice.fetchLabel(this.uid);
+    labelobs.subscribe((res:any)=>{
+      this.labels = res;
+    })
+
   }
 
 
@@ -71,6 +91,14 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem('token');
   }
 
+
+  openLabel(){
+    const config = new MatDialogConfig();
+    config.width="600px";
+    config.height="250px";
+    config.data ={data:this.uid};
+    const label = this.dialog.open(LabelsComponent,config);
+  }
 
 
 }

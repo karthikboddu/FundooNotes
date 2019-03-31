@@ -11,8 +11,8 @@
       </p>
     </div>
     <span class="spanbtn">
-      <button mat-icon-button class="pinbtn" *ngFor="let items of maticons">
-        <mat-icon class="icon" (click)="unarchive(item.id,'0')">{{items}}</mat-icon>
+      <button mat-icon-button  matTooltip="Info about the action" class="pinbtn" *ngFor="let items of maticons">
+        <mat-icon class="icon"  (click)="unarchive(item.id,'0')">{{items}}</mat-icon>
       </button>
     </span>
 

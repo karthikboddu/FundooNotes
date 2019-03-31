@@ -28,7 +28,7 @@ import { ReminderComponent } from './component/reminder/reminder.component';
 import { ArchiveComponent } from './component/archive/archive.component';
 import { LabelsComponent } from './component/labels/labels.component';
 
-
+import { CookieService } from 'ngx-cookie-service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,8 +66,8 @@ import { LabelsComponent } from './component/labels/labels.component';
     FlexLayoutModule,
     HttpClientModule
   ],
-  providers: [RegisterService],
+  providers: [RegisterService,CookieService],
   bootstrap: [AppComponent],
-  entryComponents : [EditnotesComponent]
+  entryComponents : [EditnotesComponent,LabelsComponent]
 })
 export class AppModule { }

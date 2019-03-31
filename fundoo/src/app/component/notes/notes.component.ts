@@ -8,7 +8,7 @@ import { ViewService } from 'src/app/services/view.service';
 import { MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBarConfig } from '@angular/material';
 import { EditnotesComponent } from '../editnotes/editnotes.component';
 import { Notes } from '../../models/notes.model';
-
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -31,7 +31,9 @@ export class NotesComponent implements OnInit {
    */
   constructor(private fb: FormBuilder, private noteserv: NotesService, private dialog: MatDialog, 
     private route: Router, private viewservice: ViewService, 
-    private el: ElementRef, private renderer: Renderer,private snackBar: MatSnackBar) {
+    private el: ElementRef, private renderer: Renderer,private snackBar: MatSnackBar,
+    private cookieserv :CookieService
+    ) {
     this.viewservice.getView().subscribe((res => {
       this.view = res;
       this.direction = this.view.data;
@@ -123,7 +125,7 @@ export class NotesComponent implements OnInit {
 
     this.timer = false;
     this.newnote = false;
-
+ 
     setInterval(() => {
 
     }, 1000);
@@ -193,7 +195,7 @@ export class NotesComponent implements OnInit {
       let notesobs = this.noteserv.fetchNotes(uid);
 
       notesobs.subscribe((data: any) => {
-        debugger
+      
         this.notes = data;
         this.notes;
         this.rem = moment(data.remainder).format("HH:mm A");
@@ -208,7 +210,7 @@ export class NotesComponent implements OnInit {
   currentDateAndTime
 	remainder123() {
 		// this.toasterservice.success("ddd", "asfasdf");
-debugger
+
 		var day = new Date();
 		var fulldate =
 			day.toDateString() + " " + (day.getHours() % 12) + ":" + day.getMinutes();

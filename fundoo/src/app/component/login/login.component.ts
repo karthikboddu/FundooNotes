@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
    * @param loginservice 
    * @param route 
    */
-  constructor(private formBuilder: FormBuilder, private loginservice: LoginService, private route: Router) { }
+  constructor(private formBuilder: FormBuilder, private loginservice: LoginService,private cookieserv:CookieService ,private route: Router) { }
 
   errormsg: string = "";
   tokens;
@@ -50,6 +51,7 @@ export class LoginComponent implements OnInit {
     status.subscribe((res: any) => {
     debugger;
       console.log(res.message);
+      this.cookieserv.set("email",value.Emailid);
       if (res.message == "200") {
         let headers: HttpHeaders = new HttpHeaders();
         headers.set("Authorization",value.Emailid);

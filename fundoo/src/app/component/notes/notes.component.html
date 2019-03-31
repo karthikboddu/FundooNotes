@@ -127,7 +127,7 @@
       <!-- [style.display]="'none'" -->
       <!-- <div  >      -->
       <span class="spanbtn">
-        <button mat-icon-button class="pinbtn" (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">
+        <button mat-icon-button class="pinbtn"  matTooltip="Info about the action" (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">
           <mat-icon class="icon">notification_important</mat-icon>
         </button>
         <button mat-icon-button [matMenuTriggerFor]="buttonMenu" class="pinbtn">
@@ -179,13 +179,20 @@
   <mat-menu #moreopt="matMenu" class="matmenu">
 
       <button mat-menu-item (click)="deletenote(noteform.value.id)" >Delete note</button>
-      <button mat-menu-item (click)="expression">Add label</button>
+      <button mat-menu-item (click)="expression" [matMenuTriggerFor]="labelMenu">Add label</button>
       <button mat-menu-item>Add Drawing</button>
     
       <button mat-menu-item>Make a copy</button>
       <button mat-menu-item>Show tick boxes</button>
       <button mat-menu-item>Copy to Google Docs</button>
     
+
     </mat-menu>
 
 </div>
+
+<mat-menu [overlapTrigger]="false" #labelMenu="matMenu">
+  <div class="colorbtn">
+    
+  </div>
+</mat-menu>

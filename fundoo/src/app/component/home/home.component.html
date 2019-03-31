@@ -15,8 +15,8 @@
             <div fxShow="true" fxHide.lt-sm="true">
 
                 <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-                <button mat-icon-button class="iconbtn">
-                    <mat-icon class="icon">refresh</mat-icon>
+                <button mat-icon-button class="iconbtn" >
+                    <mat-icon class="icon"  matTooltip="Info about the action">refresh</mat-icon>
                 </button>
                 <button mat-icon-button class="iconbtn" *ngIf="list" (click)="changeView()" fxShow="true"
                     fxHide.lt-sm="true">
@@ -64,8 +64,10 @@
                 <a mat-list-item role="listitem">
                     <span class="labels">Labels</span>
                 </a>
-
-                <a mat-list-item role="listitem">
+                <a mat-list-item role="listitem" *ngFor="let item of labels" >
+                    <mat-icon class="icon">label</mat-icon><span class="lables">{{item.label}}</span>
+                </a>
+                <a mat-list-item role="listitem" (click)="openLabel()">
                     <mat-icon class="icon">edit</mat-icon><span class="notes">Edit Labels</span>
                 </a>
                 <mat-divider></mat-divider>
