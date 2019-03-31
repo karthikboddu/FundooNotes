@@ -66,6 +66,13 @@ $route['fetchnotes'] = 'Notes/fetchNotes';
 $route['updatenote'] = 'Notes/updateNotes';
 $route['setcolor'] = 'Notes/setColor';
 $route['fetchremnotes'] = 'Reminder/fetchReminderNotes';
+$route['deletenote'] = 'Notes/notedelete';
+$route['fetchreminder'] ='Reminder/fetchReminderNotes';
+$route['fetcharchive'] = 'Archive/fetchArchive';
+$route['unarchive'] = 'Archive/unarchive';
+$route['setlabel'] ='Label/addLabel';
+$route['fetchlabel'] = 'Label/fetchLabel';
+
 $route['testapi'] = 'UserData/test';
 
 

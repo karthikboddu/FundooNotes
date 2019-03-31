@@ -45,7 +45,13 @@ class Notes extends CI_Controller
     public function setColor(){
         $id = $_POST['id'];
         $color = $_POST['color'];
-        $this->refService->colorSet($id,$color);
+        $flag = $_POST['flag'];
+        $this->refService->colorSet($id,$color,$flag);
+    }
+
+    public function notedelete(){
+        $id = $_POST['id'];
+        $this->refService->deletenote($id);
     }
 
 }

@@ -64,7 +64,7 @@ class NoteService extends CI_Controller
 
     public function noteFetch($email)
     {
-        $query = "SELECT * from notes Where user_id ='$email' ORDER BY id DESC ";
+        $query = "SELECT * from notes Where user_id ='$email' AND archived !='1' ORDER BY id DESC ";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
 
@@ -108,11 +108,58 @@ class NoteService extends CI_Controller
 
     }
 
-    public function colorSet($id, $color)
+    public function colorSet($id, $color,$flag)
     {
-        $query = "UPDATE notes SET color = '$color' where id = '$id'";
+        if($flag == "color"){
+            $query = "UPDATE notes SET color = '$color' where id = '$id'";
+            $stmt = $this->db->conn_id->prepare($query);
+            $res = $stmt->execute();
+            if ($res) {
+                $data = array(
+                    "status" => "200",
+                );
+                print json_encode($data);
+    
+            } else {
+                $data = array(
+                    "status" => "204",
+                );
+                print json_encode($data);
+                return "204";
+    
+            }
+        }
+        if($flag == "Archive"){
+            $query = "UPDATE notes set archived = '$color' where id = '$id'";
+            $stmt =  $this->db->conn_id->prepare($query);
+            $res = $stmt->execute();
+
+            if ($res) {
+                $data = array(
+                    "status" => "200",
+                );
+                print json_encode($data);
+    
+            } else {
+                $data = array(
+                    "status" => "204",
+                );
+                print json_encode($data);
+                return "204";
+    
+            }
+
+        }
+
+  
+    }
+
+    public function deletenote($id){
+        $query = "DELETE from notes WHERE id = '$id'";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
+
+
         if ($res) {
             $data = array(
                 "status" => "200",
