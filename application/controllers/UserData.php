@@ -1,7 +1,7 @@
 <?php
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Headers: Authorization");
-defined('BASEPATH') or exit('No direct script access allowed');
+// header('Access-Control-Allow-Origin: *');
+// header("Access-Control-Allow-Headers: Authorization");
+// defined('BASEPATH') or exit('No direct script access allowed');
 include "/var/www/html/codeigniter/application/service/UserDataController.php";
 
 class UserData extends CI_Controller
@@ -42,7 +42,9 @@ class UserData extends CI_Controller
     }
 
     public function test(){
+        $_POST;
         $res = $this->refService->testget();   
+        return $res;
     }
 
     /**

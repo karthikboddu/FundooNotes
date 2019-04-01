@@ -9,8 +9,9 @@ import { MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarHorizontalPosition,
 import { EditnotesComponent } from '../editnotes/editnotes.component';
 import { Notes } from '../../models/notes.model';
 import { CookieService } from 'ngx-cookie-service';
+import { LabelService } from 'src/app/services/label.service';
 
-
+import { Label } from '../../models/label.model';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -23,6 +24,7 @@ export class NotesComponent implements OnInit {
 
   classcard;
   notes: Notes[] = [];
+  labels : Label[];
   /**
    * 
    * @param fb 
@@ -32,7 +34,8 @@ export class NotesComponent implements OnInit {
   constructor(private fb: FormBuilder, private noteserv: NotesService, private dialog: MatDialog, 
     private route: Router, private viewservice: ViewService, 
     private el: ElementRef, private renderer: Renderer,private snackBar: MatSnackBar,
-    private cookieserv :CookieService
+    private cookieserv :CookieService,
+    private labelserv :LabelService
     ) {
     this.viewservice.getView().subscribe((res => {
       this.view = res;
@@ -138,6 +141,14 @@ export class NotesComponent implements OnInit {
        this.layout = this.direction + " " + this.wrap;
     }))
 
+    const token = localStorage.getItem('token');
+    const tokenPayload = decode(token);
+    const emailid = tokenPayload.email;
+    const uid = tokenPayload.id;
+   let labelosb = this.labelserv.fetchLabel(uid);
+      labelosb.subscribe((res:any)=>{
+          this.labels = res;
+      })
 
   }
 

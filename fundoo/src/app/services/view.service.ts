@@ -25,4 +25,5 @@ export class ViewService {
       this.result = true;
     }
   } 
+
 }

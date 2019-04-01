@@ -27,7 +27,7 @@ class UserDataController extends CI_Controller
         $result = $stmt->execute();
         $no = $stmt->rowCount();
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+        return "200";
         // if($result){
         //     // $data = array(
         //     //     "status" => "300",
@@ -125,9 +125,9 @@ class UserDataController extends CI_Controller
                 "token" => $response,
                 "message" => "200",
             );
-
+        
             print json_encode($data);
-
+print "200";
         } else {
             $data = array(
                 "message" => "204",

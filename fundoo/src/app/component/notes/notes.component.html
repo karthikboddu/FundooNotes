@@ -59,7 +59,7 @@
             <mat-icon class="icon">person_add</mat-icon>
           </button>
           <button mat-icon-button class="pinbtn">
-            <mat-icon class="icon">more_vert</mat-icon>
+            <mat-icon class="icon" [matMenuTriggerFor]="moreopt" >more_vert</mat-icon>
           </button>
           <button mat-button class="close" (click)="noteSubmit(noteform.value)">Close</button>
         </span>
@@ -193,6 +193,11 @@
 
 <mat-menu [overlapTrigger]="false" #labelMenu="matMenu">
   <div class="colorbtn">
-    
+    <mat-list-item>
+      <a mat-list-item role="listitem" *ngFor="let item of labels">
+        <mat-icon class="icon">label</mat-icon><span class="notes" 
+           >{{item.label}}</span>
+    </a>
+    </mat-list-item>
   </div>
 </mat-menu>
