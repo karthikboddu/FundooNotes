@@ -7,12 +7,12 @@ import { Component } from '@angular/core';
   
 })
 export class AppComponent {
-  title = 'fundoo';
-  count = 9;
 
-  changeCount(data) { 
+  postDataArr = [];
 
-    console.log(data); 
+  onAddPost(postData){
+    console.log(postData.length);
+    this.postDataArr.push(postData);
+  }
 
- } 
 }

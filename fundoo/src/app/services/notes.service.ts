@@ -50,14 +50,33 @@ export class NotesService {
     return this.http.post(this.serviceurl.host+this.serviceurl.updatenotes,update);
   }
 
+	/**
+	 * @method dateTimeChange()
+	 * @return observable data
+	 * @param otherPresentTime
+	 * @param id
+	 * @description Function to send otherPresentTime and id to server
+	 */
+	dateTimeChange(id, otherPresentTime) {
+		debugger;
+		let DataTime = new FormData();
+		DataTime.append("id", id);
+		DataTime.append("presentDateTime", otherPresentTime);
+		return this.http.post(
+			this.serviceurl.host + this.serviceurl.changeDateTime,
+			DataTime
+		);
+	}
 
-  setColor(id,color,flag){
+  notesCrud(id,color,flag){
     let setcol = new FormData();
     setcol.append("id",id);
     setcol.append("color",color);
     setcol.append("flag",flag);
     return this.http.post(this.serviceurl.host+this.serviceurl.setcolor,setcol);
   }
+
+
 
 
   reminderFetch(){

@@ -28,7 +28,11 @@ export class LabelsComponent implements OnInit {
 
     });
 
-    this.fetchLabel();
+   
+    setInterval(() => {
+      this.fetchLabel();
+    }, 1000);
+   
 
   }
 
@@ -46,8 +50,9 @@ export class LabelsComponent implements OnInit {
     debugger
     let labelobs = this.labelsev.setLabel(this.uid, value);
     labelobs.subscribe((res: any) => {
-
+      
     });
+    value='';
   }
 
 }

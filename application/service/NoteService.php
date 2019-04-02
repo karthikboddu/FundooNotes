@@ -176,4 +176,10 @@ class NoteService extends CI_Controller
         }
     }
 
+    public function updatedate($id,$date){
+        $query = "UPDATE notes SET remainder = '$date' where id = '$id'";
+        $stmt = $this->db->conn_id->prepare($query);
+        $res = $stmt->execute();
+    }
+
 }

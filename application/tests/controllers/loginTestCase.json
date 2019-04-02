@@ -1,6 +1,11 @@
 [{
-        "testEmail": "karthikb5566@gmail.com",
+        "Emailid": "karthikb5566@gmail.com",
         "password": "123456",
         "expected": "200"
+    },
+    {
+        "Emailid": "karthikb5566@gmail.com",
+        "password": "12345",
+        "expected": "204"
     }
 ]

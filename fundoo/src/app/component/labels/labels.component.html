@@ -18,10 +18,18 @@
 
 <mat-dialog-actions>
   <mat-nav-list>
-    <a mat-list-item role="listitem" *ngFor="let item of labels">
-      <mat-icon class="icon" routerLinkActive="mat-accent">label</mat-icon><span
-        class="notes">{{item.label}}</span>
-    </a>
+
+     <label role="listitem" *ngFor="let item of labels">
+      <button mat-icon-button class="btnclose">
+        <mat-icon class="remicon">label</mat-icon>
+      </button>
+     <span class="notes">{{item.label}}</span>
+      <button mat-icon-button class="btnclose">
+        <mat-icon class="remicon">delete_outline</mat-icon>
+      </button>
+    </label >
+
+
 
   </mat-nav-list>
 </mat-dialog-actions>

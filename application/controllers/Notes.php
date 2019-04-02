@@ -54,4 +54,10 @@ class Notes extends CI_Controller
         $this->refService->deletenote($id);
     }
 
+    public function changetimedate(){
+        $id = $_POST['id'];
+        $datetime = $_POST['presentDateTime'];
+        $this->refService->updatedate($id,$datetime);
+    }
+
 }

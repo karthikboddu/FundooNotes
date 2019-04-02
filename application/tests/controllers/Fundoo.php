@@ -1,31 +1,67 @@
 <?php
-include '/var/www/html/codeigniter/application/tests/controllers/TeastCaseConstants.php';
-include '/var/www/html/codeigniter/application/controllers/UserData.php';
 include '/var/www/html/codeigniter/application/vendor/autoload.php';
 class Fundoo extends TestCase
 {
-    /**
-     * variable to the constants
-     */
-    public $constantClassObj = null;
-    public function __construct()
+    protected $client;
+
+    public function setUp()
     {
-        $this->constantClassObj = new TeastCaseConstants();
+        $this->http = new GuzzleHttp\Client(['base_uri' => 'http://localhost/codeigniter/'], array(
+            'request.options' => array(
+                'exceptions' => false,
+            ),
+        ));
+
     }
-    public function testLogin()
+
+    public function testPost()
     {
+        $request = $this->http->post('loginto', [
+            'form_params' => [
+                'Emailid' => 'karthik.184@gmail.com',
+                'password' => '123546',
+            ],
+        ]);
+        // $response = $this->client->request('testapi', null,[
+        //     'form_params' => [
+        //         'email' => 'someone@example.com',
+        //         'phone' => '0400000000'
+        //     ]
+        // ]);
 
-        $file = $this->constantClassObj->loginTestcaseFileName;
-        $data = file_get_contents($file, true);
-        $testCaseExampleArray = json_decode($data, true);
+        $stream = $request->getBody();
+        $contents = json_decode($stream);
+        $res = $contents[0];
+        var_dump($contents);
+        $this->assertEquals("200", $res);
+        // $request = $this->http->post('loginto',[
+        //     'form_params' => [
+        //         'Emailid' => 'karthikb5566@gmail.com',
 
-        foreach ($testCaseExampleArray as $key => $value) {
-            $_POST['Emailid'] = $value['testEmail'];
-            var_dump($value['testEmail']);
-            $_POST['password'] = $value['password'];
-            $ref = new UserData();
-            $result = $ref->login();
-            $res = $this->assertEquals($value['expected'], $result);
-        }
+        //     ]
+        // ]);
+        // // var_dump($request);
+
+        // $this->assertEquals(400, $request->getStatusCode(), 'Missing phone parameter should return 400 error');
+
+    }
+
+
+    public function testRegister(){
+        $request = $this->http->post('register', [
+            'form_params' => [
+                'firstName'=>'barry',
+                'lastName'=>'allen',
+                'Emailid' => 'flash@gmail.com',
+                'password' => 'flash',
+            ],
+        ]);
+
+        $stream = $request->getBody();
+        $contents = json_decode($stream);
+        $res = $contents[0];
+        var_dump($contents);
+        $this->assertEquals("200", $res);
+
     }
 }

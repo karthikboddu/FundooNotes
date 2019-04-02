@@ -24,4 +24,5 @@ export class ServiceUrlService {
   public unarchived = "unarchive";
   public setlabel ="setlabel";
   public fetchlabel = "fetchlabel";
+  public changeDateTime = "changedatetime";
 }

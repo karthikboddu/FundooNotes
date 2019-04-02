@@ -1,4 +1,4 @@
-import { Component, OnInit, Output ,EventEmitter} from '@angular/core';
+import { Component, OnInit, Output ,EventEmitter, Input} from '@angular/core';
 import * as $ from 'jquery';
 import {ViewService} from '../../services/view.service';
 import { DataserviceService } from 'src/app/services/dataservice.service';
@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   tokenPayload;
   uid;
   breakpoint: number;
+
   ngOnInit() {
     $(document).ready(function () {
       $(".ip").click(function () {
@@ -35,7 +36,7 @@ export class HomeComponent implements OnInit {
       });
     });
 
-    
+
 
     this.token = localStorage.getItem('token');
     this.tokenPayload = decode(this.token);

@@ -1,8 +1,8 @@
 <?php
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Headers: Authorization");
-header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin, Authorization
-');
+// header('Access-Control-Allow-Origin: *');
+// header("Access-Control-Allow-Headers: Authorization");
+// header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin, Authorization
+// ');
 
 defined('BASEPATH') or exit('No direct script access allowed');
 include '/var/www/html/codeigniter/application/Rabbitmq/sender.php';
@@ -127,7 +127,7 @@ class UserDataController extends CI_Controller
             );
         
             print json_encode($data);
-print "200";
+            // print "200";
         } else {
             $data = array(
                 "message" => "204",
@@ -136,7 +136,7 @@ print "200";
             return "204";
 
         }
-        return $data;
+        // return $data;
     }
 
     /**

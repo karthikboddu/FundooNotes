@@ -48,6 +48,12 @@ export class NotesComponent implements OnInit {
       console.log("class is ", this.classcard);
     }))
   }
+  postDataArr = [];
+
+  onAddPost(postData){
+    console.log(postData.length);
+    this.postDataArr.push(postData);
+  }
 
   public defaultColors: string[] = [
     '#fcf476',
@@ -128,7 +134,7 @@ export class NotesComponent implements OnInit {
 
     this.timer = false;
     this.newnote = false;
- 
+    this.notes_timer = true;
     setInterval(() => {
 
     }, 1000);
@@ -143,12 +149,15 @@ export class NotesComponent implements OnInit {
 
     const token = localStorage.getItem('token');
     const tokenPayload = decode(token);
-    const emailid = tokenPayload.email;
+
     const uid = tokenPayload.id;
    let labelosb = this.labelserv.fetchLabel(uid);
       labelosb.subscribe((res:any)=>{
           this.labels = res;
-      })
+      });
+
+
+
 
   }
 
@@ -209,8 +218,16 @@ export class NotesComponent implements OnInit {
       
         this.notes = data;
         this.notes;
-        this.rem = moment(data.remainder).format("HH:mm A");
+       
 
+
+        this.notes.forEach(element => {
+        debugger
+          element.remainder  = moment(element.remainder).format('MMM-DD-YY HH:mm A') 
+          if(element.remainder =='Invalid date'){
+            element.remainder =null;
+          }
+        });
       });
     }
   }
@@ -246,7 +263,7 @@ export class NotesComponent implements OnInit {
     const dialogconfg = new MatDialogConfig();
 
     dialogconfg.autoFocus = true;
-    dialogconfg.panelClass = 'myClass'
+   
     dialogconfg.data = {
       //   titles : notes['title'],
       //   description : notes.description,
@@ -265,38 +282,115 @@ export class NotesComponent implements OnInit {
   datee
   cc
   todaydb
-  today(n) {
-    debugger;
-    var date = new Date();
-    this.datee = date.toDateString();
-    // if(this.date == ""){
-    //   this.timer =false;
-    //   return;
-    // }
-    if (n = 10) {
+  // today(n) {
+  //   debugger;
+  //   var date = new Date();
+  //   this.datee = date.toDateString();
+  //   // if(this.date == ""){
+  //   //   this.timer =false;
+  //   //   return;
+  //   // }
+  //   if (n = 10) {
 
-      this.timedate = moment(8, "HH");
-      this.todaydb = "Today " + moment(this.timedate).format('hh:mm:ss A');
-      console.log("db" + this.todaydb);
-      console.log(this.timedate);
-      this.timedate = "Today " + moment(this.timedate).format('HH:mm A');
+  //     this.timedate = moment(8, "HH");
+  //     this.todaydb = "Today " + moment(this.timedate).format('hh:mm:ss A');
+  //     console.log("db" + this.todaydb);
+  //     console.log(this.timedate);
+  //     this.timedate = "Today " + moment(this.timedate).format('HH:mm A');
+  //   }
+
+  //   if (n = 20) {
+  //     this.timedate = moment(8, "HH");
+  //     this.todaydb = "Tomorrow " + moment(this.timedate).format('hh:mm:ss A');
+  //     this.timedate = "Tomorrow " + moment(this.timedate).format('HH:mm A');
+  //   }
+
+  //   console.log(this.currentdate);
+  //   //  this.timedate = moment(this.date).format('H HH') + " " + this.period;
+  //   this.timer = true;
+  // }
+
+	fulldate: any;
+  fulltime: any;
+  flag
+  todayy(id,rem_id ){
+    debugger
+    this.flag = true;
+		var day = new Date();
+		this.fulldate = day.toDateString();
+		let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
+		this.currentDateAndTime = currentDate + " " + " 08:00 PM";
+		if (id == "01") {
+			this.timer = true;
+      this.timedate = this.currentDateAndTime;
+      this.flag = false;
+		} else {
+			this.reminderfun(id, this.currentDateAndTime);
     }
-
-    if (n = 20) {
-      this.timedate = moment(8, "HH");
-      this.todaydb = "Tomorrow " + moment(this.timedate).format('hh:mm:ss A');
-      this.timedate = "Tomorrow " + moment(this.timedate).format('HH:mm A');
+    
+    if(rem_id!=null){
+        this.reminderfun(rem_id,this.currentDateAndTime);
     }
+	}
 
-    console.log(this.currentdate);
-    //  this.timedate = moment(this.date).format('H HH') + " " + this.period;
-    this.timer = true;
+	tomorrow(id,rem_id) {
+		debugger;
+		var day = new Date();
+		day.setDate(day.getDate() + 1);
+		this.fulldate = day.toDateString();
+		let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
+		this.currentDateAndTime = currentDate + " " + " 08:00 AM";
+		if (id == "01") {
+			this.timer = true;
+			this.timedate = this.currentDateAndTime;
+		} else {
+			this.reminderfun(id, this.currentDateAndTime);
+    }
+    
+    if(rem_id!=null){
+      this.reminderfun(rem_id,this.currentDateAndTime);
   }
+	}
 
+	nextWeek(id) {
+		debugger;
+		var day = new Date();
 
-  remainder() {
+		this.fulldate = day.setDate(day.getDate() + ((1 + 7 - day.getDay()) % 7));
+		let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
+		this.currentDateAndTime = currentDate + " " + " 08:00 AM";
+		if (id == "01") {
+			this.timer = true;
+			this.timedate = this.currentDateAndTime;
+		} else {
+			this.reminderfun(id, this.currentDateAndTime);
+		}
+	}
+  otherPresentTime
+  notes_timer
+	reminderfun(id, date) {
+		// this.notes.forEach(element => {
+		// 	if (element.id == id) {
+		// 		element.remainder = date;
+		// 		this.otherPresentTime = date;
+		// 	}
+    // });
+    debugger
+    this.otherPresentTime = date;
+		//if (this.model.date != null && this.model.time != null)
+		if (date != null) {
+			let obs = this.noteserv.dateTimeChange(id, this.otherPresentTime);
+			obs.subscribe((res: any) => {
+        //  obs.unsubscribe();
+        this.notes_timer = true;
+        console.log(this.notes_timer);
+			});
+			debugger;
+			
+			// this.other_timer_panel = false;
+		}
+	}
 
-  }
 
 
 
@@ -339,7 +433,7 @@ export class NotesComponent implements OnInit {
 
 
   stat
-  notestools(id, colorid, flag) {
+  notestools(id, value, flag) {
     debugger
     if (id == "undefined") {
       return;
@@ -347,15 +441,15 @@ export class NotesComponent implements OnInit {
     this.notes.forEach(element => {
       if (element.id == id) {
         if (flag == "color") {
-          element.color = colorid;
+          element.color = value;
         }
       }
 
     });
-    let colorObs = this.noteserv.setColor(id, colorid,flag);
+    let colorObs = this.noteserv.notesCrud(id, value,flag);
     colorObs.subscribe((res: any) => {
       if (res.status == "200") {
-        this.stat = "color updated";
+        this.stat = " updated";
       }
     })
 

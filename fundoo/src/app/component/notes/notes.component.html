@@ -15,19 +15,25 @@
     </span>
   </div>
 
-
+  <!-- <div>
+       
+    <app-dialogdata [listPost] = "postDataArr"></app-dialogdata>
+    <app-dialog  (postData) = "onAddPost($event)"></app-dialog>
+  </div> -->
   <!--note create starts-->
 
   <div>
     <!--notes create show hide-->
     <mat-card class="matcard" *ngIf="cardshow" [ngStyle]="{'background-color': noteform.value.color}">
-      <form [formGroup]="noteform" >
-        <input matInput [ngStyle]="{'background-color': noteform.value.color}"  class="ipnote" placeholder="Title" formControlName="title">
+      <form [formGroup]="noteform">
+        <input matInput [ngStyle]="{'background-color': noteform.value.color}" class="ipnote" placeholder="Title"
+          formControlName="title">
         <button mat-icon-button class="pinbtn">
           <mat-icon class="icon"><img src="../../../assets/pin.svg"></mat-icon>
         </button>
 
-        <input class="ipnote takenote" [ngStyle]="{'background-color': noteform.value.color}" matInput placeholder="Take a note ..." formControlName="desc">
+        <input class="ipnote takenote" [ngStyle]="{'background-color': noteform.value.color}" matInput
+          placeholder="Take a note ..." formControlName="desc">
         <div *ngIf="timer">
           <button mat-icon-button>
             <mat-icon class="remicon">schedule</mat-icon>
@@ -42,24 +48,24 @@
 
           </button>
 
-       
+
 
         </div>
         <span class="spanbutton">
-          <button mat-icon-button class="pinbtn" (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">
+          <button mat-icon-button class="pinbtn" [matMenuTriggerFor]="remainder">
             <mat-icon class="icon">notification_important</mat-icon>
           </button>
           <button mat-icon-button class="pinbtn">
             <mat-icon class="icon" [matMenuTriggerFor]="colorMenu">color_lens</mat-icon>
           </button>
           <button mat-icon-button class="pinbtn">
-            <mat-icon class="icon" >archive</mat-icon>
+            <mat-icon class="icon">archive</mat-icon>
           </button>
           <button mat-icon-button class="pinbtn">
             <mat-icon class="icon">person_add</mat-icon>
           </button>
           <button mat-icon-button class="pinbtn">
-            <mat-icon class="icon" [matMenuTriggerFor]="moreopt" >more_vert</mat-icon>
+            <mat-icon class="icon" [matMenuTriggerFor]="moreopt">more_vert</mat-icon>
           </button>
           <button mat-button class="close" (click)="noteSubmit(noteform.value)">Close</button>
         </span>
@@ -68,8 +74,8 @@
 
 
     <!--notes remainder -->
-    <div align="center"  *ngIf="date_panel">
-      <mat-card class="datecard" >
+    <div align="center" *ngIf="date_panel">
+      <mat-card class="datecard">
         <button mat-icon-button class="pinbtn" [matMenuTriggerFor]="remainder" (click)="datetime(datetimeform.value)">
           <mat-icon class="icon">keyboard_backspace</mat-icon>
         </button>
@@ -120,15 +126,30 @@
       <div class="cardtext" (click)=openNotes(n)>
         <p class="para">{{n.title}}</p>
         <p class="para"> {{n.description}}</p>
-        <p class="para">
-          <mat-chip [matMenuTriggerFor]="remainder"> {{n.remainder}}</mat-chip>
-        </p>
+        <p class="para"> </p>
+        <div *ngIf="notes_timer && n.remainder!=null">
+          <button mat-icon-button>
+            <mat-icon class="remicon">schedule</mat-icon>
+            <mat-chip style="background-color: rgba(0,0,0,0.08);
+            " [matMenuTriggerFor]="remainder"> {{n.remainder}}</mat-chip>
+          </button>
+          <button mat-icon-button class="btnclose" (click)="notestools(n.id,'','delete')">
+            <mat-icon class="remicon">close</mat-icon>
+
+          </button>
+
+
+
+        </div>
+
+
       </div>
       <!-- [style.display]="'none'" -->
       <!-- <div  >      -->
       <span class="spanbtn">
-        <button mat-icon-button class="pinbtn"  matTooltip="Info about the action" (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">
-          <mat-icon class="icon">notification_important</mat-icon>
+        <button mat-icon-button class="pinbtn" matTooltip="Info about the action" (click)="datetime(datetimeform.value)"
+          [matMenuTriggerFor]="remainder">
+          <mat-icon class="icon" (click)="rem_id = n.id">notification_important</mat-icon>
         </button>
         <button mat-icon-button [matMenuTriggerFor]="buttonMenu" class="pinbtn">
           <mat-icon class="icon" (click)="noteform.value.id=n.id">color_lens</mat-icon>
@@ -168,9 +189,9 @@
 
   <mat-menu #remainder="matMenu" class="matmenu">
     <mat-label>Remainder</mat-label>
-    <button mat-menu-item (click)="today(10)">Later today : 8PM</button>
-    <button mat-menu-item (click)="today(20)">Tomorrow : 8PM</button>
-    <button mat-menu-item>next week</button>
+    <button mat-menu-item (click)="todayy(01,rem_id)">Later today : 8PM</button>
+    <button mat-menu-item (click)="tomorrow(01,rem_id)">Tomorrow : 8PM</button>
+    <button mat-menu-item (click)="nextWeek(01)">next week</button>
 
     <button mat-menu-item (click)="date_panel = true">pick date and time</button>
   </mat-menu>
@@ -178,16 +199,16 @@
 
   <mat-menu #moreopt="matMenu" class="matmenu">
 
-      <button mat-menu-item (click)="deletenote(noteform.value.id)" >Delete note</button>
-      <button mat-menu-item (click)="expression" [matMenuTriggerFor]="labelMenu">Add label</button>
-      <button mat-menu-item>Add Drawing</button>
-    
-      <button mat-menu-item>Make a copy</button>
-      <button mat-menu-item>Show tick boxes</button>
-      <button mat-menu-item>Copy to Google Docs</button>
-    
+    <button mat-menu-item (click)="deletenote(noteform.value.id)">Delete note</button>
+    <button mat-menu-item (click)="expression" [matMenuTriggerFor]="labelMenu">Add label</button>
+    <button mat-menu-item>Add Drawing</button>
 
-    </mat-menu>
+    <button mat-menu-item>Make a copy</button>
+    <button mat-menu-item>Show tick boxes</button>
+    <button mat-menu-item>Copy to Google Docs</button>
+
+
+  </mat-menu>
 
 </div>
 
@@ -195,9 +216,8 @@
   <div class="colorbtn">
     <mat-list-item>
       <a mat-list-item role="listitem" *ngFor="let item of labels">
-        <mat-icon class="icon">label</mat-icon><span class="notes" 
-           >{{item.label}}</span>
-    </a>
+        <mat-icon class="icon">label</mat-icon><span class="notes">{{item.label}}</span>
+      </a>
     </mat-list-item>
   </div>
 </mat-menu>
