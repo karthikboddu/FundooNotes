@@ -141,6 +141,8 @@ export class NotesComponent implements OnInit {
     this.loadNotes();
 
     this.remainder123();
+
+
     this.viewservice.getView().subscribe((res => {
       this.view = res;
       this.direction = this.view.data;
@@ -223,7 +225,7 @@ export class NotesComponent implements OnInit {
 
         this.notes.forEach(element => {
         debugger
-          element.remainder  = moment(element.remainder).format('MMM-DD-YY HH:mm A') 
+          element.remainder  = moment(element.remainder).format('MMM-DD HH:mm A') 
           if(element.remainder =='Invalid date'){
             element.remainder =null;
           }
@@ -263,7 +265,9 @@ export class NotesComponent implements OnInit {
     const dialogconfg = new MatDialogConfig();
 
     dialogconfg.autoFocus = true;
-   
+    dialogconfg.panelClass ='custom-dialog-container';
+    dialogconfg.width="600px"
+    dialogconfg.height="210px"
     dialogconfg.data = {
       //   titles : notes['title'],
       //   description : notes.description,

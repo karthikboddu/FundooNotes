@@ -9,6 +9,21 @@
 
 
   </mat-dialog-content> 
+
+  <mat-chip-list>
+    <button mat-icon-button>
+      <mat-chip style="background-color: rgba(0,0,0,0.08);
+      " [matMenuTriggerFor]="remainder"> <mat-icon class="remicon">schedule</mat-icon>
+     {{rem}}
+    </mat-chip>
+      
+    </button>
+    <button mat-icon-button class="btnclose" style="margin-left: 104px;" >
+        <mat-icon class="remicon">close</mat-icon>
+
+      </button>
+    
+  </mat-chip-list>
   <mat-dialog-actions>
       <span class="spanbutton">
           <button mat-icon-button class="pinbtn" (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">

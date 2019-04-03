@@ -128,16 +128,20 @@
         <p class="para"> {{n.description}}</p>
         <p class="para"> </p>
         <div *ngIf="notes_timer && n.remainder!=null">
+       <mat-chip-list>
           <button mat-icon-button>
-            <mat-icon class="remicon">schedule</mat-icon>
             <mat-chip style="background-color: rgba(0,0,0,0.08);
-            " [matMenuTriggerFor]="remainder"> {{n.remainder}}</mat-chip>
+            " [matMenuTriggerFor]="remainder"> <mat-icon class="remicon">schedule</mat-icon>
+            {{n.remainder}}
+          </mat-chip>
+            
           </button>
           <button mat-icon-button class="btnclose" (click)="notestools(n.id,'','delete')">
-            <mat-icon class="remicon">close</mat-icon>
-
-          </button>
-
+              <mat-icon class="remicon">close</mat-icon>
+  
+            </button>
+          
+        </mat-chip-list>
 
 
         </div>

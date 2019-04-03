@@ -6,9 +6,23 @@
     <div class="cardtext"  >
       <p class="para">{{item.title}}</p>
       <p class="para"> {{item.description}}</p>
-      <p class="para">
-        <mat-chip> {{item.remainder}}</mat-chip>
-      </p>
+  
+       
+        <mat-chip-list>
+          <button mat-icon-button>
+            <mat-chip style="background-color: rgba(0,0,0,0.08);
+            " [matMenuTriggerFor]="remainder"> <mat-icon class="remicon">schedule</mat-icon>
+           {{item.remainder}}
+          </mat-chip>
+            
+          </button>
+          <button mat-icon-button class="btnclose" (click)="notestools(n.id,'','delete')">
+              <mat-icon class="remicon">close</mat-icon>
+  
+            </button>
+          
+        </mat-chip-list>
+  
     </div>
     <span class="spanbtn">
       <button mat-icon-button  matTooltip="Info about the action" class="pinbtn" *ngFor="let items of maticons">

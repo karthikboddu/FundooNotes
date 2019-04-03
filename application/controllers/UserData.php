@@ -47,6 +47,14 @@ class UserData extends CI_Controller
         return $res;
     }
 
+
+    public function testlogin(){
+        $email = $_POST['Emailid'];
+        $password = $_POST['password'];
+        $res = $this->refService->logintest($email, $password);
+        return $res;
+    }
+
     /**
      * @method forgotpass()
      */

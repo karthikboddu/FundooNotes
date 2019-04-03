@@ -74,6 +74,7 @@ $route['setlabel'] ='Label/addLabel';
 $route['fetchlabel'] = 'Label/fetchLabel';
 $route['changedatetime'] ='Notes/changetimedate';
 $route['testapi'] = 'UserData/test';
+$route['testlog'] = 'UserData/testlogin';
 
 
 

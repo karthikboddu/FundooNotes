@@ -13,6 +13,7 @@ export class EditnotesComponent implements OnInit {
   title:string;
   description;
   id;
+  rem
   color:string;
   constructor(
     public dialogRef: MatDialogRef<EditnotesComponent>,
@@ -23,6 +24,7 @@ export class EditnotesComponent implements OnInit {
   ) { 
     debugger
     this.title = this.data.notesdata.title;
+    this.rem = this.data.notesdata.remainder;
     this.description=  this.data.notesdata.description	;
     this.id = this.data.notesdata.id;
     this.color = this.data.notesdata.color;
@@ -39,31 +41,18 @@ export class EditnotesComponent implements OnInit {
 
 
   public defaultColors: string[] = [
+    '#fcf476',
+    '#f8bc04',
+    '#f28b82',
     '#ffffff',
-    '#000105',
-    '#3e6158',
-    '#3f7a89',
-    '#96c582',
-    '#b7d5c4',
-    '#bcd6e7',
-    '#7c90c1',
-    '#9d8594',
-    '#dad0d8',
-    '#4b4fce',
-    '#4e0a77',
-    '#a367b5',
-    '#ee3e6d',
-    '#d63d62',
-    '#c6a670',
-    '#f46600',
-    '#cf0500',
-    '#efabbd',
-    '#8e0622',
-    '#f0b89a',
-    '#f0ca68',
-    '#62382f',
-    '#c97545',
-    '#c1800b'
+    '#aecbfa',
+    '#cbf0f8',
+    '#a7ffea',
+    '#ccff90',
+    '#e8eaed',
+    '#e6c9a8',
+    '#fccfe8',
+    '#d7aefb',
   ];
 
   save() {

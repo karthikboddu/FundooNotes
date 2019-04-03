@@ -21,7 +21,8 @@ const routes: Routes = [
   {path :'reset' ,component:ResetComponent},
   {path:'home',component:HomeComponent,
            children : [
-            { path:'',component:NotesComponent},
+              { path:'',component:NotesComponent},
+              { path:'notes',component:NotesComponent},
              {path:'reminder',component:ReminderComponent},
              {path:'archive',component:ArchiveComponent}
             ],

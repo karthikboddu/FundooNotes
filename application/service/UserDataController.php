@@ -80,6 +80,9 @@ class UserDataController extends CI_Controller
         return $data;
     }
 
+
+
+
     /**
      * @param email,password
      */
@@ -136,7 +139,7 @@ class UserDataController extends CI_Controller
             return "204";
 
         }
-        // return $data;
+        return $data;
     }
 
     /**
