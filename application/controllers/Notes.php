@@ -22,12 +22,13 @@ class Notes extends CI_Controller
     }
 
     public function createNotes(){
-        $email = $_POST['id'];
+        $id = $_POST['id'];
         $title = $_POST['title'];
         $desc = $_POST['desc'];
         $rem = $_POST['remainder'];
         $color = $_POST['color'];
-        $this->refService->addNotes($email,$title,$desc,$rem,$color);
+        $notesres = $this->refService->addNotes($id,$title,$desc,$rem,$color);
+        return $notesres;
     }
 
 

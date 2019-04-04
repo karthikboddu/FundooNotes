@@ -59,7 +59,7 @@ class NoteService extends CI_Controller
             }
 
         }
-
+        return $data;
     }
 
     public function noteFetch($email)

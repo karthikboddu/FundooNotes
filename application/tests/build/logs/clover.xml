@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1554274850">
-  <project timestamp="1554274850">
+<coverage generated="1554377355">
+  <project timestamp="1554377355">
     <file name="/var/www/html/codeigniter/application/controllers/Archive.php">
       <class name="Archive" namespace="global">
         <metrics complexity="3" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="0" elements="13" coveredelements="0"/>
@@ -48715,9 +48715,7 @@
       <metrics loc="7" ncloc="7" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="0" elements="5" coveredelements="0"/>
     </file>
     <file name="/var/www/html/codeigniter/application/views/errors/cli/error_php.php">
-      <line num="3" type="stmt" count="0"/>
-      <line num="12" type="stmt" count="0"/>
-      <metrics loc="21" ncloc="21" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="2" coveredelements="0"/>
+      <metrics loc="21" ncloc="21" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <file name="/var/www/html/codeigniter/application/views/errors/html/error_404.php">
       <line num="2" type="stmt" count="0"/>
@@ -48991,6 +48989,6 @@
       <line num="89" type="stmt" count="0"/>
       <metrics loc="88" ncloc="88" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="69" coveredstatements="0" elements="69" coveredelements="0"/>
     </file>
-    <metrics files="848" loc="95413" ncloc="61671" classes="736" methods="4361" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="39726" coveredstatements="0" elements="44087" coveredelements="0"/>
+    <metrics files="848" loc="95413" ncloc="61671" classes="736" methods="4361" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="39724" coveredstatements="0" elements="44085" coveredelements="0"/>
   </project>
 </coverage>
