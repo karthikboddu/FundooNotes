@@ -114,8 +114,8 @@ export class NotesComponent implements OnInit {
   rowcard //css class
 
   wrap: string = "wrap";
-  direction: string = "row";
-  layout: string = this.direction + " " + this.wrap;
+  direction: string;
+  layout: string ;
   /**
    * @description fetch the notes when the components loads
    */
@@ -409,6 +409,13 @@ export class NotesComponent implements OnInit {
     this.noteshow = true;
     this.date_panel = false;
     this.newnote = true;
+
+    this.notes.forEach(element => {
+      element.title = value.title;
+      element
+      
+    });
+
 
     const token = localStorage.getItem('token');
     const tokenPayload = decode(token);

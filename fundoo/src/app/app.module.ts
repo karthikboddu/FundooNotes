@@ -27,8 +27,16 @@ import { EditnotesComponent } from './component/editnotes/editnotes.component';
 import { ReminderComponent } from './component/reminder/reminder.component';
 import { ArchiveComponent } from './component/archive/archive.component';
 import { LabelsComponent } from './component/labels/labels.component';
-
+import { AuthService as auth } from "./services/auth.service";
 import { CookieService } from 'ngx-cookie-service';
+
+import {
+	AuthService as social,
+	SocialLoginModule,
+	AuthServiceConfig
+} from "angular-6-social-login";;
+import { getAuthServiceConfigs } from './socialloginconfig';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +74,12 @@ import { CookieService } from 'ngx-cookie-service';
     FlexLayoutModule,
     HttpClientModule
   ],
-  providers: [RegisterService,CookieService],
+  providers: [RegisterService,CookieService,
+		auth,
+		{
+			provide: AuthServiceConfig,
+			useFactory: getAuthServiceConfigs
+		}],
   bootstrap: [AppComponent],
   entryComponents : [EditnotesComponent,LabelsComponent]
 })

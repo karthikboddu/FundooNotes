@@ -15,6 +15,7 @@ export class ViewService {
     this.gridview();
     return this.subject.asObservable();
   }
+  
   gridview(){
     if(this.result){
       this.subject.next({data:"column"});

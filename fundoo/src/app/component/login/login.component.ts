@@ -4,6 +4,12 @@ import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import {
+	AuthService,
+	FacebookLoginProvider,
+	GoogleLoginProvider
+} from "angular-6-social-login";
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,7 +25,8 @@ export class LoginComponent implements OnInit {
    * @param loginservice 
    * @param route 
    */
-  constructor(private formBuilder: FormBuilder, private loginservice: LoginService,private cookieserv:CookieService ,private route: Router) { }
+  constructor(private formBuilder: FormBuilder, private loginservice: LoginService,
+    private socialAuthService: AuthService,private cookieserv:CookieService ,private route: Router) { }
 
   errormsg: string = "";
   tokens;
@@ -66,5 +73,23 @@ export class LoginComponent implements OnInit {
     });
 
 
+  }
+
+  public socialSignIn(socialPlatform : string) {
+    let socialPlatformProvider;
+    if(socialPlatform == "facebook"){
+      socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+    }else if(socialPlatform == "google"){
+      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+    }
+    
+    this.socialAuthService.signIn(socialPlatformProvider).then(
+      (userData) => {
+        console.log(socialPlatform+" sign in data : " , userData);
+        // Now sign-in with userData
+        // ...
+            
+      }
+    );
   }
 }
