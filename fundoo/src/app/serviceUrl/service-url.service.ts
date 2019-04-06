@@ -25,4 +25,5 @@ export class ServiceUrlService {
   public setlabel ="setlabel";
   public fetchlabel = "fetchlabel";
   public changeDateTime = "changedatetime";
+  public sociallogin ="socialLogin";
 }

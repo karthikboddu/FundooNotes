@@ -33,18 +33,35 @@
                 <button mat-icon-button class="iconbtn">
                     <mat-icon class="icon">apps</mat-icon>
                 </button>
-                <button mat-icon-button class="iconbtn" [matMenuTriggerFor]="account">
-                    <mat-icon class="icon">account_box</mat-icon>
-                </button>
+                <button
+                *ngIf="!ispresent"
+                (click)="file.click()"
+                mat-fab color="primary"
+                [matMenuTriggerFor]="account"
+                matTooltip=" {{ profilename }}"
+                class="profileimg"
+              >
+              <span class="prfle">{{ profilename }}</span>
+                
+              </button>
             </div>
         </mat-toolbar-row>
     </mat-toolbar>
 
     <mat-menu #account="matMenu" class="matmenu">
+        <div>
+            <button mat-menu-item>{{ profilemail }}</button>
+          </div>
+      
+        <div fxLayout="row">
 
-        <button mat-menu-item>Add Account</button>
-        <button mat-menu-item>Log out</button>
-
+            <div fxLayout="column" fxLayout="start center">
+              <div>
+                <button mat-menu-item>Add account</button>
+                <button (click)="logout()" mat-menu-item>Sign out</button>
+              </div>
+            </div>
+          </div>
     </mat-menu>
 
     <mat-sidenav-container fxFlexFill>

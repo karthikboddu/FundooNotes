@@ -273,4 +273,41 @@ class UserDataController extends CI_Controller
 
     }
 
+    public function socialSigin($email,$name){
+        $emailExists = UserDataController::emailpresent($email);
+        $redis = new RedisConn();
+        $conn = $redis->connection();
+        $key =$conn->get('scretkey');
+        if($emailExists){
+            $token = JWT::encode($email,$key);
+            $data  = array(
+                "token"   => $token,
+                "message" => "200",
+            );
+            print json_encode($data);
+        }else{
+            $uid = uniqid();
+            $query = "INSERT into registeruser (user_id,fname,email) values ('$uid','$name','$email')";
+            $stmt = $this->db->conn_id->prepare($query);
+            $res = $stmt->execute();
+            if($res)
+            {
+                $token = JWT::encode($email,$key);
+                $data  = array(
+                    "token"   => $token,
+                    "message" => "200",
+                );
+                print json_encode($data);
+            }
+            else{
+                $data  = array(
+
+                    "message" => "204",
+                );
+                print json_encode($data);
+            
+            }
+        }
+    }
+
 }

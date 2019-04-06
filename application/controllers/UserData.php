@@ -74,4 +74,11 @@ class UserData extends CI_Controller
         $token = $_POST['token'];
         $res = $this->refService->resetpass($password,$token);
     }
+
+    public function socialLogin(){
+        $email = $_POST['email'];
+        $name = $_POST['name'];
+
+        $this->refService->socialSigin($email,$name);
+    }
 }

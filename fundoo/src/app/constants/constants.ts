@@ -1,5 +1,5 @@
 export class constants {
-    static facebookClientId = '315128245991236';
-    static googleClientId = '1009505662147-n3slcecr4slh5kmsijsls41n9cna94la.apps.googleusercontent.com' ;
+    static facebookClientId = '345373462761120';
+    static googleClientId = '1009505662147-e2oegvl056ddm6a3nsq17f6gnhnuea8k.apps.googleusercontent.com' ;
    }
   

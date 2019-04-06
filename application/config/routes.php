@@ -73,6 +73,9 @@ $route['unarchive'] = 'Archive/unarchive';
 $route['setlabel'] ='Label/addLabel';
 $route['fetchlabel'] = 'Label/fetchLabel';
 $route['changedatetime'] ='Notes/changetimedate';
+$route['socialLogin'] = 'UserData/socialLogin';
+ 
+
 $route['testapi'] = 'UserData/test';
 $route['testlog'] = 'UserData/testlogin';
 

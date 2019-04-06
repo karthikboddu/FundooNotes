@@ -76,6 +76,7 @@ export class LoginComponent implements OnInit {
   }
 
   public socialSignIn(socialPlatform : string) {
+    debugger
     let socialPlatformProvider;
     if(socialPlatform == "facebook"){
       socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
@@ -86,10 +87,28 @@ export class LoginComponent implements OnInit {
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
         console.log(socialPlatform+" sign in data : " , userData);
-        // Now sign-in with userData
-        // ...
-            
+        // Now sign-in with userData   
+        this.saveSocialUser(userData.name,userData.email,userData.image,userData.token)
+
       }
     );
   }
+
+  message
+saveSocialUser(name,email,image,token){
+  debugger
+    let socialres = this.loginservice.socialLogin(email,name);
+    socialres.subscribe((res:any)=>{
+      debugger
+      console.log(res);
+      if(res.message=="200"){ 
+        this.cookieserv.set("email",email);
+        this.cookieserv.set("image",image);
+        localStorage.setItem("token",token);
+        
+        this.route.navigate(["/home"]);
+      }
+    })
+}
+  
 }

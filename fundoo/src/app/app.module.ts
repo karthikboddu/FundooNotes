@@ -29,11 +29,12 @@ import { ArchiveComponent } from './component/archive/archive.component';
 import { LabelsComponent } from './component/labels/labels.component';
 import { AuthService as auth } from "./services/auth.service";
 import { CookieService } from 'ngx-cookie-service';
-
+ 
 import {
 	AuthService as social,
 	SocialLoginModule,
-	AuthServiceConfig
+	AuthServiceConfig,
+  AuthService
 } from "angular-6-social-login";;
 import { getAuthServiceConfigs } from './socialloginconfig';
 
@@ -74,7 +75,7 @@ import { getAuthServiceConfigs } from './socialloginconfig';
     FlexLayoutModule,
     HttpClientModule
   ],
-  providers: [RegisterService,CookieService,
+  providers: [RegisterService,CookieService,SocialLoginModule,AuthService,
 		auth,
 		{
 			provide: AuthServiceConfig,

@@ -8,6 +8,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { LabelsComponent } from '../labels/labels.component';
 import { LabelService } from 'src/app/services/label.service';
 import { Label } from '../../models/label.model';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -16,7 +17,9 @@ import { Label } from '../../models/label.model';
 export class HomeComponent implements OnInit {
 
   constructor(private viewservice: ViewService, private noteserv: NotesService, 
-    private dataservice:DataserviceService,private dialog:MatDialog,private labelservice:LabelService) { }
+    private dataservice:DataserviceService,private dialog:MatDialog,
+    private cookieserv : CookieService,
+    private labelservice:LabelService) { }
   grid: boolean = false;
   list: boolean = true;
   maindiv: boolean = false;
@@ -25,7 +28,8 @@ export class HomeComponent implements OnInit {
   tokenPayload;
   uid;
   breakpoint: number;
-
+  profilename:string;
+  profilemail
   ngOnInit() {
     $(document).ready(function () {
       $(".ip").click(function () {
@@ -47,6 +51,8 @@ export class HomeComponent implements OnInit {
       this.labels = res;
     })
 
+    this.profilemail = this.cookieserv.get("email");
+    this.profilename = this.profilemail.substring(0,1);
   }
 
 
