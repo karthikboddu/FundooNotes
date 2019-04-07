@@ -53,6 +53,21 @@
 
 
         </div>
+
+        <div  *ngIf="labelname != 'undefined' && labelname != null && labelname != ''">
+          <mat-chip-list>
+            <button mat-icon-button>
+              <mat-chip style="background-color: rgba(0,0,0,0.08);"> 
+              {{noteform.value.labelname}}
+            </mat-chip>
+              
+            </button>
+            <button
+            mat-icon-button class="remicon" (click)="labelname =null"><mat-icon style="margin-left:25px; font-size: 17px;" >close</mat-icon></button>
+          </mat-chip-list>
+
+
+        </div>
         <span class="spanbutton">
           <button mat-icon-button class="pinbtn" [matMenuTriggerFor]="remainder">
             <mat-icon class="icon">notification_important</mat-icon>
@@ -148,12 +163,27 @@
 
         </div>
 
+<div  *ngFor="let l of labels" >
+        <div  *ngIf="l.id==noteform.value.lid" >
+          <mat-chip-list>
+            <button mat-icon-button >
+              <mat-chip style="background-color: rgba(0,0,0,0.08);"> 
+              {{noteform.value.labelname}}
+            </mat-chip>
+              
+            </button>
+            <button
+            mat-icon-button class="remicon" (click)="labelname =null"><mat-icon style="margin-left:25px; font-size: 17px;" >close</mat-icon></button>
+          </mat-chip-list>
+
+</div>
+        </div>
 
       </div>
       <!-- [style.display]="'none'" -->
       <!-- <div  >      -->
       <span class="spanbtn">
-        <button mat-icon-button class="pinbtn" matTooltip="Info about the action" (click)="datetime(datetimeform.value)"
+        <button mat-icon-button class="pinbtn" matTooltip="Remainder" (click)="datetime(datetimeform.value)"
           [matMenuTriggerFor]="remainder">
           <mat-icon class="icon" (click)="rem_id = n.id">notification_important</mat-icon>
         </button>
@@ -206,7 +236,7 @@
   <mat-menu #moreopt="matMenu" class="matmenu">
 
     <button mat-menu-item (click)="deletenote(noteform.value.id)">Delete note</button>
-    <button mat-menu-item (click)="expression" [matMenuTriggerFor]="labelMenu">Add label</button>
+    <button mat-menu-item (click)="addLabel(n.id)" [matMenuTriggerFor]="labelMenu">Add label</button>
     <button mat-menu-item>Add Drawing</button>
 
     <button mat-menu-item>Make a copy</button>
@@ -220,10 +250,13 @@
 
 <mat-menu [overlapTrigger]="false" #labelMenu="matMenu">
   <div class="colorbtn">
-    <mat-list-item>
-      <a mat-list-item role="listitem" *ngFor="let item of labels">
-        <mat-icon class="icon">label</mat-icon><span class="notes">{{item.label}}</span>
+    <!-- <mat-list-item>
+      <a mat-list-item role="listitem" *ngFor="let l of labels">
+        <mat-icon class="icon">label</mat-icon><span class="notes">{{l.label}}</span>
       </a>
-    </mat-list-item>
+    </mat-list-item> -->
+    <button mat-menu-item  *ngFor="let l of labels"  (click)="noteform.value.labelname = l.label" (click)="labelname=l.label" (click)="noteform.value.lid=l.id">
+      {{ l.label }}
+    </button>
   </div>
 </mat-menu>

@@ -205,7 +205,7 @@ export class NotesComponent implements OnInit {
    */
   rem
   loadNotes() {
-
+    debugger
     const token = localStorage.getItem('token');
     if (token == null) {
       this.route.navigate(['../login']);
@@ -217,14 +217,14 @@ export class NotesComponent implements OnInit {
       let notesobs = this.noteserv.fetchNotes(uid);
 
       notesobs.subscribe((data: any) => {
-      
+        
         this.notes = data;
-        this.notes;
+    
        
 
 
         this.notes.forEach(element => {
-        debugger
+      
           element.remainder  = moment(element.remainder).format('MMM-DD HH:mm A') 
           if(element.remainder =='Invalid date'){
             element.remainder =null;
@@ -239,20 +239,25 @@ export class NotesComponent implements OnInit {
   }
   currentDateAndTime
 	remainder123() {
-		// this.toasterservice.success("ddd", "asfasdf");
-
+    // this.toasterservice.success("ddd", "asfasdf"); 
+    debugger
 		var day = new Date();
 		var fulldate =
 			day.toDateString() + " " + (day.getHours() % 12) + ":" + day.getMinutes();
 		fulldate = moment(fulldate).format("DD/MM/YYYY hh:mm") + " pm";
 
 		this.notes.forEach(element => {
+      debugger
 			let DateAndTime = fulldate;
-			this.currentDateAndTime = DateAndTime;
+      this.currentDateAndTime = DateAndTime;
+      console.log("remainder "+ element.remainder);
 			/**
 			 * compare with present time if equal alert remainder
 			 */
 			if (DateAndTime == element.remainder) {
+        console.log("remainder "+ element.remainder);
+        debugger
+
 				this.snackBar.open(element.notes, "", {
 					duration: 2000
 				});
@@ -277,6 +282,7 @@ export class NotesComponent implements OnInit {
     const open = this.dialog.open(EditnotesComponent, dialogconfg);
 
   }
+
 
 
   /**
@@ -410,11 +416,11 @@ export class NotesComponent implements OnInit {
     this.date_panel = false;
     this.newnote = true;
 
-    this.notes.forEach(element => {
-      element.title = value.title;
-      element
+    // this.notes.forEach(element => {
+    //   element.title = value.title;
+    //   element
       
-    });
+    // });
 
 
     const token = localStorage.getItem('token');

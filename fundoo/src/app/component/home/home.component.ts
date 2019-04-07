@@ -39,20 +39,26 @@ export class HomeComponent implements OnInit {
         $(".ip").css("background-color", "#F5F5F5");
       });
     });
-
+debugger
 
 
     this.token = localStorage.getItem('token');
-    this.tokenPayload = decode(this.token);
-    this.uid = this.tokenPayload.id;
+    if(this.token!=null){
+      // this.tokenPayload = decode(this.token);
+      // this.uid = this.tokenPayload.id;
+    }
+
 
     let labelobs = this.labelservice.fetchLabel(this.uid);
     labelobs.subscribe((res:any)=>{
       this.labels = res;
     })
-
+    debugger
     this.profilemail = this.cookieserv.get("email");
+    console.log("email" +this.profilemail);
+
     this.profilename = this.profilemail.substring(0,1);
+    console.log("name"+this.profilename);
   }
 
 

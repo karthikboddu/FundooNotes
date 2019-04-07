@@ -20,6 +20,7 @@ export class NotesService {
       createnotes.append("desc",notes.desc);
       createnotes.append("remainder",time);
       createnotes.append("color",notes.color);
+      createnotes.append("labelid",notes.lid);
       let headers_object = new HttpHeaders().set("Authorization",
 			
       localStorage.getItem("token")
