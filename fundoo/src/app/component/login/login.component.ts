@@ -104,7 +104,7 @@ saveSocialUser(name,email,image,token){
       if(res.message=="200"){ 
         this.cookieserv.set("email",email);
         this.cookieserv.set("image",image);
-        localStorage.setItem("token",token);
+        localStorage.setItem("token",res.token);
         
         this.route.navigate(["/home"]);
       }

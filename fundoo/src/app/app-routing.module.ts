@@ -13,6 +13,7 @@ import { DialogdataComponent } from './component/dialogdata/dialogdata.component
 
 import { ReminderComponent } from './component/reminder/reminder.component';
 import { ArchiveComponent } from './component/archive/archive.component';
+import { LabelsdisplayComponent } from './component/labelsdisplay/labelsdisplay.component';
 
 const routes: Routes = [
   {path : 'login',component : LoginComponent},
@@ -24,11 +25,13 @@ const routes: Routes = [
               { path:'',component:NotesComponent},
               { path:'notes',component:NotesComponent},
              {path:'reminder',component:ReminderComponent},
-             {path:'archive',component:ArchiveComponent}
+             {path:'archive',component:ArchiveComponent},
+             {path:'labelsdisplay',component:LabelsdisplayComponent},
             ],
  
     },
   {path : '' ,component :LoginComponent},
+ 
   {path:'dialog',component:DialogComponent},
   {path:'dialogdata',component:DialogdataComponent},
 

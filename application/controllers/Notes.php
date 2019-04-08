@@ -27,7 +27,8 @@ class Notes extends CI_Controller
         $desc = $_POST['desc'];
         $rem = $_POST['remainder'];
         $color = $_POST['color'];
-        $notesres = $this->refService->addNotes($id,$title,$desc,$rem,$color);
+        $labelid = $_POST['labelid'];
+        $notesres = $this->refService->addNotes($id,$title,$desc,$rem,$color,$labelid);
         return $notesres;
     }
 
@@ -59,6 +60,11 @@ class Notes extends CI_Controller
         $id = $_POST['id'];
         $datetime = $_POST['presentDateTime'];
         $this->refService->updatedate($id,$datetime);
+    }
+
+    public function labelsfetch(){
+        $id = $_POST['id'];
+        $this->refService->labelscomp($id);
     }
 
 }

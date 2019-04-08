@@ -19,7 +19,7 @@ class NoteService extends CI_Controller
 
     }
 
-    public function addNotes($email, $title, $desc, $rem, $color)
+    public function addNotes($id, $title, $desc, $rem, $color,$lid)
     {
         $reff = new JWT();
         $flag = 0;
@@ -39,9 +39,20 @@ class NoteService extends CI_Controller
                 $conn = $redis->connection();
                 $response = $conn->get('token');
                 $date = date("Y-m-d H:i:s");
-                $query = "INSERT into notes (title,description,remainder,color,user_id,created_at) values ('$title','$desc','$rem','$color','$email',now())";
+                $query = "INSERT into notes (title,description,remainder,color,user_id,lid,created_at) values ('$title','$desc','$rem','$color','$id','$lid',now())";
                 $stmt = $this->db->conn_id->prepare($query);
                 $res = $stmt->execute();
+                if($lid!="undefined"){
+                    $queryy = "SELECT id from notes where user_id='$id'";
+                    $stm = $this->db->conn_id->prepare($queryy); 
+                    $stm->execute();
+                    $noteArr = $stm->fetchAll(PDO::FETCH_ASSOC);
+                    // $nid = $noteArr['id'];
+                    $lquery = "INSERT into labelsmap(notes_id,labels_id) values(LAST_INSERT_ID(),'$lid')";
+                    $lstmnt = $this->db->conn_id->prepare($lquery);
+                    $lres = $lstmnt->execute();
+                }
+      
                 if ($res) {
                     $data = array(
                         "status" => "200",
@@ -180,6 +191,17 @@ class NoteService extends CI_Controller
         $query = "UPDATE notes SET remainder = '$date' where id = '$id'";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
+    }
+
+
+    public function labelscomp($id){
+        $query = "SELECT * from notes,labelsmap WHERE notes.id = labelsmap.notes_id AND id='$id'  ";
+        $stmt = $this->db->conn_id->prepare($query);
+        $res = $stmt->execute();
+
+        $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        print json_encode($arr);
     }
 
 }

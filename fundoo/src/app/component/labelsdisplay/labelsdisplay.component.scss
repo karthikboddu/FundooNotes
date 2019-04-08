@@ -1,0 +1,174 @@
+.main{
+    height: 100%;
+  }
+  .ipnotes{
+      border: solid 1px rgba(0, 0, 0, 0.2);
+      border-radius: 11px;
+      outline: none;
+      margin-top: 30px;
+      margin-left: 340px;
+      padding: 6px 16px;
+    
+      width: 570px;
+      box-shadow: 3px 2px 1px 1px #D8DBDF;
+      border-radius: 10px; 
+      font-size: 16px;
+      line-height: 34px;
+    }
+    .example-full-width {
+      width: 570px;
+    }
+    .icon{
+      color: #6F6F6F;
+      padding:3px 10px;
+      
+    }
+   
+    .matcard{
+      margin-top: 3px;
+      margin-left: 340px;
+      // height: 147px;
+      width: 570px;
+      box-shadow: -1px 1px 11px 8px rgba(173,173,173,0.72);
+    }
+  
+    mat-grid-list {
+     max-width: 900px;
+      margin-top: 35px;
+      margin-left: 220px;
+      margin-right: 10px;
+  }
+  
+  
+  .btnclose{
+    margin-left: 90px;
+  }
+  .iconbtn{
+    margin-left: -140px;
+  }
+  
+  .notesubmit{
+    margin-top: -12px;
+    margin-left: 491px;
+  }
+  
+  .mat-input-element{
+    width: 530px;
+  }
+  .close{
+  margin-left: 302px;
+  }
+  
+  .ipnote{
+    font-size: 16px;
+    line-height: 34px;
+    border: none;
+    outline: none;
+  }
+  
+  .takenote{
+    width: 531px;
+  }
+  .flexcard{
+    margin-left: 238px;
+    margin-top: 30px;
+  
+  }
+  mat-chip {
+    font-weight: 400;
+    background-color: #F5F5F5;
+  }
+  .column{
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    width: 600px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px;
+    max-height: 145px;
+  
+  }
+  .row{
+    border-radius: 10px;
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    max-width: 210px;
+    margin-bottom: 20px;
+    padding: 5px 5px 5px 5px;
+    max-height: 150px;
+  }
+  .spanbtn{
+    width: 100px;
+  }
+  .spanbutton{
+      width: 100px;
+    
+  }
+  .remicon{
+    margin-left: -13px;
+    font-size: 17px;
+  }
+  .matgrid{
+    height: 150px;
+    width: 200px;
+  }
+  
+  .datecard{
+    margin-left: 27%;
+    margin-top: -25px;
+    position: absolute;
+    z-index: 100;
+    box-shadow: 000pxblack;
+    width: 248px;
+    max-height: 300px;
+    padding: 2px;
+  }
+  
+  .mat-form-field{
+    
+    width:200px;;
+    
+  }
+  .grid{
+    position: static;
+    top: 0;
+    left: 0;
+  
+    width: 100%;
+  }
+  
+  .para{
+    text-align: center;
+    font-weight: 500;
+    font-family: 'Google Sans',Roboto,Arial,sans-serif;
+    text-align: justify
+  }
+  .gridcard{
+    width: 100%;
+    margin-left: 8px;
+    border-radius: 18px;
+  }
+  mat-button{
+    width: 100%;
+  }
+  
+  .listview{
+    margin-left: 220px;
+  }
+  
+  .dateip{
+    max-width: 100px;
+  }
+  .colorbtn {
+    padding-top: 8px;
+    width: 160px;
+    padding-bottom: 8px;
+  }
+  
+  .chip{
+  background-color: rgba(0,0,0,0.08);
+  }
+  
+  
+  
+  
+  
+  
+  

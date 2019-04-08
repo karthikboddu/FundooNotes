@@ -1,4 +1,4 @@
-import { Component, OnInit, Directive, HostListener, ElementRef, Renderer, Output, Input } from '@angular/core';
+import { Component, OnInit, Renderer, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NotesService } from '../../services/notes.service';
 import * as moment from "moment";
@@ -10,18 +10,16 @@ import { EditnotesComponent } from '../editnotes/editnotes.component';
 import { Notes } from '../../models/notes.model';
 import { CookieService } from 'ngx-cookie-service';
 import { LabelService } from 'src/app/services/label.service';
+import { Label } from 'src/app/models/label.model';
 
-import { Label } from '../../models/label.model';
 @Component({
-  selector: 'app-notes',
-  templateUrl: './notes.component.html',
-  styleUrls: ['./notes.component.scss']
+  selector: 'app-labelsdisplay',
+  templateUrl: './labelsdisplay.component.html',
+  styleUrls: ['./labelsdisplay.component.scss']
 })
-@Directive({
-  selector: "[btnhover]"
-})
-export class NotesComponent implements OnInit {
+export class LabelsdisplayComponent implements OnInit {
 
+ 
   classcard;
   notes: Notes[] = [];
   labels : Label[];
@@ -511,4 +509,5 @@ export class NotesComponent implements OnInit {
     })
 
   }
+
 }

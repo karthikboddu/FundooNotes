@@ -9,6 +9,7 @@ import { LabelsComponent } from '../labels/labels.component';
 import { LabelService } from 'src/app/services/label.service';
 import { Label } from '../../models/label.model';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   constructor(private viewservice: ViewService, private noteserv: NotesService, 
     private dataservice:DataserviceService,private dialog:MatDialog,
     private cookieserv : CookieService,
-    private labelservice:LabelService) { }
+    private labelservice:LabelService,private route:Router) { }
   grid: boolean = false;
   list: boolean = true;
   maindiv: boolean = false;
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit {
   token;
   tokenPayload;
   uid;
-  breakpoint: number;
+ 
   profilename:string;
   profilemail
   ngOnInit() {
@@ -44,8 +45,8 @@ debugger
 
     this.token = localStorage.getItem('token');
     if(this.token!=null){
-      // this.tokenPayload = decode(this.token);
-      // this.uid = this.tokenPayload.id;
+      this.tokenPayload = decode(this.token);
+      this.uid = this.tokenPayload.id;
     }
 
 
@@ -102,6 +103,7 @@ debugger
   logout() {
     localStorage.removeItem('email');
     localStorage.removeItem('token');
+    this.route.navigate(["/home"]);
   }
 
 

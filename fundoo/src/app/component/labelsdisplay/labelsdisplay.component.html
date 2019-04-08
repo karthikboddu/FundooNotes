@@ -1,0 +1,77 @@
+<div fxShow="true" fxHide.lt-sm="true">
+  <input class="ipnotes" *ngIf="noteshow" (click)="toggle()" placeholder="Take a note">
+  <span class="iconbtn"><button mat-icon-button>
+      <mat-icon class="icon">check_box</mat-icon>
+    </button>
+
+    <button mat-icon-button>
+      <mat-icon class="icon">brush</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon class="icon">insert_photo</mat-icon>
+    </button>
+  </span>
+</div>
+
+<mat-card class="matcard"  [ngStyle]="{'background-color': noteform.value.color}">
+  <form [formGroup]="noteform">
+    <input matInput [ngStyle]="{'background-color': noteform.value.color}" class="ipnote" placeholder="Title"
+      formControlName="title">
+    <button mat-icon-button class="pinbtn">
+      <mat-icon class="icon"><img src="../../../assets/pin.svg"></mat-icon>
+    </button>
+
+    <input class="ipnote takenote" [ngStyle]="{'background-color': noteform.value.color}" matInput
+      placeholder="Take a note ..." formControlName="desc">
+    <div *ngIf="timer">
+      <button mat-icon-button>
+        <mat-icon class="remicon">schedule</mat-icon>
+        <mat-chip class="chip">
+          {{timedate}}
+        </mat-chip>
+
+
+      </button>
+      <button mat-icon-button class="btnclose" (click)="closetime()">
+        <mat-icon class="remicon">close</mat-icon>
+
+      </button>
+
+
+
+    </div>
+
+    <div  *ngIf="labelname != 'undefined' && labelname != null && labelname != ''">
+      <mat-chip-list>
+        <button mat-icon-button>
+          <mat-chip style="background-color: rgba(0,0,0,0.08);"> 
+          {{noteform.value.labelname}}
+        </mat-chip>
+          
+        </button>
+        <button
+        mat-icon-button class="remicon" (click)="labelname =null"><mat-icon style="margin-left:25px; font-size: 17px;" >close</mat-icon></button>
+      </mat-chip-list>
+
+
+    </div>
+    <span class="spanbutton">
+      <button mat-icon-button class="pinbtn" [matMenuTriggerFor]="remainder">
+        <mat-icon class="icon">notification_important</mat-icon>
+      </button>
+      <button mat-icon-button class="pinbtn">
+        <mat-icon class="icon" [matMenuTriggerFor]="colorMenu">color_lens</mat-icon>
+      </button>
+      <button mat-icon-button class="pinbtn">
+        <mat-icon class="icon">archive</mat-icon>
+      </button>
+      <button mat-icon-button class="pinbtn">
+        <mat-icon class="icon">person_add</mat-icon>
+      </button>
+      <button mat-icon-button class="pinbtn">
+        <mat-icon class="icon" [matMenuTriggerFor]="moreopt">more_vert</mat-icon>
+      </button>
+      <button mat-button class="close" (click)="noteSubmit(noteform.value)">Close</button>
+    </span>
+  </form>
+</mat-card>

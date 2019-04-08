@@ -279,7 +279,13 @@ class UserDataController extends CI_Controller
         $conn = $redis->connection();
         $key =$conn->get('scretkey');
         if($emailExists){
-            $token = JWT::encode($email,$key);
+            $que1 = "SELECT user_id from registeruser where email ='$email' ";
+            $stmt = $this->db->conn_id->prepare($que1);
+            $stmt->execute();
+            $idArr = $stmt->fetch(PDO::FETCH_ASSOC);
+            $id = $idArr['user_id'];
+            $resToken = array("id"=>$id);
+            $token = JWT::encode($resToken,$key);
             $data  = array(
                 "token"   => $token,
                 "message" => "200",

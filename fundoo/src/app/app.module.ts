@@ -37,7 +37,8 @@ import {
   AuthService
 } from "angular-6-social-login";;
 import { getAuthServiceConfigs } from './socialloginconfig';
-
+import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
+import { LabelsdisplayComponent } from './component/labelsdisplay/labelsdisplay.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +64,8 @@ import { getAuthServiceConfigs } from './socialloginconfig';
     ArchiveComponent,
 
     LabelsComponent,
+
+    LabelsdisplayComponent,
    
   ],
   imports: [
@@ -73,7 +76,9 @@ import { getAuthServiceConfigs } from './socialloginconfig';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    JwSocialButtonsModule
+
   ],
   providers: [RegisterService,CookieService,SocialLoginModule,AuthService,
 		auth,
