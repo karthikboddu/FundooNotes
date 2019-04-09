@@ -19,12 +19,14 @@
 
 namespace Doctrine\ORM;
 
+use Closure;
 use Doctrine\Common\Collections\AbstractLazyCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 /**
  * A PersistentCollection represents a collection of elements that have persistent state.
@@ -49,7 +51,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      *
      * @var array
      */
-    private $snapshot = [];
+    private $snapshot = array();
 
     /**
      * The entity that owns this collection.
@@ -99,13 +101,13 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
     /**
      * Creates a new persistent collection.
      *
-     * @param EntityManagerInterface $em         The EntityManager the collection will be associated with.
-     * @param ClassMetadata          $class      The class descriptor of the entity type of this collection.
-     * @param Collection             $collection The collection elements.
+     * @param EntityManagerInterface $em    The EntityManager the collection will be associated with.
+     * @param ClassMetadata          $class The class descriptor of the entity type of this collection.
+     * @param Collection             $coll  The collection elements.
      */
-    public function __construct(EntityManagerInterface $em, $class, Collection $collection)
+    public function __construct(EntityManagerInterface $em, $class, $coll)
     {
-        $this->collection  = $collection;
+        $this->collection  = $coll;
         $this->em          = $em;
         $this->typeClass   = $class;
         $this->initialized = true;
@@ -366,14 +368,18 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      */
     public function removeElement($element)
     {
-        if ( ! $this->initialized && $this->association['fetch'] === ClassMetadata::FETCH_EXTRA_LAZY) {
+        if ( ! $this->initialized && $this->association['fetch'] === Mapping\ClassMetadataInfo::FETCH_EXTRA_LAZY) {
             if ($this->collection->contains($element)) {
                 return $this->collection->removeElement($element);
             }
 
             $persister = $this->em->getUnitOfWork()->getCollectionPersister($this->association);
 
-            return $persister->removeElement($this, $element);
+            if ($persister->removeElement($this, $element)) {
+                return $element;
+            }
+
+            return null;
         }
 
         $removed = parent::removeElement($element);
@@ -399,7 +405,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      */
     public function containsKey($key)
     {
-        if (! $this->initialized && $this->association['fetch'] === ClassMetadata::FETCH_EXTRA_LAZY
+        if (! $this->initialized && $this->association['fetch'] === Mapping\ClassMetadataInfo::FETCH_EXTRA_LAZY
             && isset($this->association['indexBy'])) {
             $persister = $this->em->getUnitOfWork()->getCollectionPersister($this->association);
 
@@ -414,7 +420,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      */
     public function contains($element)
     {
-        if ( ! $this->initialized && $this->association['fetch'] === ClassMetadata::FETCH_EXTRA_LAZY) {
+        if ( ! $this->initialized && $this->association['fetch'] === Mapping\ClassMetadataInfo::FETCH_EXTRA_LAZY) {
             $persister = $this->em->getUnitOfWork()->getCollectionPersister($this->association);
 
             return $this->collection->contains($element) || $persister->contains($this, $element);
@@ -429,7 +435,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
     public function get($key)
     {
         if ( ! $this->initialized
-            && $this->association['fetch'] === ClassMetadata::FETCH_EXTRA_LAZY
+            && $this->association['fetch'] === Mapping\ClassMetadataInfo::FETCH_EXTRA_LAZY
             && isset($this->association['indexBy'])
         ) {
             if (!$this->typeClass->isIdentifierComposite && $this->typeClass->isIdentifier($this->association['indexBy'])) {
@@ -447,7 +453,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      */
     public function count()
     {
-        if ( ! $this->initialized && $this->association['fetch'] === ClassMetadata::FETCH_EXTRA_LAZY) {
+        if ( ! $this->initialized && $this->association['fetch'] === Mapping\ClassMetadataInfo::FETCH_EXTRA_LAZY) {
             $persister = $this->em->getUnitOfWork()->getCollectionPersister($this->association);
 
             return $persister->count($this) + ($this->isDirty ? $this->collection->count() : 0);
@@ -464,10 +470,6 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
         parent::set($key, $value);
 
         $this->changed();
-
-        if (is_object($value) && $this->em) {
-            $this->em->getUnitOfWork()->cancelOrphanRemoval($value);
-        }
     }
 
     /**
@@ -478,10 +480,6 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
         $this->collection->add($value);
 
         $this->changed();
-
-        if (is_object($value) && $this->em) {
-            $this->em->getUnitOfWork()->cancelOrphanRemoval($value);
-        }
 
         return true;
     }
@@ -510,11 +508,10 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
     public function offsetSet($offset, $value)
     {
         if ( ! isset($offset)) {
-            $this->add($value);
-            return;
+            return $this->add($value);
         }
 
-        $this->set($offset, $value);
+        return $this->set($offset, $value);
     }
 
     /**
@@ -539,8 +536,6 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
     public function clear()
     {
         if ($this->initialized && $this->isEmpty()) {
-            $this->collection->clear();
-
             return;
         }
 
@@ -582,7 +577,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      */
     public function __sleep()
     {
-        return ['collection', 'initialized'];
+        return array('collection', 'initialized');
     }
 
     /**
@@ -599,7 +594,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      */
     public function slice($offset, $length = null)
     {
-        if ( ! $this->initialized && ! $this->isDirty && $this->association['fetch'] === ClassMetadata::FETCH_EXTRA_LAZY) {
+        if ( ! $this->initialized && ! $this->isDirty && $this->association['fetch'] === Mapping\ClassMetadataInfo::FETCH_EXTRA_LAZY) {
             $persister = $this->em->getUnitOfWork()->getCollectionPersister($this->association);
 
             return $persister->slice($this, $offset, $length);
@@ -630,7 +625,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
         $this->initialize();
 
         $this->owner    = null;
-        $this->snapshot = [];
+        $this->snapshot = array();
 
         $this->changed();
     }
@@ -671,7 +666,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
 
         $persister = $this->em->getUnitOfWork()->getEntityPersister($this->association['targetEntity']);
 
-        return ($this->association['fetch'] === ClassMetadata::FETCH_EXTRA_LAZY)
+        return ($this->association['fetch'] === ClassMetadataInfo::FETCH_EXTRA_LAZY)
             ? new LazyCriteriaCollection($persister, $criteria)
             : new ArrayCollection($persister->loadCriteria($criteria));
     }
@@ -692,39 +687,21 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
     protected function doInitialize()
     {
         // Has NEW objects added through add(). Remember them.
-        $newlyAddedDirtyObjects = [];
+        $newObjects = array();
 
         if ($this->isDirty) {
-            $newlyAddedDirtyObjects = $this->collection->toArray();
+            $newObjects = $this->collection->toArray();
         }
 
         $this->collection->clear();
         $this->em->getUnitOfWork()->loadCollection($this);
         $this->takeSnapshot();
 
-        if ($newlyAddedDirtyObjects) {
-            $this->restoreNewObjectsInDirtyCollection($newlyAddedDirtyObjects);
-        }
-    }
-
-    /**
-     * @param object[] $newObjects
-     *
-     * Note: the only reason why this entire looping/complexity is performed via `spl_object_hash`
-     *       is because we want to prevent using `array_udiff()`, which is likely to cause very
-     *       high overhead (complexity of O(n^2)). `array_diff_key()` performs the operation in
-     *       core, which is faster than using a callback for comparisons
-     */
-    private function restoreNewObjectsInDirtyCollection(array $newObjects) : void
-    {
-        $loadedObjects               = $this->collection->toArray();
-        $newObjectsByOid             = \array_combine(\array_map('spl_object_hash', $newObjects), $newObjects);
-        $loadedObjectsByOid          = \array_combine(\array_map('spl_object_hash', $loadedObjects), $loadedObjects);
-        $newObjectsThatWereNotLoaded = \array_diff_key($newObjectsByOid, $loadedObjectsByOid);
-
-        if ($newObjectsThatWereNotLoaded) {
-            // Reattach NEW objects added through add(), if any.
-            \array_walk($newObjectsThatWereNotLoaded, [$this->collection, 'add']);
+        // Reattach NEW objects added through add(), if any.
+        if ($newObjects) {
+            foreach ($newObjects as $obj) {
+                $this->collection->add($obj);
+            }
 
             $this->isDirty = true;
         }

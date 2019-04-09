@@ -110,9 +110,7 @@ class CacheConfiguration
     public function getQueryValidator()
     {
         if ($this->queryValidator === null) {
-            $this->queryValidator = new TimestampQueryCacheValidator(
-                $this->cacheFactory->getTimestampRegion()
-            );
+            $this->queryValidator = new TimestampQueryCacheValidator();
         }
 
          return $this->queryValidator;

@@ -135,11 +135,11 @@ export class NotesComponent implements OnInit {
     this.timer = false;
     this.newnote = false;
     this.notes_timer = true;
-    // setInterval(() => {
-     
-    // }, 1000);
+    setInterval(() => {
+      this.remainder123();
+    }, 1000);
     this.loadNotes();
-    this.remainder123();
+    
    
 
 
@@ -268,7 +268,7 @@ export class NotesComponent implements OnInit {
           console.log("remainder "+ element.remainder);
           debugger
   
-          this.snackBar.open(element.notes, "", {
+          this.snackBar.open(element.title, "", {
             duration: 2000
           });
         }

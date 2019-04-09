@@ -45,27 +45,14 @@ class QueryCacheKey extends CacheKey
     public $cacheMode;
 
     /**
-     * READ-ONLY: Public only for performance reasons, it should be considered immutable.
-     *
-     * @var TimestampCacheKey|null
+     * @param string  $hash      Result cache id
+     * @param integer $lifetime  Query lifetime
+     * @param integer $cacheMode Query cache mode
      */
-    public $timestampKey;
-
-    /**
-     * @param string $hash Result cache id
-     * @param integer $lifetime Query lifetime
-     * @param int $cacheMode Query cache mode
-     * @param TimestampCacheKey|null $timestampKey
-     */
-    public function __construct(
-        $hash,
-        $lifetime = 0,
-        $cacheMode = Cache::MODE_NORMAL,
-        TimestampCacheKey $timestampKey = null
-    ) {
-        $this->hash         = $hash;
-        $this->lifetime     = $lifetime;
-        $this->cacheMode    = $cacheMode;
-        $this->timestampKey = $timestampKey;
+    public function __construct($hash, $lifetime = 0, $cacheMode = Cache::MODE_NORMAL)
+    {
+        $this->hash      = $hash;
+        $this->lifetime  = $lifetime;
+        $this->cacheMode = $cacheMode;
     }
 }

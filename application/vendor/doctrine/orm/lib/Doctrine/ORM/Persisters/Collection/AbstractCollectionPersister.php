@@ -90,6 +90,10 @@ abstract class AbstractCollectionPersister implements CollectionPersister
 
         // If Entity is scheduled for inclusion, it is not in this collection.
         // We can assure that because it would have return true before on array check
-        return ! ($entityState === UnitOfWork::STATE_MANAGED && $this->uow->isScheduledForInsert($entity));
+        if ($entityState === UnitOfWork::STATE_MANAGED && $this->uow->isScheduledForInsert($entity)) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -35,7 +35,7 @@ class MetadataFilter extends \FilterIterator implements \Countable
     /**
      * @var array
      */
-    private $filter = [];
+    private $filter = array();
 
     /**
      * Filter Metadatas by one or more filter options.
@@ -82,6 +82,10 @@ class MetadataFilter extends \FilterIterator implements \Countable
                 throw new \RuntimeException(
                     sprintf("Error while evaluating regex '/%s/'.", $filter)
                 );
+            }
+
+            if ($pregResult === 0) {
+                return false;
             }
 
             if ($pregResult) {

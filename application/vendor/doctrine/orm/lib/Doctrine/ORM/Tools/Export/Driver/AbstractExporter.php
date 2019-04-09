@@ -35,7 +35,7 @@ abstract class AbstractExporter
     /**
      * @var array
      */
-    protected $_metadata = [];
+    protected $_metadata = array();
 
     /**
      * @var string|null
@@ -130,22 +130,21 @@ abstract class AbstractExporter
     public function export()
     {
         if ( ! is_dir($this->_outputDir)) {
-            mkdir($this->_outputDir, 0775, true);
+            mkdir($this->_outputDir, 0777, true);
         }
 
         foreach ($this->_metadata as $metadata) {
             // In case output is returned, write it to a file, skip otherwise
-            if ($output = $this->exportClassMetadata($metadata)) {
+            if($output = $this->exportClassMetadata($metadata)){
                 $path = $this->_generateOutputPath($metadata);
                 $dir = dirname($path);
                 if ( ! is_dir($dir)) {
-                    mkdir($dir, 0775, true);
+                    mkdir($dir, 0777, true);
                 }
                 if (file_exists($path) && !$this->_overwriteExistingFiles) {
                     throw ExportException::attemptOverwriteExistingFile($path);
                 }
                 file_put_contents($path, $output);
-                chmod($path, 0664);
             }
         }
     }

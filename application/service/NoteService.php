@@ -195,7 +195,7 @@ class NoteService extends CI_Controller
 
 
     public function labelscomp($id){
-        $query = "SELECT * from notes,labelsmap WHERE notes.id = labelsmap.notes_id AND id='$id'  ";
+        $query = "SELECT * from labelsmap where labelsid='$id'  ";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
 
