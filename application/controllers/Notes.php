@@ -51,9 +51,24 @@ class Notes extends CI_Controller
         $this->refService->colorSet($id,$color,$flag);
     }
 
-    public function notedelete(){
+    public function noteTrash(){
         $id = $_POST['id'];
-        $this->refService->deletenote($id);
+        $this->refService->trashNote($id);
+    }
+
+    public function deleteNote(){
+        $id = $_POST['id'];
+        $this->refService->noteDelete($id);
+    }
+    
+    public function noteRestore(){
+        $id = $_POST['id'];
+        $this->refService->notesRestore($id);
+    }
+
+    public function notefetch(){
+        $id = $_POST['id'];
+        $this->refService->fetchnote($id);   
     }
 
     public function changetimedate(){

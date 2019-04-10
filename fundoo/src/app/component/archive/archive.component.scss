@@ -1,7 +1,36 @@
 .flexcard{
-    margin-left: 238px;
-    margin-top: 30px;
+  margin-left: 238px;
+  margin-top: 30px;
+
+}
+mat-chip {
+  font-weight: 400;
+  background-color: #F5F5F5;
+}
+.column{
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  width: 600px;
+  padding: 5px 5px 5px 5px;
+  border-radius: 10px;
+  max-height: 145px;
+
+}
+.row{
+  border-radius: 10px;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  max-width: 210px;
+  margin-bottom: 20px;
+  padding: 5px 5px 5px 5px;
+  max-height: 150px;
+}
+.spanbtn{
+  width: 100px;
+}
+.spanbutton{
+    width: 100px;
   
-  }  .remicon{
-    margin-left: 10px;
-  }
+}
+.remicon{
+  margin-left: -13px;
+  font-size: 17px;
+}

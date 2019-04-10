@@ -47,5 +47,26 @@ class LabelService extends CI_Controller
         print json_encode($arr);
     }
 
+    
+    public function labeldelete($uid){
+        $query = "DELETE FROM labels WHERE id = '$uid'";
+        $stmt = $this->db->conn_id->prepare($query);
+        $res = $stmt->execute();
+        if ($res) {
+            $data = array(
+                "status" => "200",
+            );
+            print json_encode($data);
+
+        } else {
+            $data = array(
+                "status" => "204",
+            );
+            print json_encode($data);
+            return "204";
+
+        }
+    }
+
 
 }

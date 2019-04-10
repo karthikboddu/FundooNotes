@@ -10,7 +10,7 @@ import { EditnotesComponent } from '../editnotes/editnotes.component';
 import { Notes } from '../../models/notes.model';
 import { CookieService } from 'ngx-cookie-service';
 import { LabelService } from 'src/app/services/label.service';
-
+import {CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { Label } from '../../models/label.model';
 @Component({
   selector: 'app-notes',
@@ -136,12 +136,12 @@ export class NotesComponent implements OnInit {
     this.newnote = false;
     this.notes_timer = true;
     setInterval(() => {
-      this.remainder123();
+     
     }, 1000);
     this.loadNotes();
     
-   
-
+    
+    this.remainder123();
 
     this.viewservice.getView().subscribe((res => {
       this.view = res;
@@ -441,7 +441,7 @@ export class NotesComponent implements OnInit {
 
     this.title = value.title;
     this.description = value.desc;
-    this.loadNotes();
+    // this.loadNotes();
     const email = localStorage.getItem('email');
     let createobs = this.noteserv.createNotes(value, uid, this.todaydb);
 
@@ -450,6 +450,23 @@ export class NotesComponent implements OnInit {
       console.log(res.status);
       if (res.status == "200") {
         this.token1 = res.token;
+          this.notes.forEach(element => {
+              
+            let thingsObj = {} as Notes;
+
+            // thingsObj.id = value.id
+              thingsObj.title = value.title;
+              thingsObj.desc = value.desc;
+              thingsObj.color = value.color;
+      
+              
+              this.notes.push(thingsObj);
+    
+            
+            this.loadNotes();
+
+            
+          });
       }
     })
   }
@@ -495,9 +512,11 @@ export class NotesComponent implements OnInit {
   autoHide: number = 2000;
   addExtraClass: boolean = false;
   actionButtonLabel: string = 'Undo';
-  deletenote(id) {
+
+
+  deletenote(id,value) {
     debugger
-    let delobs = this.noteserv.notedelete(id);
+    let delobs = this.noteserv.notedtrash(id);
     let config = new MatSnackBarConfig();
     config.verticalPosition = this.verticalPosition;
     config.horizontalPosition = this.horizontalPosition;
@@ -505,6 +524,14 @@ export class NotesComponent implements OnInit {
     
     delobs.subscribe((res: any) => {
       if (res.status == "200") {
+debugger
+        this.notes.forEach(element => {
+          debugger
+          if(element.id == id){
+            element.trash=value;
+            this.loadNotes();
+          }
+        });
         this.stat = "Note bined";
         this.snackBar.open(this.stat, this.action ? this.actionButtonLabel : undefined, config);
       }

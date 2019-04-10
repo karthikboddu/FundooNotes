@@ -66,7 +66,9 @@ $route['fetchnotes'] = 'Notes/fetchNotes';
 $route['updatenote'] = 'Notes/updateNotes';
 $route['setcolor'] = 'Notes/setColor';
 $route['fetchremnotes'] = 'Reminder/fetchReminderNotes';
-$route['deletenote'] = 'Notes/notedelete';
+$route['trashnote'] = 'Notes/noteTrash';
+$route['deletenote'] = 'Notes/deleteNote';
+$route['restorenote'] = 'Notes/noteRestore';
 $route['fetchreminder'] ='Reminder/fetchReminderNotes';
 $route['fetcharchive'] = 'Archive/fetchArchive';
 $route['unarchive'] = 'Archive/unarchive';
@@ -75,6 +77,9 @@ $route['fetchlabel'] = 'Label/fetchLabel';
 $route['changedatetime'] ='Notes/changetimedate';
 $route['socialLogin'] = 'UserData/socialLogin';
 $route['labelsfet'] ='Notes/labelsfetch';
+$route['fetchnote'] = 'Notes/notefetch';
+$route['labeldelete'] = 'Label/deleteLabel';
+
 
 $route['testapi'] = 'UserData/test';
 $route['testlog'] = 'UserData/testlogin';

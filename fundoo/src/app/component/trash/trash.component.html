@@ -1,0 +1,29 @@
+<div class="flexcard" fxLayout="{{direction}} wrap" fxLayoutGap="50px" fxLayoutAlign="start center">
+
+  <mat-card btnhover *ngFor="let items of notes" [ngClass]="direction == 'row' ? 'row': 'column' "
+    [ngStyle]="{'background-color': items.color}">
+    <div class="cardtext">
+      <p class="para">{{items.title}}</p>
+      <p class="para"> {{items.description}}</p>
+      <p class="para">
+        <mat-chip> {{items.remainder}}</mat-chip>
+      </p>
+    </div>
+    <span class="spanbtn">
+      <button mat-icon-button class="pinbtn" [matMenuTriggerFor]="moreopt" (click)="id=items.id" >
+        <mat-icon class="icon">more_vert</mat-icon>
+      </button>
+    </span>
+
+  </mat-card>
+
+</div>
+
+<mat-menu #moreopt="matMenu" class="matmenu">
+
+
+  <button mat-menu-item (click)="delete(id)">Delete foreever</button>
+  <button mat-menu-item (click)="noteRestore(id,'0')">Restore</button>
+
+
+</mat-menu>

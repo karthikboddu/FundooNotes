@@ -78,9 +78,10 @@
           <button mat-icon-button class="pinbtn">
             <mat-icon class="icon">archive</mat-icon>
           </button>
-          <button mat-icon-button class="pinbtn">
+          <button mat-icon-button class="pinbtn" (click)="file.click()">
             <mat-icon class="icon">person_add</mat-icon>
           </button>
+          <input style="display: none;" type="file" #file  />
           <button mat-icon-button class="pinbtn">
             <mat-icon class="icon" [matMenuTriggerFor]="moreopt">more_vert</mat-icon>
           </button>
@@ -235,7 +236,7 @@
 
   <mat-menu #moreopt="matMenu" class="matmenu">
 
-    <button mat-menu-item (click)="deletenote(noteform.value.id)">Delete note</button>
+    <button mat-menu-item (click)="deletenote(noteform.value.id,'1')">Delete note</button>
     <button mat-menu-item (click)="addLabel(n.id)" [matMenuTriggerFor]="labelMenu">Add label</button>
     <button mat-menu-item>Add Drawing</button>
 

@@ -22,4 +22,10 @@ export class LabelService {
     label.append("uid",uid);
     return this.http.post(this.serviceurl.host+this.serviceurl.fetchlabel,label);
   }
+
+  deletelabel(id){
+    let label = new FormData();
+    label.append("id",id);
+    return this.http.post(this.serviceurl.host+this.serviceurl.deletelabel,label);
+  }
 }

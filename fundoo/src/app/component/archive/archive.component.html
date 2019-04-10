@@ -1,7 +1,7 @@
 
 <div class="flexcard" fxLayoutGap="50px" fxLayoutAlign="start center">
 
-  <mat-card btnhover *ngFor="let item of notes" [ngStyle]="{'background-color': item.color}"
+  <mat-card  *ngFor="let item of notes" [ngStyle]="{'background-color': item.color}"
     >
     <div class="cardtext"  >
       <p class="para">{{item.title}}</p>
@@ -11,7 +11,7 @@
         <mat-chip-list>
           <button mat-icon-button>
             <mat-chip style="background-color: rgba(0,0,0,0.08);
-            " [matMenuTriggerFor]="remainder"> <mat-icon class="remicon">schedule</mat-icon>
+            "> <mat-icon class="remicon">schedule</mat-icon>
            {{item.remainder}}
           </mat-chip>
             

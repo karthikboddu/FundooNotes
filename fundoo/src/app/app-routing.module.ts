@@ -14,6 +14,7 @@ import { DialogdataComponent } from './component/dialogdata/dialogdata.component
 import { ReminderComponent } from './component/reminder/reminder.component';
 import { ArchiveComponent } from './component/archive/archive.component';
 import { LabelsdisplayComponent } from './component/labelsdisplay/labelsdisplay.component';
+import { TrashComponent } from './component/trash/trash.component';
 
 const routes: Routes = [
   {path : 'login',component : LoginComponent},
@@ -27,6 +28,7 @@ const routes: Routes = [
              {path:'reminder',component:ReminderComponent},
              {path:'archive',component:ArchiveComponent},
              {path:'labelsdisplay',component:LabelsdisplayComponent},
+             {path:'trash',component:TrashComponent}
             ],
  
     },

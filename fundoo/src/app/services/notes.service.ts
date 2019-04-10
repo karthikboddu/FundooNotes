@@ -84,9 +84,30 @@ export class NotesService {
     
   }
 
+  notedtrash(id){
+    let del = new FormData();
+    del.append("id",id);
+    return this.http.post(this.serviceurl.host+this.serviceurl.notetrash,del);
+  }
+
+
   notedelete(id){
     let del = new FormData();
     del.append("id",id);
     return this.http.post(this.serviceurl.host+this.serviceurl.notedelete,del);
   }
+
+  restorenote(id){
+    let restore = new FormData();
+    restore.append("id",id);
+    return this.http.post(this.serviceurl.host+this.serviceurl.restorenote,restore);
+  }
+
+
+  trashnote(id){
+    let trash = new FormData();
+    trash.append("id",id);
+    return this.http.post(this.serviceurl.host+this.serviceurl.fetchtrash,trash);
+  }
+
 }

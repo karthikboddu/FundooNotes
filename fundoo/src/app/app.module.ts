@@ -39,6 +39,7 @@ import {
 import { getAuthServiceConfigs } from './socialloginconfig';
 import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
 import { LabelsdisplayComponent } from './component/labelsdisplay/labelsdisplay.component';
+import { TrashComponent } from './component/trash/trash.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +67,8 @@ import { LabelsdisplayComponent } from './component/labelsdisplay/labelsdisplay.
     LabelsComponent,
 
     LabelsdisplayComponent,
+
+    TrashComponent,
    
   ],
   imports: [

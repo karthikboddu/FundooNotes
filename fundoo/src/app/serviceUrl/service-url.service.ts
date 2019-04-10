@@ -18,7 +18,10 @@ export class ServiceUrlService {
   public fetchnotes = "fetchnotes";
   public updatenotes = "updatenote";
   public setcolor = "setcolor";
+  public notetrash = "trashnote";
   public notedelete = "deletenote";
+  public restorenote = "restorenote";
+  public fetchtrash = "fetchnote";
   public fetchrem = "fetchreminder";
   public fetchArch = "fetcharchive";
   public unarchived = "unarchive";
@@ -26,4 +29,5 @@ export class ServiceUrlService {
   public fetchlabel = "fetchlabel";
   public changeDateTime = "changedatetime";
   public sociallogin ="socialLogin";
+  public deletelabel = "labeldelete";
 }

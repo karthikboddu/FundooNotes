@@ -67,9 +67,9 @@
     <mat-sidenav-container fxFlexFill>
         <mat-sidenav class="sidenav" #drawer mode="side" role="navigation">
             <mat-nav-list>
-                <a mat-list-item role="listitem">
-                    <mat-icon class="icon" routerLinkActive="mat-accent"  [routerLink]="['/home']" 
-                    [routerLinkActive]="['is-active']">lightbulb_outline</mat-icon><span
+                <a mat-list-item role="listitem" [routerLinkActive]="['is-active']" [routerLink]="['/home']">
+                    <mat-icon class="icon"   
+                    >lightbulb_outline</mat-icon><span
                         class="notes">Notes</span>
                 </a>
                 <a mat-list-item role="listitem">
@@ -81,8 +81,8 @@
                 <a mat-list-item role="listitem">
                     <span class="labels">Labels</span>
                 </a>
-                <a mat-list-item role="listitem" *ngFor="let item of labels" >
-                    <mat-icon class="icon" >label</mat-icon><span routerLink="labelsdisplay" (click)="id =item.id"  class="lables">{{item.label}}</span>
+                <a mat-list-item role="listitem" *ngFor="let item of labels"  routerLink="labelsdisplay" >
+                    <mat-icon class="icon" >label</mat-icon><span (click)="id =item.id"  class="lables">{{item.label}}</span>
                 </a>
                 <a mat-list-item role="listitem" (click)="openLabel()">
                     <mat-icon class="icon">edit</mat-icon><span class="notes">Edit Labels</span>
@@ -90,6 +90,10 @@
                 <mat-divider></mat-divider>
                 <a mat-list-item role="listitem">
                     <mat-icon class="icon">archive</mat-icon><span class="notes" routerLink="archive">Archive</span>
+                </a>
+
+                <a mat-list-item role="listitem" routerLink="trash">
+                    <mat-icon class="icon">delete</mat-icon><span class="notes" >Trash</span>
                 </a>
 
             </mat-nav-list>

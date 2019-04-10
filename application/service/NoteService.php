@@ -75,7 +75,7 @@ class NoteService extends CI_Controller
 
     public function noteFetch($email)
     {
-        $query = "SELECT * from notes Where user_id ='$email' AND archived !='1' ORDER BY id DESC ";
+        $query = "SELECT * from notes Where user_id ='$email' AND archived !='1' AND trash !='1' ORDER BY id DESC ";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
 
@@ -165,8 +165,30 @@ class NoteService extends CI_Controller
   
     }
 
-    public function deletenote($id){
-        $query = "DELETE from notes WHERE id = '$id'";
+    public function trashNote($id){
+        $query = "UPDATE notes set trash='1'  WHERE id = '$id'";
+        $stmt = $this->db->conn_id->prepare($query);
+        $res = $stmt->execute();
+
+
+        if ($res) {
+            $data = array(
+                "status" => "200",
+            );
+            print json_encode($data);
+
+        } else {
+            $data = array(
+                "status" => "204",
+            );
+            print json_encode($data);
+            return "204";
+
+        }
+    }
+    
+    public function noteDelete($id){
+        $query = "DELETE FROM notes WHERE id = '$id'";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
 
@@ -187,6 +209,52 @@ class NoteService extends CI_Controller
         }
     }
 
+    public function notesRestore($id){
+        $query = "UPDATE notes set trash='0'  WHERE id = '$id'";
+        $stmt = $this->db->conn_id->prepare($query);
+        $res = $stmt->execute();
+
+
+        if ($res) {
+            $data = array(
+                "status" => "200",
+            );
+            print json_encode($data);
+
+        } else {
+            $data = array(
+                "status" => "204",
+            );
+            print json_encode($data);
+            return "204";
+
+        }
+    }
+
+
+    public function fetchnote($id){
+        $query = "SELECT * from notes where trash =1 And user_id='$id'";
+        $stmt = $this->db->conn_id->prepare($query);
+        $res = $stmt->execute();
+
+
+        if ($res) {
+            $trashArr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $data = array(
+
+                "status" => "200",
+            );
+            print json_encode($trashArr);
+
+        } else {
+            $data = array(
+                "status" => "204",
+            );
+            print json_encode($data);
+            return "204";
+
+        }
+    }
     public function updatedate($id,$date){
         $query = "UPDATE notes SET remainder = '$date' where id = '$id'";
         $stmt = $this->db->conn_id->prepare($query);

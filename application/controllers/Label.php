@@ -35,4 +35,11 @@ class Label extends CI_Controller
         $this->refService->labelFetch($uid);
     }
 
+    public function deleteLabel()
+    {
+        $uid = $_POST['id'];
+        $this->refService->labeldelete($uid);
+    }
+    
+
 }
