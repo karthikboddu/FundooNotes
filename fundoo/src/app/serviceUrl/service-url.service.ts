@@ -30,4 +30,5 @@ export class ServiceUrlService {
   public changeDateTime = "changedatetime";
   public sociallogin ="socialLogin";
   public deletelabel = "labeldelete";
+  public noteimagesave = "noteimage";
 }

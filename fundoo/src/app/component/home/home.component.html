@@ -35,14 +35,17 @@
                 </button>
                 <button
                 *ngIf="!ispresent"
-                (click)="file.click()"
-                mat-fab color="primary"
+              
+                mat-fab 
                 [matMenuTriggerFor]="account"
                 matTooltip=" {{ profilename }}"
                 class="profileimg"
-              >
-              <span class="prfle">{{ profilename }}</span>
                 
+              >
+              <!-- <span class="prfle">{{ profilename }}</span> -->
+              <div *ngIf="Mainimage != ''" class="notediv">
+                <img src="{{ Mainimage }}"  alt="" class="noteImag" />
+              </div>
               </button>
             </div>
         </mat-toolbar-row>
@@ -59,6 +62,11 @@
               <div>
                 <button mat-menu-item>Add account</button>
                 <button (click)="logout()" mat-menu-item>Sign out</button>
+                <button mat-menu-item (click)="file.click()">set profile pic
+
+                    <input style="display: none;" type="file" #file (change)="onSelectImage($event, '01')" />
+                </button>
+                
               </div>
             </div>
           </div>

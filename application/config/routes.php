@@ -79,11 +79,12 @@ $route['socialLogin'] = 'UserData/socialLogin';
 $route['labelsfet'] ='Notes/labelsfetch';
 $route['fetchnote'] = 'Notes/notefetch';
 $route['labeldelete'] = 'Label/deleteLabel';
-
+$route['noteimage'] = 'Notes/noteImage';
 
 $route['testapi'] = 'UserData/test';
 $route['testlog'] = 'UserData/testlogin';
 
+$route['doct'] = 'Doctrinetest/user';
 
 
 

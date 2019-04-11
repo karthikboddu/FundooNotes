@@ -1,6 +1,6 @@
 <div class="flexcard" fxLayout="{{direction}} wrap" fxLayoutGap="50px" fxLayoutAlign="start center">
 
-  <mat-card btnhover *ngFor="let items of notes" [ngClass]="direction == 'row' ? 'row': 'column' "
+  <mat-card class="matdiv" *ngFor="let items of notes" [ngClass]="direction == 'row' ? 'row': 'column' "
     [ngStyle]="{'background-color': items.color}">
     <div class="cardtext">
       <p class="para">{{items.title}}</p>

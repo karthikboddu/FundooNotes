@@ -82,4 +82,11 @@ class Notes extends CI_Controller
         $this->refService->labelscomp($id);
     }
 
+    public function noteImage(){
+        $base64 = $_POST['base64'];
+        $email = $_POST['uid'];
+        $id = $_POST['noteid'];
+        $this->refService->imageNote($id);
+    }
+
 }

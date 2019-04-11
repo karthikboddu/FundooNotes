@@ -110,4 +110,14 @@ export class NotesService {
     return this.http.post(this.serviceurl.host+this.serviceurl.fetchtrash,trash);
   }
 
+  imagesave(base64,email,noteid){
+    let image = new FormData();
+    image.append("base64",base64);
+    image.append("email",email);
+    image.append("noteid",noteid);
+
+    return this.http.post(this.serviceurl.host+this.serviceurl.noteimagesave,image);
+
+  }
+
 }

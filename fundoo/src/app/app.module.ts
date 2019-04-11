@@ -29,7 +29,7 @@ import { ArchiveComponent } from './component/archive/archive.component';
 import { LabelsComponent } from './component/labels/labels.component';
 import { AuthService as auth } from "./services/auth.service";
 import { CookieService } from 'ngx-cookie-service';
- 
+import {CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import {
 	AuthService as social,
 	SocialLoginModule,
@@ -80,7 +80,9 @@ import { TrashComponent } from './component/trash/trash.component';
     ReactiveFormsModule,
     FlexLayoutModule,
     HttpClientModule,
-    JwSocialButtonsModule
+    JwSocialButtonsModule,
+    DragDropModule,
+    
 
   ],
   providers: [RegisterService,CookieService,SocialLoginModule,AuthService,

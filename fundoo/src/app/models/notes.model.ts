@@ -8,4 +8,5 @@ export interface Notes{
     color: string;
     user_id:string;
     trash:number;
+    image :string;
 }

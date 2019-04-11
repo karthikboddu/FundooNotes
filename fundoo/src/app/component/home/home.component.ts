@@ -10,6 +10,7 @@ import { LabelService } from 'src/app/services/label.service';
 import { Label } from '../../models/label.model';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { Notes } from 'src/app/models/notes.model';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -29,6 +30,7 @@ export class HomeComponent implements OnInit {
   tokenPayload;
   uid;
  
+  notes: Notes[] = []
   profilename:string;
   profilemail
   ngOnInit() {
@@ -114,6 +116,49 @@ debugger
     config.data ={data:this.uid};
     const label = this.dialog.open(LabelsComponent,config);
   }
+
+
+  /**
+	 * var to hold image base64url
+	 */
+	public base64textString;
+  Mainimage
+  imageNoteId
+  onSelectImage(event,noteId){
+    debugger;
+		this.imageNoteId = noteId;
+		var files = event.target.files;
+		var file = files[0];
+		if (files && file) {
+			var reader = new FileReader();
+			reader.onload = this._handleReaderLoaded.bind(this);
+			reader.readAsBinaryString(file);
+		}
+  }
+
+  _handleReaderLoaded(readerEvt) {
+    debugger
+		var binaryString = readerEvt.target.result;
+		console.log(binaryString);
+		this.base64textString = btoa(binaryString);
+		this.notes.forEach(element => {
+			if (element.id == this.imageNoteId) {
+				element.image = "data:image/jpeg;base64," + this.base64textString;
+			}
+		});
+
+		if (this.imageNoteId == "01") {
+			this.Mainimage = "data:image/jpeg;base64," + this.base64textString;
+		} else {
+			// let obss = this.image.noteSaveImage(
+			// 	this.base64textString,
+			// 	this.email,
+			// 	this.imageNoteId
+			// );
+			// obss.subscribe((res: any) => {});
+		}
+	}
+
 
 
 }
