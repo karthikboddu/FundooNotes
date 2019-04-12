@@ -45,9 +45,10 @@ export class NotesService {
   updateNotes(data,id){
     debugger
     let update = new FormData();
-    update.append("title",data.title);
-    update.append("description",data.description);
-    update.append("id",id);
+    update.append("title",data.notesdata.title);
+    update.append("description",data.notesdata.description);
+    update.append("color",data.notesdata.color);
+    update.append("uid",id);
     return this.http.post(this.serviceurl.host+this.serviceurl.updatenotes,update);
   }
 
@@ -110,10 +111,10 @@ export class NotesService {
     return this.http.post(this.serviceurl.host+this.serviceurl.fetchtrash,trash);
   }
 
-  imagesave(base64,email,noteid){
+  imagesave(base64,uid,noteid){
     let image = new FormData();
     image.append("base64",base64);
-    image.append("email",email);
+    image.append("uid",uid);
     image.append("noteid",noteid);
 
     return this.http.post(this.serviceurl.host+this.serviceurl.noteimagesave,image);

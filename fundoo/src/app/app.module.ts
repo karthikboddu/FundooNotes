@@ -40,6 +40,8 @@ import { getAuthServiceConfigs } from './socialloginconfig';
 import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
 import { LabelsdisplayComponent } from './component/labelsdisplay/labelsdisplay.component';
 import { TrashComponent } from './component/trash/trash.component';
+import { SearchComponent } from './component/search/search.component';
+import { SearchPipe } from './pipe/search.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +71,10 @@ import { TrashComponent } from './component/trash/trash.component';
     LabelsdisplayComponent,
 
     TrashComponent,
+
+    SearchComponent,
+
+    SearchPipe,
    
   ],
   imports: [

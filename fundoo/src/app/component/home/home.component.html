@@ -10,8 +10,8 @@
             <span class="title">Fundoo</span>
             <span class="example-spacer"></span>
 
-            <input class="ip" placeholder="search">
-
+            <input class="ip" placeholder="search" routerLink="search" [(ngModel)]="searchtext"  >
+            <button mat-icon-button (click)="search()">search</button>
             <div fxShow="true" fxHide.lt-sm="true">
 
                 <!-- The following menu items will be hidden on both SM and XS screen sizes -->

@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   constructor(private viewservice: ViewService, private noteserv: NotesService, 
     private dataservice:DataserviceService,private dialog:MatDialog,
     private cookieserv : CookieService,
-    private labelservice:LabelService,private route:Router) { }
+    private labelservice:LabelService,private route:Router,private dataserv:DataserviceService) { }
   grid: boolean = false;
   list: boolean = true;
   maindiv: boolean = false;
@@ -87,6 +87,8 @@ debugger
     
   }
 
+  searchtext:string;
+
 // notes;
 //   getId(){
 //     const token = localStorage.getItem('token');
@@ -108,6 +110,13 @@ debugger
     this.route.navigate(["/home"]);
   }
 
+
+  search(){
+    debugger
+
+      this.dataserv.searchdata(this.searchtext);
+
+  }
 
   openLabel(){
     const config = new MatDialogConfig();

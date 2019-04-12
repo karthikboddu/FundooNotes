@@ -41,8 +41,9 @@ class Notes extends CI_Controller
     public function updateNotes(){
         $title = $_POST['title'];
         $desc = $_POST['description'];
-        $id = $_POST['id'];
-        $this->refService->notesUpdate($title,$desc,$id);
+        $id = $_POST['uid'];
+        $color = $_POST['color'];
+        $this->refService->notesUpdate($title,$desc,$id,$color);
     }
     public function setColor(){
         $id = $_POST['id'];
@@ -84,9 +85,9 @@ class Notes extends CI_Controller
 
     public function noteImage(){
         $base64 = $_POST['base64'];
-        $email = $_POST['uid'];
-        $id = $_POST['noteid'];
-        $this->refService->imageNote($id);
+        $uid = $_POST['uid'];
+        $nid = $_POST['noteid'];
+        $this->refService->imageNote($base64,$uid,$nid);
     }
 
 }

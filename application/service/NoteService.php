@@ -89,7 +89,7 @@ class NoteService extends CI_Controller
 
     }
 
-    public function notesUpdate($title, $desc, $id)
+    public function notesUpdate($title, $desc, $id,$color)
     {
         $flag = 0;
         if (empty($title) || empty($desc)) {
@@ -97,7 +97,7 @@ class NoteService extends CI_Controller
         }
 
         if ($flag == 0) {
-            $query = "UPDATE notes SET title = '$title', description ='$desc' where id = '$id'";
+            $query = "UPDATE notes SET title = '$title', description ='$desc', color='$color' where id = '$id'";
             $stmt = $this->db->conn_id->prepare($query);
             $res = $stmt->execute();
             if ($res) {
@@ -273,7 +273,7 @@ class NoteService extends CI_Controller
     }
 
     public function imageNote($base64,$uid,$noteid){
-        $query = "UPDATE notes SET image = '$base64'  where user_id = '$uid' AND id='$noteid";
+        $query = "UPDATE notes SET image = '$base64'  where user_id = '$uid' AND id='$noteid'";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
         if ($res) {

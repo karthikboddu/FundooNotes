@@ -5,7 +5,7 @@ import * as moment from "moment";
 import decode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { ViewService } from 'src/app/services/view.service';
-import { MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBarConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBarConfig, MatDialogRef } from '@angular/material';
 import { EditnotesComponent } from '../editnotes/editnotes.component';
 import { Notes } from '../../models/notes.model';
 import { CookieService } from 'ngx-cookie-service';
@@ -35,7 +35,8 @@ export class NotesComponent implements OnInit {
     private route: Router, private viewservice: ViewService,
     private el: ElementRef, private renderer: Renderer, private snackBar: MatSnackBar,
     private cookieserv: CookieService,
-    private labelserv: LabelService
+    private labelserv: LabelService,
+    
   ) {
     this.viewservice.getView().subscribe((res => {
       this.view = res;
@@ -220,16 +221,15 @@ export class NotesComponent implements OnInit {
 
         this.notes = data;
 
-
-
-
-        //   this.notes.forEach(element => {
-        // debugger
-        //     element.remainder  = moment(element.remainder).format('MMM-DD HH:mm A') 
-        //     if(element.remainder =='Invalid date'){
-        //       element.remainder =null;
-        //     }
-        //   });
+        this.notes.forEach(element => {
+          debugger
+          element.remainder = moment(element.remainder).format('MMM-DD HH:mm A')
+          element.image = "data:image/jpeg;base64," + element.image;
+          if (element.remainder == 'Invalid date') {
+            element.remainder = null;
+          }
+        });
+        console.log(this.notes, "dssssssssss");
       });
     }
   }
@@ -291,7 +291,10 @@ export class NotesComponent implements OnInit {
       //   reminder : notes.remainder
       notesdata: notes
     }
-    const open = this.dialog.open(EditnotesComponent, dialogconfg);
+    let open = this.dialog.open(EditnotesComponent, dialogconfg);
+    open.afterClosed().subscribe(result => {
+        console.log(result,"dialog");
+    });
 
   }
 
@@ -530,6 +533,7 @@ export class NotesComponent implements OnInit {
     this.base64textString = btoa(binaryString);
     this.notes.forEach(element => {
       if (element.id == this.imageNoteId) {
+        debugger
         element.image = "data:image/jpeg;base64," + this.base64textString;
       }
     });
@@ -538,11 +542,11 @@ export class NotesComponent implements OnInit {
       this.Mainimage = "data:image/jpeg;base64," + this.base64textString;
     } else {
       let obss = this.noteserv.imagesave(
-      	this.base64textString,
-      	this.email,
-      	uid
+        this.base64textString,
+        uid,
+        this.imageNoteId
       );
-      obss.subscribe((res: any) => {});
+      obss.subscribe((res: any) => { });
     }
   }
 

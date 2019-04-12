@@ -13,8 +13,8 @@ class Doctrinetest extends CI_Controller
     public function user() {
         $em = $this->doctrine->em;
         $query = $em->createQuery('
-        SELECT p,c FROM \Entity\User p
-        JOIN p.group c
+        SELECT p,c FROM \Entity\Labels p
+        JOIN p.labelname c
         ');
         $result = $query->getResult();
 

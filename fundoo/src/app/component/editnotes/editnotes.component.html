@@ -9,7 +9,7 @@
 
 
   </mat-dialog-content> 
-
+<div  *ngIf="notes_timer && n.remainder!=null && n.remainder!='' ">
   <mat-chip-list>
     <button mat-icon-button>
       <mat-chip style="background-color: rgba(0,0,0,0.08);
@@ -24,6 +24,8 @@
       </button>
     
   </mat-chip-list>
+
+</div>
   <mat-dialog-actions>
       <span class="spanbutton">
           <button mat-icon-button class="pinbtn" (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">
@@ -45,23 +47,23 @@
         </span>
   </mat-dialog-actions>
   <mat-menu [overlapTrigger]="false" #buttonMenu="matMenu">
-
+    <div class="colorbtn">
     <button *ngFor="let item of defaultColors" matTooltip="Yellow" (click)="data.notesdata.color =item" mat-mini-fab
       class="colorlens" [ngStyle]="{'background': item}"></button>
-
+</div>
   </mat-menu>
 
 
   <mat-menu #moreopt="matMenu" class="matmenu">
 
-      <button mat-menu-item >settings</button>
-      <button mat-menu-item>send feedback</button>
-      <button mat-menu-item>help</button>
-    
-      <button mat-menu-item>App Downloads</button>
-      <button mat-menu-item>Keyboard shortcuts</button>
-    
-    
-    </mat-menu>
+    <button mat-menu-item (click)="deletenote()">Delete note</button>
+    <button mat-menu-item (click)="addLabel(n.id)" [matMenuTriggerFor]="labelMenu">Add label</button>
+    <button mat-menu-item>Add Drawing</button>
 
+    <button mat-menu-item>Make a copy</button>
+    <button mat-menu-item>Show tick boxes</button>
+    <button mat-menu-item>Copy to Google Docs</button>
+
+
+  </mat-menu>
 </body>

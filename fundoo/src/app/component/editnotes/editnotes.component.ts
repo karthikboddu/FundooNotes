@@ -39,6 +39,14 @@ export class EditnotesComponent implements OnInit {
   
   }
 
+  deletenote(){
+    this.data.notesdata.title='';
+    this.data.notesdata.remainder='';
+    this.data.notesdata.description=''	;
+    this.data.notesdata.id='';
+    this.data.notesdata.color='';
+  }
+
 
   public defaultColors: string[] = [
     '#fcf476',
@@ -62,12 +70,20 @@ stat
 notebg
 close(value:any) {
   debugger
+
   console.log(value);
   this.notebg = value.color;
-    this.dialogRef.close();
-    let updateobs = this.noteserv.updateNotes(value,this.id);
+    this.dialogRef.close(value);  
+    if(this.data.notesdata.title != null &&
+      this.data.notesdata.description != null &&
+      this.data.notesdata.color != ""){
+
+      }
+    let updateobs = this.noteserv.updateNotes(this.data,this.id);
     updateobs.subscribe((res:any)=>{
         if( res.status=="200"){
+            this.data.notesdata.title = value.title;
+            this.data.notesdata.description = value.description;
             this.stat = "update";
         }
 
