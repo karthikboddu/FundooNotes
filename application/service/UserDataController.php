@@ -8,7 +8,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 include '/var/www/html/codeigniter/application/Rabbitmq/sender.php';
 include '/var/www/html/codeigniter/application/static/LinkRef.php';
 include 'JWT.php';
-
+include '/var/www/html/codeigniter/application/models/Entity/Users.php';
 // include '/var/www/html/codeigniter/application/service/RedisConn.php';
 use \Firebase\JWT\JWT;
 
@@ -18,6 +18,7 @@ class UserDataController extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
 
     }
 
@@ -40,7 +41,7 @@ class UserDataController extends CI_Controller
     /**
      * @param fname,lname,email,password
      */
-    public function registration($fname, $lname, $email, $password)
+    public function registration1($fname, $lname, $email, $password)
     {
         
         $checkemail = UserDataController::emailpresent($email);
@@ -315,5 +316,85 @@ class UserDataController extends CI_Controller
             }
         }
     }
+
+
+
+
+
+    /**
+     * @param fname,lname,email,password
+     */
+    public function registration($fname, $lname, $email, $password)
+    {
+        $em = $this->doctrine->em;
+        $uid = uniqid();
+        $user = new Entity\Users;
+		$user->setFname($fname);
+        $user->setLname($lname);
+        $user->setEmailid($email);
+        $user->setPassword($password);
+        // $user->addUserId($uid);
+
+        $user = new Entity\Notes;
+        $em = $this->doctrine->em;
+		// $user->setUsername('wildlyinaccurate');
+		// $user->setPassword('Passw0rd');
+		// $user->setEmail('wildlyinaccurate@gmail.com');
+		// $user->setGroup($group);
+
+		$res = $em->persist($user);
+		 $em->flush();
+
+        // $checkemail = UserDataController::emailpresent($email);
+        // $uid = uniqid();
+        // if (!$checkemail) {
+        //     $datta = [
+        //         'fname' => $fname,
+        //         'lname' => $lname,
+        //         'email' => $email,
+        //         'password' => $password,
+        //     ];
+        //     $query = "INSERT into registeruser (user_id,fname,lname,email,password) values ('$uid','$fname','$lname','$email','$password')";
+        //     $stmt = $this->db->conn_id->prepare($query);
+        //     $res = $stmt->execute($datta);
+        //     if ($res) {
+        //         $data = array(
+        //             "status" => "200",
+        //         );
+        //         print json_encode($data);
+
+        //     } else {
+        //         $data = array(
+        //             "status" => "204",
+        //         );
+        //         print json_encode($data);
+        //         return "204";
+
+        //     }
+        // } else {
+        //     $data = array(
+        //         "status" => "201",
+        //     );
+        //     print json_encode($data);
+
+        // }
+
+        // return $data;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

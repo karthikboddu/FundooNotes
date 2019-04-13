@@ -85,7 +85,7 @@ $route['testapi'] = 'UserData/test';
 $route['testlog'] = 'UserData/testlogin';
 
 $route['doct'] = 'Doctrinetest/user';
-
+$route['prod'] = 'Doctrinetest/product';
 
 
 $route['subb']='Welcome/sub';

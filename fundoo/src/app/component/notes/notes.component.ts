@@ -466,7 +466,7 @@ export class NotesComponent implements OnInit {
           this.notes.push(thingsObj);
 
 
-          this.loadNotes();
+          // this.loadNotes();
 
 
         });

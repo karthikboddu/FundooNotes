@@ -1,7 +1,7 @@
 <?php
 
 namespace Entity;
-
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Labels Model
  *
@@ -11,22 +11,48 @@ namespace Entity;
 class Labels{
 
     /**
-	 * @Id
-	 * @Column(type="integer", nullable=false)
-	 * @GeneratedValue(strategy="AUTO")
+	 *  @Id @Column(type="integer") @GeneratedValue
+	 * 
 	 */
     protected $id;
-
     /**
-	 * @Column(type="string", nullable=false)
-	 */
+	 *  @Column(type="string")
+	 *  */
     protected $labelname;
 
-     /**
-	 * @Column(type="string", nullable=false)
-	 */
-    protected $emailid;
+	protected $labelssss;
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set labelname
+     *
+     * @param string $labelname
+     *
+     * @return Labels
+     */
+    public function setLabelname($labelname)
+    {
+        $this->labelname = $labelname;
+
+        return $this;
+    }
+
+    /**
+     * Get labelname
+     *
+     * @return string
+     */
+    public function getLabelname()
+    {
+        return $this->labelname;
+    }
 }
-
-?>

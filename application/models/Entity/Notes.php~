@@ -1,0 +1,57 @@
+<?php
+
+
+namespace Entity;
+
+/**
+ * Notes Model
+ *
+ * @Entity
+ * @Table(name="Notes")
+ */
+class Notes{
+
+	/**
+	 * @Id
+	 * @Column(type="integer", nullable=false)
+	 * @GeneratedValue(strategy="AUTO")
+	 */
+    protected $id;
+
+    /**
+	 * @Column(type="string", nullable=false)
+	 */
+    protected $title;
+
+     /**
+	 * @Column(type="string", nullable=false)
+	 */
+    protected $description;
+
+	/**
+     * @ManyToOne(targetEntity="Users", inversedBy="userid")
+     */
+	protected $uid;
+
+
+    /**
+     * @ManyToMany(targetEntity="Labels")
+     */
+    protected $labels;
+    // protected $reminder;
+
+	// protected $color;
+
+
+	public function __construct()
+    {
+        $this->labels = new ArrayCollection();
+    }
+	
+
+
+
+}
+
+
+?>

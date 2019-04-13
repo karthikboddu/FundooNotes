@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use Doctrine\ORM\EntityRepository;
 class Doctrinetest extends CI_Controller
 {
 
@@ -8,6 +9,17 @@ class Doctrinetest extends CI_Controller
     {
         parent::__construct();
         $this->load->library('doctrine');
+    }
+
+ 
+    public function product(){
+        
+        $em = $this->doctrine->em;
+        $productRepository = $em->getRepository('Product');
+        $products = $productRepository->findAll();
+        foreach ($products as $product) {
+            echo sprintf("-%s\n", $product->getName());
+        }
     }
 
     public function user() {
