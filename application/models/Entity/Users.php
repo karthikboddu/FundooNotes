@@ -48,7 +48,7 @@ class Users{
 
     /**
      * 
-     * @OneToMany(targetEntity="Labels",mappedBy="labelssss" )
+     * @OneToMany(targetEntity="Labels",mappedBy="luid" )
      */
     protected $label_list;
 

@@ -110,3 +110,21 @@ $route['redis'] = 'Redis/index';
 // $route['delete/(:num)'] = 'Product/delete';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+
+
+
+
+
+/**
+ * Doctrine
+ */
+
+ $route['registerD'] = 'UserController/register';
+ $route['noteInsertD'] ='UserController/insertNotes';
+ $route['labelsAddD'] = 'UserController/addLabel';
+ $route['getLabelsD'] = 'UserController/getLabel';
+ $route['fetchNotesD'] = 'NotesController/fetchNotes';  
+ $route['loginD'] = 'UserController/login';
+ $route['labelsmap'] = 'UserController/labelmap';
+ $route['lablelid'] = 'UserController/labelbyid';

@@ -20,7 +20,11 @@ class Labels{
 	 *  */
     protected $labelname;
 
-	protected $labelssss;
+  
+    	/**
+     * @ManyToOne(targetEntity="Users", inversedBy="userid")
+     */
+	protected $luid;
 
     /**
      * Get id
@@ -54,5 +58,29 @@ class Labels{
     public function getLabelname()
     {
         return $this->labelname;
+    }
+
+    /**
+     * Set luid
+     *
+     * @param \Entity\Users $luid
+     *
+     * @return Labels
+     */
+    public function setLuid(\Entity\Users $luid = null)
+    {
+        $this->luid = $luid;
+
+        return $this;
+    }
+
+    /**
+     * Get luid
+     *
+     * @return \Entity\Users
+     */
+    public function getLuid()
+    {
+        return $this->luid;
     }
 }

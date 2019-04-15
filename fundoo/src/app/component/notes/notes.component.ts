@@ -218,7 +218,7 @@ export class NotesComponent implements OnInit {
       let notesobs = this.noteserv.fetchNotes(uid);
 
       notesobs.subscribe((data: any) => {
-
+        debugger
         this.notes = data;
 
         this.notes.forEach(element => {

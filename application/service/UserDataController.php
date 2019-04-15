@@ -1,15 +1,15 @@
 <?php
-// header('Access-Control-Allow-Origin: *');
-// header("Access-Control-Allow-Headers: Authorization");
-// header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin, Authorization
-// ');
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: Authorization");
+header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin, Authorization
+');
 
 defined('BASEPATH') or exit('No direct script access allowed');
 include '/var/www/html/codeigniter/application/Rabbitmq/sender.php';
 include '/var/www/html/codeigniter/application/static/LinkRef.php';
 include 'JWT.php';
 include '/var/www/html/codeigniter/application/models/Entity/Users.php';
-// include '/var/www/html/codeigniter/application/service/RedisConn.php';
+ include_once '/var/www/html/codeigniter/application/service/RedisConn.php';
 use \Firebase\JWT\JWT;
 
 class UserDataController extends CI_Controller

@@ -74,7 +74,7 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> 'mysql:host=localhost; dbname=fundoo',
+	'dsn'	=> 'mysql:host=localhost; dbname=doctrine',
 	'hostname' => 'localhost',
 	'username' => 'karthik',
 	'password' => 'Kartik@23',

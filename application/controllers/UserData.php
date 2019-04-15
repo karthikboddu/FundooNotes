@@ -1,8 +1,9 @@
 <?php
-// header('Access-Control-Allow-Origin: *');
-// header("Access-Control-Allow-Headers: Authorization");
-// defined('BASEPATH') or exit('No direct script access allowed');
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: Authorization");
+defined('BASEPATH') or exit('No direct script access allowed');
 include "/var/www/html/codeigniter/application/service/UserDataController.php";
+
 
 class UserData extends CI_Controller
 {
@@ -26,6 +27,18 @@ class UserData extends CI_Controller
         $lname = $_POST['lastName'];
         $email = $_POST['Emailid'];
         $password = $_POST['password'];
+
+        $em = $this->doctrine->em;
+        $uid = uniqid();
+        $user = new Entity\Users;
+		$user->setFname($fname);
+        $user->setLname($lname);
+        $user->setEmailid($email);
+        $user->setPassword($password);
+
+        
+		$res = $em->persist($user);
+		 $em->flush();
         $res = $this->refService->registration($fname, $lname, $email, $password);
         return $res;
     }

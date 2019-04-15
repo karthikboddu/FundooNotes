@@ -9,13 +9,13 @@ export class ServiceUrlService {
 
   constructor() { }
   public host = environment.baseUrl;
-  public register = "register";
-  public login = "loginto";
+  public register = "registerD";
+  public login = "loginD";
   public forgot = "forgotpass";
   public reset = "resetpass";
   public fetchmail = "fetchemail";
-  public createnotes = "createnotes";
-  public fetchnotes = "fetchnotes";
+  public createnotes = "noteInsertD";
+  public fetchnotes = "fetchNotesD";
   public updatenotes = "updatenote";
   public setcolor = "setcolor";
   public notetrash = "trashnote";
@@ -25,7 +25,7 @@ export class ServiceUrlService {
   public fetchrem = "fetchreminder";
   public fetchArch = "fetcharchive";
   public unarchived = "unarchive";
-  public setlabel ="setlabel";
+  public setlabel ="labelsAddD";
   public fetchlabel = "fetchlabel";
   public changeDateTime = "changedatetime";
   public sociallogin ="socialLogin";
