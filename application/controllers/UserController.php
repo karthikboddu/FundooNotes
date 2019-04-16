@@ -62,7 +62,7 @@ class UserController extends CI_Controller
                 "token" => $response,
                 "message" => "200",
             );
-            print_r($data);
+           
             print json_encode($data);
         }
     }
@@ -134,6 +134,21 @@ class UserController extends CI_Controller
         $notes->setReminder($rem);
         $notes->setUid($article2);
         
+        if($labelid !="undefined" && $labelid !="null"){
+            $labels = new Entity\Labels;
+            $labeldata = $em->find('Entity\Labels',$labelid);
+            $notes->addLabel($labeldata);
+        }
+     
+        $article2 = $em->find('Entity\Users', $id);
+
+        $notes->setUid($article2);
+
+
+
+       
+
+
         $em->persist($notes);
 
 
@@ -166,7 +181,7 @@ class UserController extends CI_Controller
         $labels = new Entity\Labels;
 
         
-        $article2 = $em->find('Entity\Users', 3);
+        $article2 = $em->find('Entity\Users', $uid);
         $labels->setLuid($article2);
 
         $labels->setLabelname($label);
@@ -179,13 +194,14 @@ class UserController extends CI_Controller
     public function getLabel(){
         $em = $this->doctrine->em;
         //$qb = $em->createQueryBuilder();
-        $query = $em->createQuery('SELECT u.labelname  FROM Entity\Labels u ');
+        $query = $em->createQuery('SELECT u.id,u.labelname FROM Entity\Labels u ');
         // $qb->select('u')
         // ->from('Entity\Labels', 'u');
 
  
         // $query = $qb->getQuery();
-		$results = $query->getResult();
+        $results = $query->getResult();
+        print json_encode($results);
     }
 
     public function fetchNotes(){
@@ -194,9 +210,9 @@ class UserController extends CI_Controller
         $query = $em->createQuery('SELECT n from Entity\Notes n WHERE n.uid=?1');
         $query->setParameter(1, $uid);
         $noteArr = $query->getScalarResult();
-        $res = $noteArr[0];
+        // $res = $noteArr[0];
     
-        print json_encode($res);
+        print json_encode($noteArr);
     }
 
 
@@ -235,15 +251,15 @@ class UserController extends CI_Controller
     public function labelbyid(){
 
         $em = $this->doctrine->em;
-        $id = $_POST['uid'];
+        $id = $_POST['lid'];
         $notes = new Entity\Notes;
-        $que = $em->find('Entity\Notes',2);
+        // $que = $em->find('Entity\Notes',2);
         $labe = $notes->getLabels();
-        $query = $em->createQuery('SELECT n  from Entity\Notes n ');
+        $query = $em->createQuery('SELECT n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname from Entity\Notes n JOIN n.labels l WHERE l.id = ?1 ');
+        $query->setParameter(1, $id);
+        $RES =   $query->getScalarResult();
 
-        $RES =   $query->getResult();
-
-
+        print json_encode($RES);
     }
 
 }

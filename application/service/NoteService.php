@@ -39,7 +39,7 @@ class NoteService extends CI_Controller
                 $conn = $redis->connection();
                 $response = $conn->get('token');
                 $date = date("Y-m-d H:i:s");
-                $query = "INSERT into notes (title,description,remainder,color,user_id,lid,created_at) values ('$title','$desc','$rem','$color','$id','$lid',now())";
+                $query = "INSERT into Notes (title,description,remainder,color,user_id,lid,created_at) values ('$title','$desc','$rem','$color','$id','$lid',now())";
                 $stmt = $this->db->conn_id->prepare($query);
                 $res = $stmt->execute();
                 if($lid!="undefined"){
@@ -75,7 +75,7 @@ class NoteService extends CI_Controller
 
     public function noteFetch($email)
     {
-        $query = "SELECT * from notes Where user_id ='$email' AND archived !='1' AND trash !='1' ORDER BY id DESC ";
+        $query = "SELECT * from Notes Where uid_id ='$email' AND archive !='1' AND trash!='1' ORDER BY id DESC ";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
 
@@ -97,7 +97,7 @@ class NoteService extends CI_Controller
         }
 
         if ($flag == 0) {
-            $query = "UPDATE notes SET title = '$title', description ='$desc', color='$color' where id = '$id'";
+            $query = "UPDATE Notes SET title = '$title', description ='$desc', color='$color' where id = '$id'";
             $stmt = $this->db->conn_id->prepare($query);
             $res = $stmt->execute();
             if ($res) {
@@ -122,7 +122,7 @@ class NoteService extends CI_Controller
     public function colorSet($id, $color,$flag)
     {
         if($flag == "color"){
-            $query = "UPDATE notes SET color = '$color' where id = '$id'";
+            $query = "UPDATE Notes SET color = '$color' where id = '$id'";
             $stmt = $this->db->conn_id->prepare($query);
             $res = $stmt->execute();
             if ($res) {
@@ -141,7 +141,7 @@ class NoteService extends CI_Controller
             }
         }
         if($flag == "Archive"){
-            $query = "UPDATE notes set archived = '$color' where id = '$id'";
+            $query = "UPDATE Notes set archive = '$color' where id = '$id'";
             $stmt =  $this->db->conn_id->prepare($query);
             $res = $stmt->execute();
 
@@ -166,7 +166,7 @@ class NoteService extends CI_Controller
     }
 
     public function trashNote($id){
-        $query = "UPDATE notes set trash='1'  WHERE id = '$id'";
+        $query = "UPDATE Notes set trash='1'  WHERE id = '$id'";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
 
@@ -188,7 +188,7 @@ class NoteService extends CI_Controller
     }
     
     public function noteDelete($id){
-        $query = "DELETE FROM notes WHERE id = '$id'";
+        $query = "DELETE FROM Notes WHERE id = '$id'";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
 
@@ -210,7 +210,7 @@ class NoteService extends CI_Controller
     }
 
     public function notesRestore($id){
-        $query = "UPDATE notes set trash='0'  WHERE id = '$id'";
+        $query = "UPDATE Notes set trash='0'  WHERE id = '$id'";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
 
@@ -233,7 +233,7 @@ class NoteService extends CI_Controller
 
 
     public function fetchnote($id){
-        $query = "SELECT * from notes where trash =1 And user_id='$id'";
+        $query = "SELECT * from Notes where trash =1 And uid_id='$id'";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
 
@@ -256,7 +256,7 @@ class NoteService extends CI_Controller
         }
     }
     public function updatedate($id,$date){
-        $query = "UPDATE notes SET remainder = '$date' where id = '$id'";
+        $query = "UPDATE Notes SET remainder = '$date' where id = '$id'";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
     }
@@ -273,7 +273,7 @@ class NoteService extends CI_Controller
     }
 
     public function imageNote($base64,$uid,$noteid){
-        $query = "UPDATE notes SET image = '$base64'  where user_id = '$uid' AND id='$noteid'";
+        $query = "UPDATE Notes SET image = '$base64'  where uid_id = '$uid' AND id='$noteid'";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
         if ($res) {

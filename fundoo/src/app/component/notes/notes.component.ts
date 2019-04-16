@@ -224,7 +224,7 @@ export class NotesComponent implements OnInit {
         this.notes.forEach(element => {
           debugger
           element.remainder = moment(element.remainder).format('MMM-DD HH:mm A')
-          element.image = "data:image/jpeg;base64," + element.image;
+          
           if (element.remainder == 'Invalid date') {
             element.remainder = null;
           }
@@ -466,7 +466,7 @@ export class NotesComponent implements OnInit {
           this.notes.push(thingsObj);
 
 
-          // this.loadNotes();
+          this.loadNotes();
 
 
         });
@@ -541,8 +541,9 @@ export class NotesComponent implements OnInit {
     if (this.imageNoteId == "01") {
       this.Mainimage = "data:image/jpeg;base64," + this.base64textString;
     } else {
+      this.Mainimage = "data:image/jpeg;base64," + this.base64textString;
       let obss = this.noteserv.imagesave(
-        this.base64textString,
+        this.Mainimage,
         uid,
         this.imageNoteId
       );

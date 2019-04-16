@@ -22,6 +22,7 @@ export class LabelsdisplayComponent implements OnInit {
  
   classcard;
   notes: Notes[] = [];
+  labelsNote:Notes[] ;
   labels : Label[];
   /**
    * 
@@ -114,6 +115,7 @@ export class LabelsdisplayComponent implements OnInit {
   wrap: string = "wrap";
   direction: string;
   layout: string ;
+  labelid
   /**
    * @description fetch the notes when the components loads
    */
@@ -157,8 +159,14 @@ export class LabelsdisplayComponent implements OnInit {
       });
 
 
-
-
+       this.labelserv.getlname().subscribe((res:any)=>{
+         debugger
+        this.labelid = res;
+        console.log("sdsad",this.labelid);
+        this.loadLabels();
+      });
+ 
+      
   }
 
   hide() {
@@ -169,6 +177,16 @@ export class LabelsdisplayComponent implements OnInit {
   date_panel
   newdate
 
+
+  loadLabels(){
+    
+      let loadlabels = this.labelserv.getLabelNotes(this.labelid);
+      loadlabels.subscribe((res:any)=>{
+        debugger
+        this.labelsNote =res;
+        console.log(this.labelsNote,"notes");
+      });
+  }
 
   datetime(value: any) {
     this.date = value.datetime;

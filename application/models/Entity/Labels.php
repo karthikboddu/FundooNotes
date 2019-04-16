@@ -21,10 +21,16 @@ class Labels{
     protected $labelname;
 
   
-    	/**
+    /**
      * @ManyToOne(targetEntity="Users", inversedBy="userid")
      */
-	protected $luid;
+    protected $luid;
+    
+
+    /**
+     * @ManyToMany(targetEntity="Notes",mappedBy="labels")
+     */
+	protected $labeluid;
 
     /**
      * Get id

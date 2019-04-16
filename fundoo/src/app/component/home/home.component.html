@@ -89,8 +89,8 @@
                 <a mat-list-item role="listitem">
                     <span class="labels">Labels</span>
                 </a>
-                <a mat-list-item role="listitem" *ngFor="let item of labels"  routerLink="labelsdisplay" >
-                    <mat-icon class="icon" >label</mat-icon><span (click)="id =item.id"  class="lables">{{item.label}}</span>
+                <a mat-list-item role="listitem" *ngFor="let item of labels" (click)="setLabel(item.id)"  routerLink="labelsdisplay"  >
+                    <mat-icon class="icon" >label</mat-icon><span (click)="id =item.id"  class="lables">{{item.labelname}}</span>
                 </a>
                 <a mat-list-item role="listitem" (click)="openLabel()">
                     <mat-icon class="icon">edit</mat-icon><span class="notes">Edit Labels</span>

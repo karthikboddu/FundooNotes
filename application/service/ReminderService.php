@@ -14,13 +14,17 @@ class ReminderService extends CI_Controller
 {
 
     public function __construct()
+
+
+
+
     {
         parent::__construct();
 
     }
 
     public function reminderNotesFetch($uid){
-        $query = "SELECT * from notes Where user_id ='$uid' AND remainder <> '' ";
+        $query = "SELECT * from Notes Where uid_id ='$uid' AND reminder IS NOT NULL ";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
         $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);

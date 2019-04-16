@@ -62,9 +62,11 @@ class Notes{
 
 
     /**
-     * @ManyToMany(targetEntity="Labels")
+     * @ManyToMany(targetEntity="Labels",inversedBy="Labels")
      */
     protected $labels;
+
+
     // protected $reminder;
 
 	// protected $color;

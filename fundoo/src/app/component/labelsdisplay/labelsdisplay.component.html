@@ -75,3 +75,86 @@
     </span>
   </form>
 </mat-card>
+
+
+  <!--notes show in grid and list view -->
+  <div  class="flexcard" fxLayout="{{direction}} wrap" fxLayoutGap="50px"
+    fxLayoutAlign="start center">
+    <mat-card  btnhover [ngStyle]="{'background-color': n.color}" *ngFor="let n of labelsNote"
+      [ngClass]="direction == 'row' ? 'row': 'column' ">
+      <div class="cardtext" (click)=openNotes(n)>
+        <div>
+          <img src="{{ n.image }}" alt="" class="noteImage" />
+        </div>
+        <p class="para">{{n.title}}</p>
+        <p class="para"> {{n.description}}</p>
+        <p class="para"> </p>
+        <div *ngIf="notes_timer && n.remainder!=null && n.remainder!='' ">
+          <mat-chip-list>
+            <button mat-icon-button>
+              <mat-chip style="background-color: rgba(0,0,0,0.08);
+            " [matMenuTriggerFor]="remainder">
+                <mat-icon class="remicon">schedule</mat-icon>
+                {{n.remainder}}
+              </mat-chip>
+
+            </button>
+            <button mat-icon-button class="btnclose" (click)="notestools(n.id,'','delete')">
+              <mat-icon class="remicon">close</mat-icon>
+
+            </button>
+
+          </mat-chip-list>
+
+
+        </div>
+
+        <div *ngFor="let l of labels">
+          <div *ngIf="l.id==noteform.value.lid">
+            <mat-chip-list>
+              <button mat-icon-button>
+                <mat-chip style="background-color: rgba(0,0,0,0.08);">
+                  {{noteform.value.labelname}}
+                </mat-chip>
+
+              </button>
+              <button mat-icon-button class="remicon" (click)="labelname =null">
+                <mat-icon style="margin-left:25px; font-size: 17px;">close</mat-icon>
+              </button>
+            </mat-chip-list>
+
+          </div>
+        </div>
+
+      </div>
+      <!-- [style.display]="'none'" -->
+      <!-- <div  >      -->
+      <span class="spanbtn">
+        <button mat-icon-button class="pinbtn" matTooltip="Remainder" (click)="datetime(datetimeform.value)"
+          [matMenuTriggerFor]="remainder">
+          <mat-icon class="icon" (click)="rem_id = n.id">notification_important</mat-icon>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="buttonMenu" class="pinbtn">
+          <mat-icon class="icon" (click)="noteform.value.id=n.id">color_lens</mat-icon>
+        </button>
+        <button mat-icon-button class="pinbtn">
+          <mat-icon class="icon" (click)="notestools(noteform.value.id = n.id,1,'Archive')">archive</mat-icon>
+        </button>
+        <button mat-icon-button class="pinbtn">
+          <mat-icon class="icon">person_add</mat-icon>
+        </button>
+        <button mat-icon-button>
+          <mat-icon class="icon" (click)="file.click()">insert_photo</mat-icon>
+        </button>
+        <input style="display: none;" type="file" #file (change)="onSelectImage($event, n.id)" />
+        <button mat-icon-button class="pinbtn">
+          <mat-icon class="icon" (click)="noteform.value.id=n.id" [matMenuTriggerFor]="moreopt">more_vert</mat-icon>
+        </button>
+      </span>
+      <!-- </div> -->
+    </mat-card>
+  </div>
+
+
+
+

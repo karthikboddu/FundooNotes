@@ -127,4 +127,4 @@ $route['translate_uri_dashes'] = FALSE;
  $route['fetchNotesD'] = 'NotesController/fetchNotes';  
  $route['loginD'] = 'UserController/login';
  $route['labelsmap'] = 'UserController/labelmap';
- $route['lablelid'] = 'UserController/labelbyid';
+ $route['fetchlabelnotes'] = 'UserController/labelbyid';

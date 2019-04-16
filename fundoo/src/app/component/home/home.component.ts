@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
         $(".ip").css("background-color", "#F5F5F5");
       });
     });
-debugger
+
 
 
     this.token = localStorage.getItem('token');
@@ -54,9 +54,10 @@ debugger
 
     let labelobs = this.labelservice.fetchLabel(this.uid);
     labelobs.subscribe((res:any)=>{
+ 
       this.labels = res;
     })
-    debugger
+
     this.profilemail = this.cookieserv.get("email");
     console.log("email" +this.profilemail);
 
@@ -166,7 +167,16 @@ debugger
 			// );
 			// obss.subscribe((res: any) => {});
 		}
-	}
+  }
+  
+  /**
+   * set label
+   * @param labelname 
+   */
+  setLabel(labelid){
+    debugger
+    this.labelservice.labelnameSet(labelid);
+  }
 
 
 

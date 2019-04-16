@@ -24,21 +24,21 @@ class NotesController extends CI_Controller
     {
         $uid = $_POST['id'];
         $em = $this->doctrine->em;
-        $query = $em->createQuery('SELECT n from Entity\Notes n WHERE n.uid=?1');
+        $query = $em->createQuery('SELECT n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname from Entity\Notes n JOIN n.labels l WHERE n.uid=?1');
         $query->setParameter(1, $uid);
         $noteArr = $query->getScalarResult();
        
-        $res = $noteArr[0];
-        print_r($res);
-        $title = $res['n_title'];
-        $desc = $res['n_description'];
+        // $res = $noteArr[0];
+        // //  print_r($res);
+        // $title = $res['n_title'];
+        // $desc = $res['n_description'];
 
-        $data = array(
-            "title"=>$title,
-            "description"=>$desc
-        );
-        $ss = json_encode($data);
-        print_r($ss);
+        // $data = array(
+        //     "title"=>$title,
+        //     "description"=>$desc
+        // );
+        // $ss = json_encode($data);
+        print json_encode($noteArr);
     }
 
 }

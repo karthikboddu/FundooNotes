@@ -26,9 +26,10 @@ export class ServiceUrlService {
   public fetchArch = "fetcharchive";
   public unarchived = "unarchive";
   public setlabel ="labelsAddD";
-  public fetchlabel = "fetchlabel";
+  public fetchlabel = "getLabelsD";
   public changeDateTime = "changedatetime";
   public sociallogin ="socialLogin";
   public deletelabel = "labeldelete";
+  public fetchlabelnote = "fetchlabelnotes";
   public noteimagesave = "noteimage";
 }

@@ -6,15 +6,15 @@ import { Notes } from '../models/notes.model';
 })
 export class SearchPipe implements PipeTransform {
 
-  transform(notes: Notes[], searchtext: any): any {
-    console.log("----",notes);
-    if(searchtext ==null){
-      return notes;
-    }
-    console.log("----",notes);
-    return notes.filter(function(searchkey){
-      return searchkey.title.toLowerCase().indexOf(searchtext.toLowerCase()) >-1;
-    })
+  transform(notes: Notes [] , search?:string):Notes [] {
+    debugger;
+    console.log('cdsfdsfu',notes);
+    if(!notes||!search)
+    {
+    return notes;
+  }
+  // console.log('chand',notes);
+   return notes.filter(notes =>notes.title.indexOf(search.toLowerCase()) !==-1 || notes.desc.indexOf(search.toLowerCase())!==-1);
   }
 
 }
