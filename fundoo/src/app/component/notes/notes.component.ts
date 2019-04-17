@@ -117,6 +117,9 @@ export class NotesComponent implements OnInit {
   wrap: string = "wrap";
   direction: string;
   layout: string;
+  token
+  tokenPayload
+  uid
   /**
    * @description fetch the notes when the components loads
    */
@@ -150,12 +153,13 @@ export class NotesComponent implements OnInit {
       this.layout = this.direction + " " + this.wrap;
     }))
 
-    const token = localStorage.getItem('token');
-    const tokenPayload = decode(token);
+     this.token = localStorage.getItem('token');
+      this.tokenPayload = decode(this.token);
 
-    const uid = tokenPayload.id;
-    let labelosb = this.labelserv.fetchLabel(uid);
+     this.uid = this.tokenPayload.id;
+    let labelosb = this.labelserv.fetchLabel(this.uid);
     labelosb.subscribe((res: any) => {
+      console.log(res,"labels");
       this.labels = res;
     });
 
@@ -283,7 +287,7 @@ export class NotesComponent implements OnInit {
 
     dialogconfg.autoFocus = true;
     dialogconfg.panelClass = 'custom-dialog-container';
-    dialogconfg.width = "600px"
+    dialogconfg.width = "800px"
     dialogconfg.height = "210px"
     dialogconfg.data = {
       //   titles : notes['title'],
@@ -632,5 +636,27 @@ export class NotesComponent implements OnInit {
       }
     })
 
+  }
+
+
+
+  addLabel(labelid,notelid){
+    debugger
+
+      let addlabel = this.labelserv.labelAdd(labelid,notelid,this.uid);
+      addlabel.subscribe((res:any)=>{
+
+      })
+
+  }
+
+
+    /**
+   * set label
+   * @param labelname 
+   */
+  setLabel(labelid){
+    debugger
+    this.labelserv.labelnameSet(labelid);
   }
 }

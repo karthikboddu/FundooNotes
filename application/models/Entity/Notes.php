@@ -56,7 +56,7 @@ class Notes{
 
 
 	/**
-     * @ManyToOne(targetEntity="Users", inversedBy="userid")
+     * @ManyToOne(targetEntity="Users", inversedBy="user_id")
      */
 	protected $uid;
 

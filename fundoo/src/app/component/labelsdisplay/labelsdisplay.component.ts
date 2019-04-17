@@ -98,8 +98,8 @@ export class LabelsdisplayComponent implements OnInit {
   datetimeform: FormGroup;
   notescollabaration;
   email: any;
-  noteshow: boolean = true;
-  cardshow: boolean = false;
+  noteshow: boolean;
+  cardshow: boolean;
   newnote: boolean
   token1;
   date: any;
@@ -120,6 +120,8 @@ export class LabelsdisplayComponent implements OnInit {
    * @description fetch the notes when the components loads
    */
   ngOnInit() {
+    this.noteshow = true;
+    this.cardshow = false;
     this.noteform = this.fb.group({
       desc: '',
       title: '',

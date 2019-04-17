@@ -15,6 +15,7 @@ export class EditnotesComponent implements OnInit {
   id;
   rem
   color:string;
+  image;
   constructor(
     public dialogRef: MatDialogRef<EditnotesComponent>,
     public dialog: MatDialog,
@@ -28,6 +29,7 @@ export class EditnotesComponent implements OnInit {
     this.description=  this.data.notesdata.description	;
     this.id = this.data.notesdata.id;
     this.color = this.data.notesdata.color;
+    this.image = this.data.notesdata.image;
   }
 
 
@@ -45,6 +47,7 @@ export class EditnotesComponent implements OnInit {
     this.data.notesdata.description=''	;
     this.data.notesdata.id='';
     this.data.notesdata.color='';
+    
   }
 
 

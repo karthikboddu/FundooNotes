@@ -26,3 +26,7 @@
     width: 160px;
     padding-bottom: 8px;
   }
+  ::ng-deep.noteImage {
+    width: 100% !important;
+    height: 100% !important;
+  }

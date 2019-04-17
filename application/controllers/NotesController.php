@@ -24,8 +24,9 @@ class NotesController extends CI_Controller
     {
         $uid = $_POST['id'];
         $em = $this->doctrine->em;
-        $query = $em->createQuery('SELECT n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname from Entity\Notes n JOIN n.labels l WHERE n.uid=?1');
-        $query->setParameter(1, $uid);
+       // $query = $em->createQuery('SELECT n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname from Entity\Notes n  JOIN n.labels l WHERE n.uid=?1 ');
+        $query = $em->createQuery('SELECT  n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname from Entity\Notes n  left  JOIN n.labels l where n.uid=?1');
+       $query->setParameter(1, $uid);
         $noteArr = $query->getScalarResult();
        
         // $res = $noteArr[0];

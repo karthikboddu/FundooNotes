@@ -158,6 +158,7 @@
         <p class="para">{{n.title}}</p>
         <p class="para"> {{n.description}}</p>
         <p class="para"> </p>
+      </div>
         <div *ngIf="notes_timer && n.reminder!=null && n.reminder!='' && n.reminder!='undefined' ">
           <mat-chip-list>
             <button mat-icon-button>
@@ -178,12 +179,12 @@
 
         </div>
 
-        <div *ngIf="notes_timer && n.labelname!=null  ">
+        <div *ngIf="notes_timer && n.labelname!=null   ">
           <mat-chip-list>
-            <button mat-icon-button>
+            <button mat-icon-button routerLink="labelsdisplay" (click)="setLabel(l.id)" >
               <mat-chip style="background-color: rgba(0,0,0,0.08);
-            " [matMenuTriggerFor]="remainder">
-                <mat-icon class="remicon">schedule</mat-icon>
+            " >
+                
                 {{n.labelname}}
               </mat-chip>
 
@@ -204,7 +205,7 @@
             <mat-chip-list>
               <button mat-icon-button>
                 <mat-chip style="background-color: rgba(0,0,0,0.08);">
-                  {{noteform.value.labelname}}
+                  {{nlabel}}
                 </mat-chip>
 
               </button>
@@ -216,7 +217,7 @@
           </div>
         </div>
 
-      </div>
+      
       <!-- [style.display]="'none'" -->
       <!-- <div  >      -->
       <span class="spanbtn">
@@ -276,7 +277,7 @@
   <mat-menu #moreopt="matMenu" class="matmenu">
 
     <button mat-menu-item (click)="deletenote(noteform.value.id,'1')">Delete note</button>
-    <button mat-menu-item (click)="addLabel(n.id)" [matMenuTriggerFor]="labelMenu">Add label</button>
+    <button mat-menu-item [matMenuTriggerFor]="labelMenu">Add label</button>
     <button mat-menu-item>Add Drawing</button>
 
     <button mat-menu-item>Make a copy</button>
@@ -296,7 +297,7 @@
       </a>
     </mat-list-item> -->
     <button mat-menu-item *ngFor="let l of labels" (click)="noteform.value.labelname = l.labelname"
-      (click)="labelname=l.labelname" (click)="noteform.value.lid=l.id">
+      (click)="labelname=l.labelname" (click)="addLabel(l.id,noteform.value.id)" (click)="lid=l.id">
       {{ l.labelname }}
     </button>
   </div>

@@ -128,3 +128,4 @@ $route['translate_uri_dashes'] = FALSE;
  $route['loginD'] = 'UserController/login';
  $route['labelsmap'] = 'UserController/labelmap';
  $route['fetchlabelnotes'] = 'UserController/labelbyid';
+ $route['labelAdd'] ='UserController/updateLabelNote';

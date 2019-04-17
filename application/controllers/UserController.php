@@ -192,9 +192,13 @@ class UserController extends CI_Controller
     }
 
     public function getLabel(){
+        $uid = $_POST['uid'];
         $em = $this->doctrine->em;
         //$qb = $em->createQueryBuilder();
-        $query = $em->createQuery('SELECT u.id,u.labelname FROM Entity\Labels u ');
+      
+          $query = $em->createQuery('SELECT u.id,u.labelname FROM Entity\Labels u JOIN u.luid l where l.id=?1');
+        //$query = $em->createQuery('SELECT lu.id,u.id,u.labelname FROM Entity\Labels u inner  JOIN u.labeluid lu   JOIN u.luid l where l.id=?1');
+        $query->setParameter(1, $uid);
         // $qb->select('u')
         // ->from('Entity\Labels', 'u');
 
@@ -260,6 +264,28 @@ class UserController extends CI_Controller
         $RES =   $query->getScalarResult();
 
         print json_encode($RES);
+    }
+
+
+    public function updateLabelNote(){
+
+        $em = $this->doctrine->em;
+        $uid = $_POST['uid'];
+        $lid = $_POST['labelid'];
+        $notelid = $_POST['notelid'];
+        $notes = $em->find('Entity\Notes', $notelid);
+
+        $labeldata = $em->find('Entity\Labels',$lid);
+        $notes->addLabel($labeldata);
+        $article2 = $em->find('Entity\Users', $uid);
+
+        $notes->setUid($article2);
+
+
+        $em->persist($notes);
+
+        $em->flush();
+
     }
 
 }

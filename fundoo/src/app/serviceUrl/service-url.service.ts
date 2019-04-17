@@ -32,4 +32,6 @@ export class ServiceUrlService {
   public deletelabel = "labeldelete";
   public fetchlabelnote = "fetchlabelnotes";
   public noteimagesave = "noteimage";
+
+  public addLabel = "labelAdd";
 }

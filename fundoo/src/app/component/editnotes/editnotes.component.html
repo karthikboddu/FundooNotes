@@ -1,6 +1,8 @@
 <body [ngStyle]="{'background-color': data.notesdata.color}">
   <mat-dialog-content [formGroup]="form">
-
+    <div>
+      <img src="{{image }}" alt="" class="noteImage" />
+    </div>
     <input [ngStyle]="{'background-color': data.notesdata.color}" class="ipnote" formControlName="title" value="{{title}}">
 
     <input [ngStyle]="{'background-color': data.notesdata.color}" class="ipnote" formControlName="description"

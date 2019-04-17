@@ -35,16 +35,13 @@
                 </button>
                 <button
                 *ngIf="!ispresent"
-              
-                mat-fab 
+                 
                 [matMenuTriggerFor]="account"
                 matTooltip=" {{ profilename }}"
-                class="profileimg"
-                
-              >
+                class="profileimg">
               <!-- <span class="prfle">{{ profilename }}</span> -->
               <div *ngIf="Mainimage != ''" class="notediv">
-                <img src="{{ Mainimage }}"  alt="" class="noteImag" />
+                <img src="{{ Mainimage }}"  alt="" class="noteImag" (change)="userImage($event)" />
               </div>
               </button>
             </div>

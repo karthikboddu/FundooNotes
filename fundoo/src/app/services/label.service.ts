@@ -40,15 +40,23 @@ export class LabelService {
   getlname(){
       return this.labelsubject.asObservable();
     }
-  
 
-getLabelNotes(lid){
-  let labelnote = new FormData();
-  labelnote.append("lid",lid);
-debugger
-  return this.http.post(this.serviceurl.host+this.serviceurl.fetchlabelnote,labelnote);
+  getLabelNotes(lid){
+    let labelnote = new FormData();
+    labelnote.append("lid",lid);
+  debugger
+    return this.http.post(this.serviceurl.host+this.serviceurl.fetchlabelnote,labelnote);
 
-} 
+  } 
+
+  labelAdd(lid,notelid,uid){
+    let addlabel = new FormData();
+    addlabel.append("uid",uid);
+    addlabel.append("labelid",lid);
+    addlabel.append("notelid",notelid);
+
+    return this.http.post(this.serviceurl.host+this.serviceurl.addLabel,addlabel);
+  }
 
 
 }

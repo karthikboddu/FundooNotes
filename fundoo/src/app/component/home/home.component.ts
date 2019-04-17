@@ -53,6 +53,7 @@ export class HomeComponent implements OnInit {
 
 
     let labelobs = this.labelservice.fetchLabel(this.uid);
+    debugger
     labelobs.subscribe((res:any)=>{
  
       this.labels = res;
@@ -176,6 +177,11 @@ export class HomeComponent implements OnInit {
   setLabel(labelid){
     debugger
     this.labelservice.labelnameSet(labelid);
+  }
+
+
+  userImage(event){
+
   }
 
 
