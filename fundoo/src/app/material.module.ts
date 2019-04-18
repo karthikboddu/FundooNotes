@@ -8,7 +8,7 @@ import {
   MatToolbarModule, MatMenuModule,MatIconModule, MatProgressSpinnerModule,
   MatSelectModule ,MatFormFieldModule, MatSidenavModule,MatListModule,
   MatGridListModule,MatChipsModule,MatDatepickerModule,
-  MatNativeDateModule,MatSnackBarModule,MatTooltipModule
+  MatNativeDateModule,MatSnackBarModule,MatTooltipModule, MatCheckboxModule
 } from '@angular/material';
 
 @NgModule({
@@ -33,7 +33,8 @@ import {
   MatChipsModule,
   MatDatepickerModule,
   MatNativeDateModule,MatSnackBarModule
-  ,MatTooltipModule
+  ,MatTooltipModule,
+  MatCheckboxModule
   ],
   exports: [
   CommonModule,
@@ -52,7 +53,8 @@ import {
    MatListModule,
    MatChipsModule,
    MatDatepickerModule,
-   MatNativeDateModule,MatSnackBarModule,MatTooltipModule
+   MatNativeDateModule,MatSnackBarModule,MatTooltipModule,
+   MatCheckboxModule
    ],
 })
 export class CustomMaterial { }

@@ -578,11 +578,11 @@ export class NotesComponent implements OnInit {
       // alert("neg");
       this.dirrection = "negative";
     }
-    // console.log(event.currentIndex);
+    console.log(event.currentIndex);
 
-    // console.log(this.notes[event.currentIndex]);
+    console.log(this.notes[event.currentIndex]);
 
-    // let obbs = this.notesService.dragAndDrop(
+    // let obbs = this.noteserv.dragAndDrop(
     // 	this.difference,
     // 	this.notes[event.currentIndex].dragId,
     // 	this.dirrection,
@@ -640,16 +640,18 @@ export class NotesComponent implements OnInit {
 
 
 
-  addLabel(labelid,notelid){
+  addLabel(labelid,notelid,flag){
     debugger
 
-      let addlabel = this.labelserv.labelAdd(labelid,notelid,this.uid);
+      let addlabel = this.labelserv.labelAdd(labelid,notelid,this.uid,flag);
       addlabel.subscribe((res:any)=>{
 
       })
 
   }
 
+
+  
 
     /**
    * set label

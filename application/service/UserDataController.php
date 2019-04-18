@@ -194,11 +194,11 @@ class UserDataController extends CI_Controller
 
     public function emailpresent($email)
     {
-        $query = "SELECT * from registeruser WHERE email = '$email'";
+        $query = "SELECT * from Users WHERE emailid = '$email'";
         $stmt = $this->db->conn_id->prepare($query);
 
         $stmt->execute();
-
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $count = $stmt->rowCount();
 
         if ($count > 0) {
@@ -280,11 +280,11 @@ class UserDataController extends CI_Controller
         $conn = $redis->connection();
         $key =$conn->get('scretkey');
         if($emailExists){
-            $que1 = "SELECT user_id from registeruser where email ='$email' ";
+            $que1 = "SELECT id from Users where emailid ='$email' ";
             $stmt = $this->db->conn_id->prepare($que1);
             $stmt->execute();
             $idArr = $stmt->fetch(PDO::FETCH_ASSOC);
-            $id = $idArr['user_id'];
+            $id = $idArr['id'];
             $resToken = array("id"=>$id);
             $token = JWT::encode($resToken,$key);
             $data  = array(
@@ -294,7 +294,7 @@ class UserDataController extends CI_Controller
             print json_encode($data);
         }else{
             $uid = uniqid();
-            $query = "INSERT into registeruser (user_id,fname,email) values ('$uid','$name','$email')";
+            $query = "INSERT into Users (id,fname,emailid) values ('$uid','$name','$email')";
             $stmt = $this->db->conn_id->prepare($query);
             $res = $stmt->execute();
             if($res)

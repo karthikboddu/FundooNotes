@@ -16,6 +16,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     debugger
     this.searchtext = this.dataserv.returnsearchdata();
+    console.log("searched ",this.searchtext);
     this.fetchLabel();
   }
 
@@ -30,6 +31,7 @@ export class SearchComponent implements OnInit {
    
     fetchobs.subscribe((res: any) => {
       debugger
+      console.log("labels",res)
       this.labels = res;
     })
   }

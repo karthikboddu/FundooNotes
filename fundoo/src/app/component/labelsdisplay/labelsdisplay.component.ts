@@ -470,6 +470,9 @@ export class LabelsdisplayComponent implements OnInit {
         this.token1 = res.token;
       }
     })
+
+
+    
   }
 
 

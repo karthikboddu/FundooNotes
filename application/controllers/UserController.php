@@ -175,20 +175,29 @@ class UserController extends CI_Controller
 
 
     public function addLabel(){
+
+
         $uid = $_POST['uid'];
         $label = $_POST['label'];
-        $em = $this->doctrine->em;
-        $labels = new Entity\Labels;
+       
 
+ 
+            $em = $this->doctrine->em;
+            $labels = new Entity\Labels;
+    
+            
+            $article2 = $em->find('Entity\Users', $uid);
+            $labels->setLuid($article2);
+    
+            $labels->setLabelname($label);
+    
+            $em->persist($labels);
+    
+            $em->flush();
         
-        $article2 = $em->find('Entity\Users', $uid);
-        $labels->setLuid($article2);
 
-        $labels->setLabelname($label);
 
-        $em->persist($labels);
-
-        $em->flush();
+    
     }
 
     public function getLabel(){
@@ -273,18 +282,50 @@ class UserController extends CI_Controller
         $uid = $_POST['uid'];
         $lid = $_POST['labelid'];
         $notelid = $_POST['notelid'];
-        $notes = $em->find('Entity\Notes', $notelid);
-
-        $labeldata = $em->find('Entity\Labels',$lid);
-        $notes->addLabel($labeldata);
-        $article2 = $em->find('Entity\Users', $uid);
-
-        $notes->setUid($article2);
+        $flag = $_POST['flag'];
 
 
-        $em->persist($notes);
+        if($flag=="add"){
+            $notes = $em->find('Entity\Notes', $notelid);
 
-        $em->flush();
+            $labeldata = $em->find('Entity\Labels',$lid);
+            $notes->addLabel($labeldata);
+            $article2 = $em->find('Entity\Users', $uid);
+    
+            $notes->setUid($article2);
+    
+    
+            $em->persist($notes);
+    
+            $em->flush();
+        }
+
+
+
+
+
+
+        if($flag=="delete"){
+            
+            
+            $em = $this->doctrine->em;
+    
+            $notes = $em->find('Entity\Notes',$notelid);
+            
+            $queery = $em->createQuery('SELECT l from Entity\Labels l WHERE l.labelname=?1');
+            $queery->setParameter(1,$lid);
+            $label = $queery->getScalarResult();
+            foreach($label as $ldata){
+               $newlid = $ldata['l_id'];
+            }
+            $labels = $em->find('Entity\Labels',$newlid);
+            
+            $notes->removeLabel($labels);
+    
+    
+            $em->persist($notes);
+            $em->flush();
+        }
 
     }
 

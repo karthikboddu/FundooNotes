@@ -49,11 +49,12 @@ export class LabelService {
 
   } 
 
-  labelAdd(lid,notelid,uid){
+  labelAdd(lid,notelid,uid,flag){
     let addlabel = new FormData();
     addlabel.append("uid",uid);
     addlabel.append("labelid",lid);
     addlabel.append("notelid",notelid);
+    addlabel.append("flag",flag);
 
     return this.http.post(this.serviceurl.host+this.serviceurl.addLabel,addlabel);
   }

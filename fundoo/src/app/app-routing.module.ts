@@ -7,7 +7,7 @@ import { ForgotpasswordComponent } from './component/forgotpassword/forgotpasswo
 import { ResetComponent } from './component/reset/reset.component';
 import { HomeComponent } from './component/home/home.component';
 import { NotesComponent } from './component/notes/notes.component';
-import {AuthGuardService as AuthGuard } from './services/authguard.service';
+
 import { DialogComponent } from './component/dialog/dialog.component';
 import { DialogdataComponent } from './component/dialogdata/dialogdata.component';
 
@@ -16,25 +16,26 @@ import { ArchiveComponent } from './component/archive/archive.component';
 import { LabelsdisplayComponent } from './component/labelsdisplay/labelsdisplay.component';
 import { TrashComponent } from './component/trash/trash.component';
 import { SearchComponent } from './component/search/search.component';
+import { AuthguardService } from './authguard.service';
 
 const routes: Routes = [
-  {path : 'login',component : LoginComponent},
-  {path :'register',component :RegisterComponent},
-  {path :'forgot',component:ForgotpasswordComponent},
-  {path :'reset' ,component:ResetComponent},
+  {path : 'login',component : LoginComponent,canActivate: [AuthguardService]},
+  {path :'register',component :RegisterComponent,canActivate: [AuthguardService]},
+  {path :'forgot',component:ForgotpasswordComponent,canActivate: [AuthguardService]},
+  {path :'reset' ,component:ResetComponent,canActivate: [AuthguardService]},
   {path:'home',component:HomeComponent,
            children : [
-              { path:'',component:NotesComponent},
-              { path:'notes',component:NotesComponent},
-             {path:'reminder',component:ReminderComponent},
-             {path:'archive',component:ArchiveComponent},
-             {path:'labelsdisplay',component:LabelsdisplayComponent},
-             {path:'trash',component:TrashComponent},
-            {path:'search',component:SearchComponent}
+              { path:'',component:NotesComponent,canActivate: [AuthguardService]},
+              { path:'notes',component:NotesComponent,canActivate: [AuthguardService]},
+             {path:'reminder',component:ReminderComponent,canActivate: [AuthguardService]},
+             {path:'archive',component:ArchiveComponent,canActivate: [AuthguardService]},
+             {path:'labelsdisplay',component:LabelsdisplayComponent,canActivate: [AuthguardService]},
+             {path:'trash',component:TrashComponent,canActivate: [AuthguardService]},
+            {path:'search',component:SearchComponent,canActivate: [AuthguardService]}
             ],
  
     },
-  {path : '' ,component :LoginComponent},
+  {path : '' ,component :LoginComponent,canActivate: [AuthguardService]},
  
   {path:'dialog',component:DialogComponent},
   {path:'dialogdata',component:DialogdataComponent},
