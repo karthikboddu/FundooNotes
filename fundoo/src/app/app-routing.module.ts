@@ -19,23 +19,23 @@ import { SearchComponent } from './component/search/search.component';
 import { AuthguardService } from './authguard.service';
 
 const routes: Routes = [
-  {path : 'login',component : LoginComponent,canActivate: [AuthguardService]},
-  {path :'register',component :RegisterComponent,canActivate: [AuthguardService]},
-  {path :'forgot',component:ForgotpasswordComponent,canActivate: [AuthguardService]},
-  {path :'reset' ,component:ResetComponent,canActivate: [AuthguardService]},
+  {path : 'login',component : LoginComponent},
+  {path :'register',component :RegisterComponent},
+  {path :'forgot',component:ForgotpasswordComponent,},
+  {path :'reset' ,component:ResetComponent,},
   {path:'home',component:HomeComponent,
            children : [
-              { path:'',component:NotesComponent,canActivate: [AuthguardService]},
-              { path:'notes',component:NotesComponent,canActivate: [AuthguardService]},
-             {path:'reminder',component:ReminderComponent,canActivate: [AuthguardService]},
-             {path:'archive',component:ArchiveComponent,canActivate: [AuthguardService]},
-             {path:'labelsdisplay',component:LabelsdisplayComponent,canActivate: [AuthguardService]},
-             {path:'trash',component:TrashComponent,canActivate: [AuthguardService]},
-            {path:'search',component:SearchComponent,canActivate: [AuthguardService]}
+              { path:'',component:NotesComponent,},
+              { path:'notes',component:NotesComponent},
+             {path:'reminder',component:ReminderComponent},
+             {path:'archive',component:ArchiveComponent},
+             {path:'labelsdisplay',component:LabelsdisplayComponent,},
+             {path:'trash',component:TrashComponent,},
+            {path:'search',component:SearchComponent,}
             ],
  
     },
-  {path : '' ,component :LoginComponent,canActivate: [AuthguardService]},
+  {path : '' ,component :LoginComponent},
  
   {path:'dialog',component:DialogComponent},
   {path:'dialogdata',component:DialogdataComponent},

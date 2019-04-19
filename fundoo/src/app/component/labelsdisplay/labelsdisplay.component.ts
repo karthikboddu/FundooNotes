@@ -278,12 +278,12 @@ export class LabelsdisplayComponent implements OnInit {
         
         let DateAndTime = fulldate;
         this.currentDateAndTime = DateAndTime;
-        console.log("remainder "+ element.remainder);
+        console.log("remainder "+ element.reminder);
         /**
          * compare with present time if equal alert remainder
          */
-        if (DateAndTime == element.remainder) {
-          console.log("remainder "+ element.remainder);
+        if (DateAndTime == element.reminder) {
+          console.log("remainder "+ element.reminder);
           debugger
   
           this.snackBar.open(element.notes, "", {
@@ -498,8 +498,18 @@ export class LabelsdisplayComponent implements OnInit {
     });
     let colorObs = this.noteserv.notesCrud(id, value,flag);
     colorObs.subscribe((res: any) => {
+
+  debugger
+
       if (res.status == "200") {
+
+        if(flag=="Delete"){
+          this.notes.forEach(element => {
+              element.reminder=''
+          });
+        }
         this.stat = " updated";
+        this.loadNotes();
       }
     })
 

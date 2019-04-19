@@ -46,7 +46,7 @@ export class TrashComponent implements OnInit {
             element.color=''
             element.email=''
             element.notes=''
-            element.remainder=''
+            element.reminder=''
             element.title=''
             
             element.user_id=''

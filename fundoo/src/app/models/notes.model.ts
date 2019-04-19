@@ -4,9 +4,10 @@ export interface Notes{
     email: string;
     title: string;
     notes: string;
-    remainder: string;
+    reminder: string;
     color: string;
     user_id:string;
     trash:number;
     image :string;
+    archive:number;
 }

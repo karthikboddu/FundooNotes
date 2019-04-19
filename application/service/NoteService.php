@@ -162,6 +162,30 @@ class NoteService extends CI_Controller
 
         }
 
+
+        if($flag=="Delete"){
+            $query = "UPDATE Notes SET reminder ='' where id = '$id' ";
+            $stmt = $this->db->conn_id->prepare($query);
+            $res = $stmt->execute();
+    
+    
+            if ($res) {
+                $data = array(
+                    "status" => "200",
+                );
+                print json_encode($data);
+    
+            } else {
+                $data = array(
+                    "status" => "204",
+                );
+                print json_encode($data);
+                return "204";
+    
+            }
+
+        }
+
   
     }
 
@@ -256,11 +280,15 @@ class NoteService extends CI_Controller
         }
     }
     public function updatedate($id,$date){
-        $query = "UPDATE Notes SET remainder = '$date' where id = '$id'";
+        $query = "UPDATE Notes SET reminder = '$date' where id = '$id'";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
     }
 
+
+    public function reminderDelete($id){
+ 
+    }
 
     public function labelscomp($id){
         $query = "SELECT * from labelsmap where labelsid='$id'  ";

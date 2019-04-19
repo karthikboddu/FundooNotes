@@ -15,7 +15,6 @@ export class NotesService {
   //  this.tokens= localStorage.getItem('token');
   //   headses.set('Authorization',this.tokens);
       let createnotes = new FormData();
-      debugger
       createnotes.append("id",id);
       createnotes.append("title",notes.title);
       createnotes.append("desc",notes.desc);

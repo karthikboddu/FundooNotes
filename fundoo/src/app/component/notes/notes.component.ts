@@ -177,7 +177,7 @@ export class NotesComponent implements OnInit {
   newdate
 
 
-  datetime(value: any) {
+  datetime(id,value: any) {
     this.date = value.datetime;
     this.time = value.value;
     this.period = value.valuee;
@@ -190,7 +190,8 @@ export class NotesComponent implements OnInit {
     }
     // var moment = require('moment');
     console.log(this.time + "time is ");
-    this.timedate = moment(this.date).format('DD-MMM') + " " + this.period;
+    this.timedate = moment(this.date).format("DD/MM/YYYY") + " " + this.period;
+    this.reminderfun(id,this.timedate);
     console.log(this.timedate);
     console.log(value);
   }
@@ -227,10 +228,10 @@ export class NotesComponent implements OnInit {
 
         this.notes.forEach(element => {
           debugger
-          element.remainder = moment(element.remainder).format('MMM-DD HH:mm A')
+          element.reminder = moment(element.reminder).format('MMM-DD HH:mm A')
           
-          if (element.remainder == 'Invalid date') {
-            element.remainder = null;
+          if (element.reminder == 'Invalid date') {
+            element.reminder = null;
           }
         });
         console.log(this.notes, "dssssssssss");
@@ -264,12 +265,12 @@ export class NotesComponent implements OnInit {
 
         let DateAndTime = fulldate;
         this.currentDateAndTime = DateAndTime;
-        console.log("remainder " + element.remainder);
+        console.log("remainder " + element.reminder);
         /**
          * compare with present time if equal alert remainder
          */
-        if (DateAndTime == element.remainder) {
-          console.log("remainder " + element.remainder);
+        if (DateAndTime == element.reminder) {
+          console.log("remainder " + element.reminder);
           debugger
 
           this.snackBar.open(element.title, "", {
@@ -449,33 +450,45 @@ export class NotesComponent implements OnInit {
     this.title = value.title;
     this.description = value.desc;
     // this.loadNotes();
-    const email = localStorage.getItem('email');
-    let createobs = this.noteserv.createNotes(value, uid, this.todaydb);
+    
+    if (
+			((value.title != "" ||
+				 value.desc !=""||
+				this.Mainimage != "" ||
+				this.timedate != "") &&
+				(value.title != undefined || value.desc != undefined)) ||
+			this.Mainimage != ""
+			
+		){
+      let createobs = this.noteserv.createNotes(value, uid, this.timedate);
+      createobs.subscribe((res: any) => {
+        debugger
+        console.log(res.status);
+        if (res.status == "200") {
+          this.token1 = res.token;
+          this.notes.forEach(element => {
+            debugger
+            let thingsObj = {} as Notes;
+  
+            // thingsObj.id = value.id
+            thingsObj.title = value.title;
+            thingsObj.desc = value.desc;
+            thingsObj.color = value.color;
+  
+  
+            this.notes.push(thingsObj);
+  
+            console.log("new notes ",this.notes);
+            this.loadNotes();
+  
+  
+          });
+        }
+      })
+    }
+    
 
-    createobs.subscribe((res: any) => {
-      debugger
-      console.log(res.status);
-      if (res.status == "200") {
-        this.token1 = res.token;
-        this.notes.forEach(element => {
 
-          let thingsObj = {} as Notes;
-
-          // thingsObj.id = value.id
-          thingsObj.title = value.title;
-          thingsObj.desc = value.desc;
-          thingsObj.color = value.color;
-
-
-          this.notes.push(thingsObj);
-
-
-          this.loadNotes();
-
-
-        });
-      }
-    })
   }
 
 
@@ -502,6 +515,15 @@ export class NotesComponent implements OnInit {
     let colorObs = this.noteserv.notesCrud(id, value, flag);
     colorObs.subscribe((res: any) => {
       if (res.status == "200") {
+        
+
+        this.notes.forEach(element => {
+          if (element.id == id) {
+            if (flag == "color") {
+              element.archive =value;
+            }
+          }
+        });
         this.stat = " updated";
       }
     })

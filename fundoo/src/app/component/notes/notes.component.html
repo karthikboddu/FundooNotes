@@ -137,7 +137,7 @@
               <mat-option value="yearly">Yearly</mat-option>
             </mat-select>
           </mat-form-field>
-          <button mat-button (click)="datetime(datetimeform.value)" [matMenuTriggerFor]="remainder">save</button>
+          <button mat-button (click)="datetime(rem_id,datetimeform.value)" [matMenuTriggerFor]="remainder">save</button>
         </form>
       </mat-card>
     </div>
@@ -159,7 +159,7 @@
         <p class="para"> {{n.description}}</p>
         <p class="para"> </p>
       </div>
-      <div *ngIf="notes_timer && n.reminder!=null && n.reminder!='' && n.reminder!='undefined' ">
+      <span *ngIf="notes_timer && n.reminder!=null && n.reminder!='' && n.reminder!='undefined' ">
         <mat-chip-list>
           <button mat-icon-button>
             <mat-chip style="background-color: rgba(0,0,0,0.08);
@@ -169,7 +169,7 @@
             </mat-chip>
 
           </button>
-          <button mat-icon-button class="btnclose" (click)="notestools(n.id,'','delete')">
+          <button mat-icon-button class="btnclose" (click)="notestools(n.id,'','Delete')">
             <mat-icon class="remicon">close</mat-icon>
 
           </button>
@@ -177,9 +177,9 @@
         </mat-chip-list>
 
 
-      </div>
+      </span>
 
-      <div *ngIf="notes_timer && n.labelname!=null   ">
+      <span *ngIf="notes_timer && n.labelname!=null   ">
         <mat-chip-list>
           <button mat-icon-button routerLink="labelsdisplay" (click)="setLabel(l.id)">
             <mat-chip style="background-color: rgba(0,0,0,0.08);
@@ -197,7 +197,7 @@
         </mat-chip-list>
 
 
-      </div>
+      </span>
 
 
       <div *ngFor="let l of labels">

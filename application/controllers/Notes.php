@@ -78,6 +78,13 @@ class Notes extends CI_Controller
         $this->refService->updatedate($id,$datetime);
     }
 
+    public function reminderDelete(){
+        $id = $_POST['id'];
+        $datetime = $_POST['presentDateTime'];
+        $this->refService->reminderDelete($id);
+    }
+
+
     public function labelsfetch(){
         $id = $_POST['id'];
         $this->refService->labelscomp($id);
