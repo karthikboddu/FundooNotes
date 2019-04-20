@@ -15,6 +15,7 @@ export class DataserviceService {
   variable: any;
   constructor() { }
   searchdata(value) {
+    debugger
     this.subject = new Subject();
     this.subject.next({ data: value });
     this.variable = value;

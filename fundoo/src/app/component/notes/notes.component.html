@@ -62,7 +62,7 @@
           <mat-chip-list>
             <button mat-icon-button>
               <mat-chip style="background-color: rgba(0,0,0,0.08);">
-                {{noteform.value.labelname}}
+                {{labelname}}
               </mat-chip>
 
             </button>
@@ -179,7 +179,7 @@
 
       </span>
 
-      <span *ngIf="notes_timer && n.labelname!=null   ">
+      <span *ngIf="notes_timer && n.labelname!=null &&n.labelname !='' ">
         <mat-chip-list>
           <button mat-icon-button routerLink="labelsdisplay" (click)="setLabel(l.id)">
             <mat-chip style="background-color: rgba(0,0,0,0.08);
@@ -199,13 +199,13 @@
 
       </span>
 
-
+<!-- 
       <div *ngFor="let l of labels">
         <div *ngIf="l.id==noteform.value.lid">
           <mat-chip-list>
             <button mat-icon-button>
               <mat-chip style="background-color: rgba(0,0,0,0.08);">
-                {{nlabel}}
+                
               </mat-chip>
 
             </button>
@@ -215,7 +215,7 @@
           </mat-chip-list>
 
         </div>
-      </div>
+      </div> -->
 
 
       <!-- [style.display]="'none'" -->
@@ -299,7 +299,7 @@
     <!-- <button mat-menu-item >
      
     </button> -->
-    <mat-checkbox *ngFor="let l of labels" (click)="noteform.value.lid = l.id" (click)="labelname=l.labelname"
+    <mat-checkbox *ngFor="let l of labels" (click)="noteform.value.lid = l.id" (click)="labelname=l.labelname" (click)="noteform.value.labelname = l.labelname" 
       (click)="addLabel(l.id,noteform.value.id,'add')" (click)="lid=l.id"> {{ l.labelname }}</mat-checkbox>
   </div>
 </mat-menu>

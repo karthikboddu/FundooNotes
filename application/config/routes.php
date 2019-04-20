@@ -131,3 +131,5 @@ $route['translate_uri_dashes'] = FALSE;
  $route['fetchlabelnotes'] = 'UserController/labelbyid';
  $route['labelAdd'] ='UserController/updateLabelNote';
  $route['removeLabel'] = 'NotesController/removeLabel';
+
+ $route['labelNameid'] = 'UserController/fetchLabelName';

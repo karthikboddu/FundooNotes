@@ -7,13 +7,15 @@ import { Notes } from '../models/notes.model';
 export class SearchPipe implements PipeTransform {
 
   transform(notes: Notes [] , search?:string):Notes [] {
-    debugger;
+debugger
     console.log('cdsfdsfu',notes);
     if(!notes||!search)
     {
     return notes;
+
   }
-  // console.log('chand',notes);
+  console.log('hhhhhhhh',notes);
+  debugger
    return notes.filter(notes =>notes.title.indexOf(search.toLowerCase()) !==-1 || notes.desc.indexOf(search.toLowerCase())!==-1);
   }
 

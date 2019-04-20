@@ -10,4 +10,5 @@ export interface Notes{
     trash:number;
     image :string;
     archive:number;
+    labelname:string;
 }

@@ -34,4 +34,5 @@ export class ServiceUrlService {
   public noteimagesave = "noteimage";
 
   public addLabel = "labelAdd";
+  public labelnamebyid = "labelNameid";
 }

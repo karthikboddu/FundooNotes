@@ -59,5 +59,11 @@ export class LabelService {
     return this.http.post(this.serviceurl.host+this.serviceurl.addLabel,addlabel);
   }
 
+  labelnamebyid(id){
+    let lnameid = new FormData();
+    lnameid.append("lid",id)
+    return this.http.post(this.serviceurl.host+this.serviceurl.labelnamebyid,lnameid);
+  }
+
 
 }

@@ -36,7 +36,7 @@ export class NotesComponent implements OnInit {
     private el: ElementRef, private renderer: Renderer, private snackBar: MatSnackBar,
     private cookieserv: CookieService,
     private labelserv: LabelService,
-    
+
   ) {
     this.viewservice.getView().subscribe((res => {
       this.view = res;
@@ -153,13 +153,13 @@ export class NotesComponent implements OnInit {
       this.layout = this.direction + " " + this.wrap;
     }))
 
-     this.token = localStorage.getItem('token');
-      this.tokenPayload = decode(this.token);
+    this.token = localStorage.getItem('token');
+    this.tokenPayload = decode(this.token);
 
-     this.uid = this.tokenPayload.id;
+    this.uid = this.tokenPayload.id;
     let labelosb = this.labelserv.fetchLabel(this.uid);
     labelosb.subscribe((res: any) => {
-      console.log(res,"labels");
+      console.log(res, "labels");
       this.labels = res;
     });
 
@@ -177,7 +177,7 @@ export class NotesComponent implements OnInit {
   newdate
 
 
-  datetime(id,value: any) {
+  datetime(id, value: any) {
     this.date = value.datetime;
     this.time = value.value;
     this.period = value.valuee;
@@ -191,7 +191,7 @@ export class NotesComponent implements OnInit {
     // var moment = require('moment');
     console.log(this.time + "time is ");
     this.timedate = moment(this.date).format("DD/MM/YYYY") + " " + this.period;
-    this.reminderfun(id,this.timedate);
+    this.reminderfun(id, this.timedate);
     console.log(this.timedate);
     console.log(value);
   }
@@ -225,11 +225,11 @@ export class NotesComponent implements OnInit {
       notesobs.subscribe((data: any) => {
         debugger
         this.notes = data;
-
+        console.log(this.notes, "before");
         this.notes.forEach(element => {
           debugger
-          element.reminder = moment(element.reminder).format('MMM-DD HH:mm A')
-          
+          element.reminder = moment(element.reminder).format("MMM-DD HH:mm A");
+
           if (element.reminder == 'Invalid date') {
             element.reminder = null;
           }
@@ -239,9 +239,7 @@ export class NotesComponent implements OnInit {
     }
   }
 
-  getId(notes) {
 
-  }
   currentDateAndTime
   remainder123() {
     // this.toasterservice.success("ddd", "asfasdf"); 
@@ -249,7 +247,7 @@ export class NotesComponent implements OnInit {
     var day = new Date();
     var fulldate =
       day.toDateString() + " " + (day.getHours() % 12) + ":" + day.getMinutes();
-    fulldate = moment(fulldate).format("DD/MM/YYYY hh:mm") + " PM";
+    fulldate = moment(fulldate).format("DD/MM/YYYY hh:mm") + "PM";
     const token = localStorage.getItem('token');
     const tokenPayload = decode(token);
 
@@ -288,8 +286,8 @@ export class NotesComponent implements OnInit {
 
     dialogconfg.autoFocus = true;
     dialogconfg.panelClass = 'custom-dialog-container';
-    dialogconfg.width = "800px"
-    dialogconfg.height = "210px"
+    dialogconfg.width = "900px"
+    dialogconfg.height = "490px"
     dialogconfg.data = {
       //   titles : notes['title'],
       //   description : notes.description,
@@ -298,7 +296,7 @@ export class NotesComponent implements OnInit {
     }
     let open = this.dialog.open(EditnotesComponent, dialogconfg);
     open.afterClosed().subscribe(result => {
-        console.log(result,"dialog");
+      console.log(result, "dialog");
     });
 
   }
@@ -312,33 +310,7 @@ export class NotesComponent implements OnInit {
   datee
   cc
   todaydb
-  // today(n) {
-  //   debugger;
-  //   var date = new Date();
-  //   this.datee = date.toDateString();
-  //   // if(this.date == ""){
-  //   //   this.timer =false;
-  //   //   return;
-  //   // }
-  //   if (n = 10) {
-
-  //     this.timedate = moment(8, "HH");
-  //     this.todaydb = "Today " + moment(this.timedate).format('hh:mm:ss A');
-  //     console.log("db" + this.todaydb);
-  //     console.log(this.timedate);
-  //     this.timedate = "Today " + moment(this.timedate).format('HH:mm A');
-  //   }
-
-  //   if (n = 20) {
-  //     this.timedate = moment(8, "HH");
-  //     this.todaydb = "Tomorrow " + moment(this.timedate).format('hh:mm:ss A');
-  //     this.timedate = "Tomorrow " + moment(this.timedate).format('HH:mm A');
-  //   }
-
-  //   console.log(this.currentdate);
-  //   //  this.timedate = moment(this.date).format('H HH') + " " + this.period;
-  //   this.timer = true;
-  // }
+  
 
   fulldate: any;
   fulltime: any;
@@ -349,7 +321,7 @@ export class NotesComponent implements OnInit {
     var day = new Date();
     this.fulldate = day.toDateString();
     let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
-    this.currentDateAndTime = currentDate + " " + " 08:00 PM";
+    this.currentDateAndTime = currentDate + " " + "08:00 PM";
     if (id == "01") {
       this.timer = true;
       this.timedate = this.currentDateAndTime;
@@ -369,7 +341,7 @@ export class NotesComponent implements OnInit {
     day.setDate(day.getDate() + 1);
     this.fulldate = day.toDateString();
     let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
-    this.currentDateAndTime = currentDate + " " + " 08:00 AM";
+    this.currentDateAndTime = currentDate + " " + "08:00 AM";
     if (id == "01") {
       this.timer = true;
       this.timedate = this.currentDateAndTime;
@@ -388,7 +360,7 @@ export class NotesComponent implements OnInit {
 
     this.fulldate = day.setDate(day.getDate() + ((1 + 7 - day.getDay()) % 7));
     let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
-    this.currentDateAndTime = currentDate + " " + " 08:00 AM";
+    this.currentDateAndTime = currentDate + " " + "08:00 AM";
     if (id == "01") {
       this.timer = true;
       this.timedate = this.currentDateAndTime;
@@ -450,43 +422,44 @@ export class NotesComponent implements OnInit {
     this.title = value.title;
     this.description = value.desc;
     // this.loadNotes();
-    
+
     if (
-			((value.title != "" ||
-				 value.desc !=""||
-				this.Mainimage != "" ||
-				this.timedate != "") &&
-				(value.title != undefined || value.desc != undefined)) ||
-			this.Mainimage != ""
-			
-		){
+      ((value.title != "" ||
+        value.desc != "" ||
+        this.Mainimage != "" ||
+        this.timedate != "") &&
+        (value.title != undefined || value.desc != undefined)) ||
+      this.Mainimage != ""
+
+    ) {
       let createobs = this.noteserv.createNotes(value, uid, this.timedate);
       createobs.subscribe((res: any) => {
         debugger
-        console.log(res.status);
+        console.log(res,"notecreate");
         if (res.status == "200") {
+          debugger
           this.token1 = res.token;
           this.notes.forEach(element => {
             debugger
             let thingsObj = {} as Notes;
-  
+
             // thingsObj.id = value.id
             thingsObj.title = value.title;
             thingsObj.desc = value.desc;
             thingsObj.color = value.color;
-  
-  
+
+
             this.notes.push(thingsObj);
-  
-            console.log("new notes ",this.notes);
+
+            console.log("new notes ", this.notes);
             this.loadNotes();
-  
-  
+
+
           });
         }
       })
     }
-    
+
 
 
   }
@@ -515,16 +488,18 @@ export class NotesComponent implements OnInit {
     let colorObs = this.noteserv.notesCrud(id, value, flag);
     colorObs.subscribe((res: any) => {
       if (res.status == "200") {
-        
+
 
         this.notes.forEach(element => {
           if (element.id == id) {
             if (flag == "color") {
-              element.archive =value;
+              element.archive = value;
             }
+
           }
         });
         this.stat = " updated";
+
       }
     })
 
@@ -661,25 +636,49 @@ export class NotesComponent implements OnInit {
   }
 
 
-
-  addLabel(labelid,notelid,flag){
+  labelname
+  lname
+  addLabel(labelid, notelid, flag) {
     debugger
 
-      let addlabel = this.labelserv.labelAdd(labelid,notelid,this.uid,flag);
-      addlabel.subscribe((res:any)=>{
+    let addlabel = this.labelserv.labelAdd(labelid, notelid, this.uid, flag);
+    addlabel.subscribe((res: any) => {
+debugger
+      this.notes.forEach(element => {
+        debugger
+        if(element.id==notelid){
+          if(flag=="delete"){
+            element.labelname="";
+          }
+          if(flag="add"){
+            
+            let labelname = this.labelserv.labelnamebyid(labelid);
+            labelname.subscribe((res)=>{
+              
+              debugger
+              this.labelname = res;
+              const lname =this.labelname[0].labelname;
+              console.log(this.lname,"labelname");
+              element.labelname=lname; 
+            })
+            
+          }
+        }
+        
+      });
 
-      })
+    })
 
   }
 
 
-  
 
-    /**
-   * set label
-   * @param labelname 
-   */
-  setLabel(labelid){
+
+  /**
+ * set label
+ * @param labelname 
+ */
+  setLabel(labelid) {
     debugger
     this.labelserv.labelnameSet(labelid);
   }
