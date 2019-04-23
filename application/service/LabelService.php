@@ -49,7 +49,7 @@ class LabelService extends CI_Controller
 
     
     public function labeldelete($uid){
-        $query = "DELETE FROM labels WHERE id = '$uid'";
+        $query = "DELETE FROM Labels WHERE id = '$uid'";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
         if ($res) {

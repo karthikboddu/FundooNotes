@@ -51,7 +51,7 @@
   <mat-menu [overlapTrigger]="false" #buttonMenu="matMenu">
     <div class="colorbtn">
     <button *ngFor="let item of defaultColors" matTooltip="Yellow" (click)="data.notesdata.color =item" mat-mini-fab
-      class="colorlens" [ngStyle]="{'background': item}"></button>
+ (click)="form.value.color = item"     class="colorlens" [ngStyle]="{'background': item}"></button>
 </div>
   </mat-menu>
 

@@ -29,4 +29,23 @@ export class RegisterService {
 
     return this.http.post(this.serviceurl.host + this.serviceurl.register, createuser);
   }
+
+  updateImage(image,uid){
+    let uimage = new FormData();
+    debugger
+    uimage.append("uid",uid);
+    uimage.append("image",image);
+
+    return this.http.post(this.serviceurl.host + this.serviceurl.userimage, uimage);
+  }
+
+  fetchUserImage(uid){
+    let uimage = new FormData();
+    debugger
+    uimage.append("uid",uid);
+    
+
+    return this.http.post(this.serviceurl.host + this.serviceurl.fetchuimage, uimage);
+  }
+  
 }

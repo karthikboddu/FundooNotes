@@ -39,6 +39,12 @@ class Users{
 	 */
     protected $password;
 
+
+    /**
+	 * @Column(type="blob", nullable=false)
+	 */
+    protected $image;
+
     /**
      * 
      * @OneToMany(targetEntity="Notes",mappedBy="uid" )

@@ -1,8 +1,97 @@
+<div fxShow="true" fxHide.lt-sm="true">
+    <input class="ipnotes" *ngIf="noteshow" (click)="toggle()" placeholder="Take a note">
+    <span class="iconbtn"><button mat-icon-button>
+        <mat-icon class="icon">check_box</mat-icon>
+      </button>
+  
+      <button mat-icon-button>
+        <mat-icon class="icon">brush</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon class="icon">insert_photo</mat-icon>
+      </button>
+    </span>
+  </div>
+  
+  <mat-card class="matcard"  [ngStyle]="{'background-color': noteform.value.color}" >
+    <form [formGroup]="noteform">
+      <input matInput [ngStyle]="{'background-color': noteform.value.color}" class="ipnote" placeholder="Title"
+        formControlName="title">
+      <button mat-icon-button class="pinbtn">
+        <mat-icon class="icon"><img src="../../../assets/pin.svg"></mat-icon>
+      </button>
+  
+      <input class="ipnote takenote" [ngStyle]="{'background-color': noteform.value.color}" matInput
+        placeholder="Take a note ..." formControlName="desc">
+      <div *ngIf="timer">
+        <button mat-icon-button>
+          <mat-icon class="remicon">schedule</mat-icon>
+          <mat-chip class="chip">
+            {{timedate}}
+          </mat-chip>
+  
+  
+        </button>
+        <button mat-icon-button class="btnclose" (click)="closetime()">
+          <mat-icon class="remicon">close</mat-icon>
+  
+        </button>
+  
+  
+  
+      </div>
+  
+      <div >
+        <div  *ngFor="let n of labelsNote; let i=index">
+           
+        <mat-chip-list>
+          <button mat-icon-button *ngIf="i<1">
+            <mat-chip style="background-color: rgba(0,0,0,0.08);"> 
+              {{n.labelname}}
+          </mat-chip>
+            
+          </button>
+         
+          <button *ngIf="i<1"
+          mat-icon-button class="remicon" (click)="labelname =null"><mat-icon style="margin-left:25px; font-size: 17px;" >close</mat-icon></button>
+        </mat-chip-list>
+      </div>
+  
+      </div>
+      <span class="spanbutton">
+        <button mat-icon-button class="pinbtn" [matMenuTriggerFor]="remainder">
+          <mat-icon class="icon">notification_important</mat-icon>
+        </button>
+        <button mat-icon-button class="pinbtn">
+          <mat-icon class="icon" [matMenuTriggerFor]="colorMenu">color_lens</mat-icon>
+        </button>
+        <button mat-icon-button class="pinbtn">
+          <mat-icon class="icon">archive</mat-icon>
+        </button>
+        <button mat-icon-button class="pinbtn">
+          <mat-icon class="icon">person_add</mat-icon>
+        </button>
+        <button mat-icon-button class="pinbtn">
+          <mat-icon class="icon" [matMenuTriggerFor]="moreopt">more_vert</mat-icon>
+        </button>
+        <button mat-button class="close" (click)="noteSubmit(noteform.value)">Close</button>
+      </span>
+    </form>
+  </mat-card>
+
+
+
+
+
+
 <div class="flexcard" fxLayout="{{direction}} wrap" fxLayoutGap="50px" fxLayoutAlign="start center">
 
   <mat-card class="matdiv" btnhover *ngFor="let items of notes" [ngClass]="direction == 'row' ? 'row': 'column' "
     [ngStyle]="{'background-color': items.color}">
     <div class="cardtext">
+        <div>
+            <img src="{{ items.image }}" alt="" class="noteImage" />
+          </div>
       <p class="para">{{items.title}}</p>
       <p class="para"> {{items.description}}</p>
       <p class="para">
@@ -18,3 +107,64 @@
   </mat-card>
 
 </div>
+
+
+<mat-menu [overlapTrigger]="false" #buttonMenu="matMenu">
+    <div class="colorbtn">
+      <button *ngFor="let item of defaultColors" matTooltip="Yellow"
+        (click)="notestools(noteform.value.id,item,'color')" mat-mini-fab class="colorlens"
+        [ngStyle]="{'background': item}"></button>
+    </div>
+
+  </mat-menu>
+
+  <mat-menu [overlapTrigger]="false" #colorMenu="matMenu">
+    <div class="colorbtn">
+      <button *ngFor="let item of defaultColors" matTooltip="Yellow" (click)="noteform.value.color = item" mat-mini-fab
+        class="colorlens" [ngStyle]="{'background': item}"></button>
+    </div>
+
+  </mat-menu>
+
+
+
+  <mat-menu #remainder="matMenu" class="matmenu">
+    <mat-label>Remainder</mat-label>
+    <button mat-menu-item (click)="todayy(01,rem_id)">Later today : 8PM</button>
+    <button mat-menu-item (click)="tomorrow(01,rem_id)">Tomorrow : 8PM</button>
+    <button mat-menu-item (click)="nextWeek(01)">next week</button>
+
+    <button mat-menu-item (click)="date_panel = true">pick date and time</button>
+  </mat-menu>
+
+
+  <mat-menu #moreopt="matMenu" class="matmenu">
+
+    <button mat-menu-item (click)="deletenote(noteform.value.id,'1')">Delete note</button>
+    <button mat-menu-item [matMenuTriggerFor]="labelMenu">Add label</button>
+    <button mat-menu-item>Add Drawing</button>
+
+    <button mat-menu-item>Make a copy</button>
+    <button mat-menu-item>Show tick boxes</button>
+    <button mat-menu-item>Copy to Google Docs</button>
+
+
+  </mat-menu>
+  <mat-menu [overlapTrigger]="false" #labelMenu="matMenu">
+    <div class="colorbtn">
+      <!-- <mat-list-item>
+        <a mat-list-item role="listitem" *ngFor="let l of labels">
+          <mat-icon class="icon">label</mat-icon><span class="notes">{{l.label}}</span>
+        </a>
+      </mat-list-item> -->
+      <!-- <button mat-menu-item >
+       
+      </button> -->
+      <mat-checkbox *ngFor="let l of labels" (click)="noteform.value.lid = l.id" (click)="labelname=l.labelname"
+        (click)="addLabel(l.id,noteform.value.id)" (click)="lid=l.id"> {{ l.labelname }}</mat-checkbox>
+    </div>
+  </mat-menu>
+
+
+
+

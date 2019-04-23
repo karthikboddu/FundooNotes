@@ -12,6 +12,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { LabelService } from 'src/app/services/label.service';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Label } from '../../models/label.model';
+import { CollabaratorComponent } from '../collabarator/collabarator.component';
+import { RegisterService } from 'src/app/services/register.service';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -35,7 +37,7 @@ export class NotesComponent implements OnInit {
     private route: Router, private viewservice: ViewService,
     private el: ElementRef, private renderer: Renderer, private snackBar: MatSnackBar,
     private cookieserv: CookieService,
-    private labelserv: LabelService,
+    private labelserv: LabelService,private regServ:RegisterService
 
   ) {
     this.viewservice.getView().subscribe((res => {
@@ -113,7 +115,7 @@ export class NotesComponent implements OnInit {
   public isArchived = "n";
   timearr: any;
   rowcard //css class
-
+  timeReminder:boolean=true;
   wrap: string = "wrap";
   direction: string;
   layout: string;
@@ -139,13 +141,17 @@ export class NotesComponent implements OnInit {
     this.timer = false;
     this.newnote = false;
     this.notes_timer = true;
-    setInterval(() => {
 
-    }, 1000);
+      setInterval(() => {
+       
+      }, 1000);
+    
+      this.remainder123();
+
     this.loadNotes();
+    
 
 
-    this.remainder123();
 
     this.viewservice.getView().subscribe((res => {
       this.view = res;
@@ -175,7 +181,17 @@ export class NotesComponent implements OnInit {
   period
   date_panel
   newdate
+  image
+  userDetails
+  userImage(){
+    let profileImage = this.regServ.fetchUserImage(this.uid);
+    profileImage.subscribe((res:any)=>{
+      debugger
+      this.userDetails = res;
+      this.image = res[0].image as string[];
 
+        });
+  }
 
   datetime(id, value: any) {
     this.date = value.datetime;
@@ -247,7 +263,7 @@ export class NotesComponent implements OnInit {
     var day = new Date();
     var fulldate =
       day.toDateString() + " " + (day.getHours() % 12) + ":" + day.getMinutes();
-    fulldate = moment(fulldate).format("DD/MM/YYYY hh:mm") + "PM";
+    fulldate = moment(fulldate).format("DD/MM/YYYY hh:mm") + " PM";
     const token = localStorage.getItem('token');
     const tokenPayload = decode(token);
 
@@ -270,7 +286,7 @@ export class NotesComponent implements OnInit {
         if (DateAndTime == element.reminder) {
           console.log("remainder " + element.reminder);
           debugger
-
+          this.timeReminder = false;
           this.snackBar.open(element.title, "", {
             duration: 2000
           });
@@ -278,6 +294,27 @@ export class NotesComponent implements OnInit {
       });
     })
 
+  }
+
+
+  openColl(notes){
+    debugger
+    const dialogconfg = new MatDialogConfig();
+
+    dialogconfg.autoFocus = true;
+    dialogconfg.panelClass = 'custom-dialog-container';
+    dialogconfg.width = "600px"
+    dialogconfg.height = "290px"
+    dialogconfg.data = {
+      //   titles : notes['title'],
+      //   description : notes.description,
+      //   reminder : notes.remainder
+      notesdata: notes
+    }
+    let open = this.dialog.open(CollabaratorComponent, dialogconfg);
+    open.afterClosed().subscribe(result => {
+      console.log(result, "dialog");
+    });
   }
 
   openNotes(notes) {
@@ -418,21 +455,27 @@ export class NotesComponent implements OnInit {
     const token = localStorage.getItem('token');
     const tokenPayload = decode(token);
     const uid = tokenPayload.id;
-
+    this.flag =0;
     this.title = value.title;
     this.description = value.desc;
     // this.loadNotes();
+    if(value.title==""||value.desc==""){
+      if(this.Mainimage!=""||value.color!=""||value.labelid!=""){
+        this.flag =1;
+      }
+    }
+    if(value.title!=""||value.desc!=""){
 
-    if (
-      ((value.title != "" ||
-        value.desc != "" ||
-        this.Mainimage != "" ||
-        this.timedate != "") &&
-        (value.title != undefined || value.desc != undefined)) ||
-      this.Mainimage != ""
-
-    ) {
-      let createobs = this.noteserv.createNotes(value, uid, this.timedate);
+      this.flag =1;
+    }
+    
+    // if (
+    //   (value.title != "" ||
+    //     value.desc != "")||
+    //  (this.Mainimage!=""||this.timedate!="" ) ) 
+    if(this.flag==1)
+     {
+      let createobs = this.noteserv.createNotes(value, uid, this.timedate,this.Mainimage);
       createobs.subscribe((res: any) => {
         debugger
         console.log(res,"notecreate");

@@ -94,4 +94,20 @@ class UserData extends CI_Controller
 
         $this->refService->socialSigin($email,$name);
     }
+
+    public function profilePic(){
+        $id = $_POST['uid'];
+        $image = $_POST['image'];
+        $this->refService->updateProfilepic($id,$image);
+    }
+
+    public function userImage(){
+        $id = $_POST['uid'];
+    
+        $this->refService->fetchUserImage($id);
+    }
+
+    
+    
+    
 }

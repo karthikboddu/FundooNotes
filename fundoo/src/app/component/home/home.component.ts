@@ -11,6 +11,7 @@ import { Label } from '../../models/label.model';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { Notes } from 'src/app/models/notes.model';
+import { RegisterService } from 'src/app/services/register.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -21,7 +22,8 @@ export class HomeComponent implements OnInit {
   constructor(private viewservice: ViewService, private noteserv: NotesService, 
     private dataservice:DataserviceService,private dialog:MatDialog,
     private cookieserv : CookieService,
-    private labelservice:LabelService,private route:Router,private dataserv:DataserviceService) { }
+    private labelservice:LabelService,private route:Router,private dataserv:DataserviceService
+    ,private regServ :RegisterService) { }
   grid: boolean = false;
   list: boolean = true;
   maindiv: boolean = false;
@@ -43,7 +45,10 @@ export class HomeComponent implements OnInit {
       });
     });
 
+     this.token = localStorage.getItem('token');
+      this.tokenPayload = decode(this.token);
 
+    this.uid = this.tokenPayload.id;
 
     this.token = localStorage.getItem('token');
     if(this.token!=null){
@@ -64,6 +69,8 @@ export class HomeComponent implements OnInit {
 
     this.profilename = this.profilemail.substring(0,1);
     console.log("name"+this.profilename);
+
+    this.userImage();
   }
 
 
@@ -115,8 +122,12 @@ export class HomeComponent implements OnInit {
 
   search(){
     debugger
-
-      this.dataserv.searchdata(this.searchtext);
+      if(this.searchtext==undefined){
+        return;
+      }else{
+        this.dataserv.searchdata(this.searchtext);  
+      }
+      
 
   }
 
@@ -128,6 +139,15 @@ export class HomeComponent implements OnInit {
     const label = this.dialog.open(LabelsComponent,config);
   }
 
+  image
+  userImage(){
+    let profileImage = this.regServ.fetchUserImage(this.uid);
+    profileImage.subscribe((res:any)=>{
+      debugger
+      this.image = res[0].image as string[];
+
+        });
+  }
 
   /**
 	 * var to hold image base64url
@@ -158,6 +178,14 @@ export class HomeComponent implements OnInit {
 			}
 		});
 
+    this.Mainimage = "data:image/jpeg;base64," + this.base64textString;
+    let profileImage = this.regServ.updateImage(this.Mainimage,this.uid);
+    profileImage.subscribe((res:any)=>{
+
+    })
+
+
+
 		if (this.imageNoteId == "01") {
 			this.Mainimage = "data:image/jpeg;base64," + this.base64textString;
 		} else {
@@ -180,9 +208,9 @@ export class HomeComponent implements OnInit {
   }
 
 
-  userImage(event){
+  // userImage(event){
 
-  }
+  // }
 
 
 

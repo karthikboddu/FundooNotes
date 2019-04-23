@@ -77,20 +77,27 @@ close(value:any) {
   console.log(value);
   this.notebg = value.color;
     this.dialogRef.close(value);  
-    if(this.data.notesdata.title != null &&
-      this.data.notesdata.description != null &&
-      this.data.notesdata.color != ""){
+    if(this.data.notesdata.title != "" &&
+      this.data.notesdata.description != "" &&
+      this.data.notesdata.color != "")
+      {
+
+
 
       }
-    let updateobs = this.noteserv.updateNotes(this.data,this.id);
-    updateobs.subscribe((res:any)=>{
-        if( res.status=="200"){
-            this.data.notesdata.title = value.title;
-            this.data.notesdata.description = value.description;
-            this.stat = "update";
-        }
 
-    })
+      if(value.title!=""||value.description!=""){
+        let updateobs = this.noteserv.updateNotes(value,this.id);
+        updateobs.subscribe((res:any)=>{
+            if( res.status=="200"){
+                this.data.notesdata.title = value.title;
+                this.data.notesdata.description = value.description;
+                this.stat = "update";
+            }
+    
+        })
+    
+      }
 
 
 

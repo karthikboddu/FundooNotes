@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import {ServiceUrlService} from '../serviceUrl/service-url.service';
 import { Login } from '../models/login.model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,9 +12,10 @@ export class NotesService {
 
   }
   tokens;
-  createNotes(notes,id,time){
+  createNotes(notes,id,time,image){
   //  this.tokens= localStorage.getItem('token');
   //   headses.set('Authorization',this.tokens);
+  debugger
       let createnotes = new FormData();
       createnotes.append("id",id);
       createnotes.append("title",notes.title);
@@ -21,6 +23,7 @@ export class NotesService {
       createnotes.append("remainder",time);
       createnotes.append("color",notes.color);
       createnotes.append("labelid",notes.lid);
+      createnotes.append("image",image);
       let headers_object = new HttpHeaders().set("Authorization",
 			
       localStorage.getItem("token")
@@ -45,9 +48,9 @@ export class NotesService {
   updateNotes(data,id){
     debugger
     let update = new FormData();
-    update.append("title",data.notesdata.title);
-    update.append("description",data.notesdata.description);
-    update.append("color",data.notesdata.color);
+    update.append("title",data.title);
+    update.append("description",data.description);
+    update.append("color",data.color);
     update.append("uid",id);
     return this.http.post(this.serviceurl.host+this.serviceurl.updatenotes,update);
   }

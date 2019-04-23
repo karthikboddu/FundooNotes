@@ -1,6 +1,6 @@
 <?php
-// header('Access-Control-Allow-Origin: *');
-// header("Access-Control-Allow-Headers: Authorization");
+ header('Access-Control-Allow-Origin: *');
+ header("Access-Control-Allow-Headers: Authorization");
 // defined('BASEPATH') or exit('No direct script access allowed');
 //include "/var/www/html/codeigniter/application/service/UserDataController.php";
 use \Firebase\JWT\JWT;
@@ -38,6 +38,7 @@ class UserController extends CI_Controller
         $conn = $redis->connection();
         foreach ($loginArr as $arr) {
             $uid = $arr['u_id'];
+            $image = $arr['u_image'];
         }
         if (is_null($res)) {
             $data = array(
@@ -49,11 +50,11 @@ class UserController extends CI_Controller
             $token = array(
                 "id" => $uid,
                 "email" => $email,
-
+                
             );
             $jwt = JWT::encode($token, $key);
             // $verify = JWT::verifytoken($jwt,,$key,'HS256');
-            $decoded = JWT::decode($jwt, $key, array('HS256'));
+            //$decoded = JWT::decode($jwt, $key, array('HS256'));
 
             $conn->set('token' . $email, $jwt);
             $response = $conn->get('token' . $email);
@@ -85,6 +86,7 @@ class UserController extends CI_Controller
         $user->setLname($lname);
         $user->setEmailid($email);
         $user->setPassword($password);
+
         // $article2 = $em->find('Entity\Users', 1);
         // $sd =  $article2->getFname();
         $notes = new Entity\Notes;
@@ -118,17 +120,24 @@ class UserController extends CI_Controller
         $rem = $_POST['remainder'];
         $color = $_POST['color'];
         $labelid = $_POST['labelid'];
+        $image = $_POST['image'];
         $em = $this->doctrine->em;
         $notes = new Entity\Notes;
 
+        if($rem =="undefined"){
+            $rem ="";
+        }
+
         $article2 = $em->find('Entity\Users', $id);
 
+        // $headers = apache_request_headers();
+        // $token = $headers['Authorization'];
         $notes->setTitle($title);
         $notes->setDescription($desc);
         $notes->setColor($color);
 
         $notes->setTrash(0);
-        $notes->setImage(0);
+        $notes->setImage($image);
         $notes->setArchive(0);
         $notes->setReminder($rem);
         $notes->setUid($article2);

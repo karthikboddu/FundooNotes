@@ -30,7 +30,21 @@ class NotesController extends CI_Controller
         $query->setParameter(1, $uid);
        // $rff = $query->getResult();
         $noteArr = $query->getScalarResult();
-       
+        $encode = json_encode($noteArr);
+        $redis = new RedisConn();
+        $conn = $redis->connection();
+        $redisKey = $conn->exists($uid);
+
+        // if($redisKey==1){
+        //     $redisNoteData =  $conn->get($uid);
+        //     print $redisNoteData;
+        // }
+        // else{
+        //     $conn->set($uid, $encode);   
+        //     $redisNoteData =  $conn->get($uid);
+        //     print $redisNoteData;     
+        // }
+        
         // $res = $noteArr[0];
         // //  print_r($res);
         // $title = $res['n_title'];
@@ -41,6 +55,7 @@ class NotesController extends CI_Controller
         //     "description"=>$desc
         // );
         // $ss = json_encode($data);
+
         print json_encode($noteArr);
     }
 

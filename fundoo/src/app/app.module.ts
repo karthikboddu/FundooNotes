@@ -98,6 +98,6 @@ import { SearchPipe } from './pipe/search.pipe';
 			useFactory: getAuthServiceConfigs
 		}],
   bootstrap: [AppComponent],
-  entryComponents : [EditnotesComponent,LabelsComponent]
+  entryComponents : [EditnotesComponent,LabelsComponent,CollabaratorComponent]
 })
 export class AppModule { }

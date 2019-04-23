@@ -21,6 +21,8 @@ export class SearchComponent implements OnInit {
     debugger
     let searchData = this.dataserv.returnsearchdata();
     searchData.subscribe((res:any)=>{
+      debugger
+      this.searchtext = res;
       console.log("searched ",res);
     })
     this.loadNotes();

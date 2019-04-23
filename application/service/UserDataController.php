@@ -82,6 +82,30 @@ class UserDataController extends CI_Controller
     }
 
 
+        /**
+     * @param image
+     */
+    public function updateProfilepic($id,$image)
+    {
+        $query = "UPDATE Users set image = '$image' WHERE id='$id'";
+        $stmt = $this->db->conn_id->prepare($query);
+        $res = $stmt->execute($datta);
+        if ($res) {
+            $data = array(
+                "status" => "200",
+            );
+            print json_encode($data);
+
+        } else {
+            $data = array(
+                "status" => "204",
+            );
+            print json_encode($data);
+            return "204";
+
+        }   
+    }
+
 
 
     /**
@@ -207,6 +231,28 @@ class UserDataController extends CI_Controller
             return false;
         }
     }
+
+        /**
+     * @method emailpresent()
+     * @param email
+     */
+
+    public function fetchUserImage($id)
+    {
+        $query = "SELECT * from Users WHERE id = '$id'";
+        $stmt = $this->db->conn_id->prepare($query);
+
+        $stmt->execute();
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $count = $stmt->rowCount();
+
+        if ($count > 0) {
+            print json_encode($res);
+        } else {
+            return false;
+        }
+    }
+
 
     /**
      * @method fetchemailid()

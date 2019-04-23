@@ -11,6 +11,7 @@ import { Notes } from '../../models/notes.model';
 import { CookieService } from 'ngx-cookie-service';
 import { LabelService } from 'src/app/services/label.service';
 import { Label } from 'src/app/models/label.model';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-labelsdisplay',
@@ -116,6 +117,9 @@ export class LabelsdisplayComponent implements OnInit {
   direction: string;
   layout: string ;
   labelid
+  token
+  tokenPayload
+  uid
   /**
    * @description fetch the notes when the components loads
    */
@@ -151,13 +155,17 @@ export class LabelsdisplayComponent implements OnInit {
        this.layout = this.direction + " " + this.wrap;
     }))
 
-    const token = localStorage.getItem('token');
-    const tokenPayload = decode(token);
+    this.token = localStorage.getItem('token');
+    this.tokenPayload = decode(this.token);
 
-    const uid = tokenPayload.id;
-   let labelosb = this.labelserv.fetchLabel(uid);
+    this.uid = this.tokenPayload.id;
+   let labelosb = this.labelserv.fetchLabel(this.uid);
       labelosb.subscribe((res:any)=>{
+
           this.labels = res;
+          if((this.labels)==[]){
+            
+          }
       });
 
 
@@ -208,6 +216,52 @@ export class LabelsdisplayComponent implements OnInit {
     console.log(value);
   }
 
+
+	/**
+	 * var to hold image base64url
+	 */
+  public base64textString;
+  Mainimage
+  imageNoteId
+  onSelectImage(event, noteId) {
+    debugger;
+    this.imageNoteId = noteId;
+    var files = event.target.files;
+    var file = files[0];
+    if (files && file) {
+      var reader = new FileReader();
+      reader.onload = this._handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
+    }
+  }
+
+  _handleReaderLoaded(readerEvt) {
+    const token = localStorage.getItem('token');
+    const tokenPayload = decode(token);
+    const uid = tokenPayload.id;
+    debugger
+    var binaryString = readerEvt.target.result;
+    console.log(binaryString);
+    this.base64textString = btoa(binaryString);
+    this.notes.forEach(element => {
+      if (element.id == this.imageNoteId) {
+        debugger
+        element.image = "data:image/jpeg;base64," + this.base64textString;
+      }
+    });
+
+    if (this.imageNoteId == "01") {
+      this.Mainimage = "data:image/jpeg;base64," + this.base64textString;
+    } else {
+      this.Mainimage = "data:image/jpeg;base64," + this.base64textString;
+      let obss = this.noteserv.imagesave(
+        this.Mainimage,
+        uid,
+        this.imageNoteId
+      );
+      obss.subscribe((res: any) => { });
+    }
+  }
 
   /**
    * @description toggle to hide show 
@@ -433,7 +487,7 @@ export class LabelsdisplayComponent implements OnInit {
 
 
 
-
+m;
   /**
    * @description submit title descrption data
    * @method :noteSubmit()
@@ -451,17 +505,17 @@ export class LabelsdisplayComponent implements OnInit {
     //   element
       
     // });
-
+    
 
     const token = localStorage.getItem('token');
     const tokenPayload = decode(token);
     const uid = tokenPayload.id;
-
+    this.noteform.value.lid = this.labelid;
     this.title = value.title;
     this.description = value.desc;
     this.loadNotes();
-    const email = localStorage.getItem('email');
-    let createobs = this.noteserv.createNotes(value, uid, this.todaydb);
+
+    let createobs = this.noteserv.createNotes(value, uid, this.todaydb,this.Mainimage);
 
     createobs.subscribe((res: any) => {
       debugger
@@ -542,5 +596,56 @@ export class LabelsdisplayComponent implements OnInit {
     })
 
   }
+
+
+  labelname
+  lname
+  addLabel(labelid, notelid, flag) {
+    debugger
+
+    let addlabel = this.labelserv.labelAdd(labelid, notelid, this.uid, flag);
+    addlabel.subscribe((res: any) => {
+debugger
+      this.notes.forEach(element => {
+        debugger
+        if(element.id==notelid){
+          if(flag=="delete"){
+            element.labelname="";
+          }
+          if(flag="add"){
+            
+            let labelname = this.labelserv.labelnamebyid(labelid);
+            labelname.subscribe((res)=>{
+              
+              debugger
+              this.labelname = res;
+              const lname =this.labelname[0].labelname;
+              console.log(this.lname,"labelname");
+              element.labelname=lname; 
+            })
+            
+          }
+        }
+        
+      });
+
+    })
+
+  }
+
+
+
+
+  /**
+ * set label
+ * @param labelname 
+ */
+  setLabel(labelid) {
+    debugger
+    this.labelserv.labelnameSet(labelid);
+  }
+
+
+  
 
 }

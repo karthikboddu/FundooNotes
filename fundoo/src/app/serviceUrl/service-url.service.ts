@@ -35,4 +35,7 @@ export class ServiceUrlService {
 
   public addLabel = "labelAdd";
   public labelnamebyid = "labelNameid";
+
+  public userimage = "userImage";
+  public fetchuimage = "fetchUserImage";
 }

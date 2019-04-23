@@ -46,8 +46,6 @@
             <mat-chip class="chip">
               {{timedate}}
             </mat-chip>
-
-
           </button>
           <button mat-icon-button class="btnclose" (click)="closetime()">
             <mat-icon class="remicon">close</mat-icon>
@@ -220,7 +218,7 @@
 
       <!-- [style.display]="'none'" -->
       <!-- <div  >      -->
-      <span class="spanbtn">
+      <span class="spanbtn"  >
         <button mat-icon-button class="pinbtn" matTooltip="Remainder" (click)="datetime(datetimeform.value)"
           [matMenuTriggerFor]="remainder">
           <mat-icon class="icon" (click)="rem_id = n.id">notification_important</mat-icon>
@@ -231,8 +229,8 @@
         <button mat-icon-button class="pinbtn">
           <mat-icon class="icon" (click)="notestools(noteform.value.id = n.id,1,'Archive')">archive</mat-icon>
         </button>
-        <button mat-icon-button class="pinbtn">
-          <mat-icon class="icon">person_add</mat-icon>
+        <button mat-icon-button class="pinbtn" >
+          <mat-icon class="icon" (click)="openColl(user)">person_add</mat-icon>
         </button>
         <button mat-icon-button>
           <mat-icon class="icon" (click)="file.click()">insert_photo</mat-icon>

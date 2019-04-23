@@ -12,16 +12,16 @@ export class DataserviceService {
   // }
 
   subject;
-  variable: any;
+  text: any;
   constructor() { }
-  searchdata(value) {
+  searchdata(searchText) {
     debugger
     this.subject = new Subject();
-    this.subject.next({ data: value });
-    this.variable = value;
+    this.subject.next({ data: searchText });
+    this.text = searchText;
   }
   returnsearchdata() {
-    this.searchdata(this.variable)
+    this.searchdata(this.text)
     return this.subject.asObservable();
   }
 
