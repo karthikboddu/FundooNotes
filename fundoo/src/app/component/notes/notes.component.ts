@@ -14,6 +14,8 @@ import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-
 import { Label } from '../../models/label.model';
 import { CollabaratorComponent } from '../collabarator/collabarator.component';
 import { RegisterService } from 'src/app/services/register.service';
+import { Register } from 'src/app/models/register.model';
+import { PushNotificationOptions, PushNotificationService } from 'ngx-push-notifications';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -26,6 +28,7 @@ export class NotesComponent implements OnInit {
 
   classcard;
   notes: Notes[] = [];
+  userDetails :Register[] =[];
   labels: Label[];
   /**
    * 
@@ -37,7 +40,8 @@ export class NotesComponent implements OnInit {
     private route: Router, private viewservice: ViewService,
     private el: ElementRef, private renderer: Renderer, private snackBar: MatSnackBar,
     private cookieserv: CookieService,
-    private labelserv: LabelService,private regServ:RegisterService
+    private labelserv: LabelService,private regServ:RegisterService,
+    private _pushNotificationService: PushNotificationService
 
   ) {
     this.viewservice.getView().subscribe((res => {
@@ -147,10 +151,11 @@ export class NotesComponent implements OnInit {
       }, 1000);
     
       this.remainder123();
-
+      this.myFunction();
     this.loadNotes();
-    
+    this.userImage();
 
+    this._pushNotificationService.requestPermission();
 
 
     this.viewservice.getView().subscribe((res => {
@@ -182,13 +187,17 @@ export class NotesComponent implements OnInit {
   date_panel
   newdate
   image
-  userDetails
+
   userImage(){
+    this.token = localStorage.getItem('token');
+    this.tokenPayload = decode(this.token);
+
+    this.uid = this.tokenPayload.id;
     let profileImage = this.regServ.fetchUserImage(this.uid);
     profileImage.subscribe((res:any)=>{
       debugger
       this.userDetails = res;
-      this.image = res[0].image as string[];
+      this.image = res[0].image;
 
         });
   }
@@ -220,6 +229,82 @@ export class NotesComponent implements OnInit {
     this.noteshow = false;
     this.cardshow = true;
   }
+
+  myFunction() {
+    const title = 'Hello';
+    const options = new PushNotificationOptions();
+    options.body = 'Native Push Notification';
+ 
+    this._pushNotificationService.create(title, options).subscribe((notif) => {
+      if (notif.event.type === 'show') {
+        console.log('onshow');
+        setTimeout(() => {
+          notif.notification.close();
+        }, 3000);
+      }
+      if (notif.event.type === 'click') {
+        console.log('click');
+        notif.notification.close();
+      }
+      if (notif.event.type === 'close') {
+        console.log('close');
+      }
+    },
+    (err) => {
+         console.log(err);
+    });
+}
+
+
+
+currentDateAndTime
+remainder123() {
+  // this.toasterservice.success("ddd", "asfasdf"); 
+  debugger
+  var day = new Date();
+  var fulldate =
+    day.toDateString() + " " + (day.getHours() % 12) + ":" + day.getMinutes();
+  fulldate = moment(fulldate).format("DD/MM/YYYY hh:mm") + " PM";
+  const token = localStorage.getItem('token');
+  const tokenPayload = decode(token);
+
+  const uid = tokenPayload.id;
+
+  let notesobs = this.noteserv.fetchNotes(uid);
+
+  notesobs.subscribe((data: any) => {
+
+    this.notes = data;
+    this.notes.forEach(element => {
+      debugger
+
+      let DateAndTime = fulldate;
+      this.currentDateAndTime = DateAndTime;
+      console.log("remainder " + element.reminder);
+      /**
+       * compare with present time if equal alert remainder
+       */
+
+       
+      if (DateAndTime == element.reminder) {
+ 
+        console.log("remainder " + element.reminder);
+        debugger
+        this.timeReminder = false;
+        this.snackBar.open(element.title, "", {
+          duration: 2000
+        });
+      }
+    });
+  })
+
+}
+
+
+
+
+
+
 
   /**
    * @description loadnotes from the database
@@ -256,48 +341,10 @@ export class NotesComponent implements OnInit {
   }
 
 
-  currentDateAndTime
-  remainder123() {
-    // this.toasterservice.success("ddd", "asfasdf"); 
-    debugger
-    var day = new Date();
-    var fulldate =
-      day.toDateString() + " " + (day.getHours() % 12) + ":" + day.getMinutes();
-    fulldate = moment(fulldate).format("DD/MM/YYYY hh:mm") + " PM";
-    const token = localStorage.getItem('token');
-    const tokenPayload = decode(token);
-
-    const uid = tokenPayload.id;
-
-    let notesobs = this.noteserv.fetchNotes(uid);
-
-    notesobs.subscribe((data: any) => {
-
-      this.notes = data;
-      this.notes.forEach(element => {
-        debugger
-
-        let DateAndTime = fulldate;
-        this.currentDateAndTime = DateAndTime;
-        console.log("remainder " + element.reminder);
-        /**
-         * compare with present time if equal alert remainder
-         */
-        if (DateAndTime == element.reminder) {
-          console.log("remainder " + element.reminder);
-          debugger
-          this.timeReminder = false;
-          this.snackBar.open(element.title, "", {
-            duration: 2000
-          });
-        }
-      });
-    })
-
-  }
+ 
 
 
-  openColl(notes){
+  openColl(){
     debugger
     const dialogconfg = new MatDialogConfig();
 
@@ -309,7 +356,7 @@ export class NotesComponent implements OnInit {
       //   titles : notes['title'],
       //   description : notes.description,
       //   reminder : notes.remainder
-      notesdata: notes
+      notesdata: this.userDetails
     }
     let open = this.dialog.open(CollabaratorComponent, dialogconfg);
     open.afterClosed().subscribe(result => {

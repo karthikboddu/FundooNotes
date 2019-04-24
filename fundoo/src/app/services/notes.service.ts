@@ -33,7 +33,7 @@ export class NotesService {
       // httpOptions.headers = httpOptions.headers.append('Token', localStorage.getItem('token'));
 
       console.log(headers_object);
-      return this.http.post(this.serviceurl.host+this.serviceurl.createnotes,createnotes);
+      return this.http.post(this.serviceurl.host+this.serviceurl.createnotes,createnotes,{headers:headers_object});
 
   }
 

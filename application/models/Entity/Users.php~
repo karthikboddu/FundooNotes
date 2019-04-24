@@ -62,7 +62,7 @@ class Users{
      * 
      * @OneToMany(targetEntity="Collaborators",mappedBy="coluid" )
      */
-    protected $coll_list ;
+    protected $coll_list;
 
     public function __construct()
     {

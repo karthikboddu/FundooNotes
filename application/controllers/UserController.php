@@ -127,20 +127,26 @@ class UserController extends CI_Controller
         if($rem =="undefined"){
             $rem ="";
         }
+        $reff = new JWT();
+        
 
         $article2 = $em->find('Entity\Users', $id);
 
-        // $headers = apache_request_headers();
-        // $token = $headers['Authorization'];
-        $notes->setTitle($title);
-        $notes->setDescription($desc);
-        $notes->setColor($color);
+        $headers = apache_request_headers();
+        $token = $headers['Authorization'];
+        $checktoken = $reff->verifytoken($token);
+        if($checktoken){
+            $notes->setTitle($title);
+            $notes->setDescription($desc);
+            $notes->setColor($color);
+    
+            $notes->setTrash(0);
+            $notes->setImage($image);
+            $notes->setArchive(0);
+            $notes->setReminder($rem);
+            $notes->setUid($article2);
+        
 
-        $notes->setTrash(0);
-        $notes->setImage($image);
-        $notes->setArchive(0);
-        $notes->setReminder($rem);
-        $notes->setUid($article2);
 
         if ($labelid != "undefined" && $labelid != "null") {
             $labels = new Entity\Labels;
@@ -157,6 +163,9 @@ class UserController extends CI_Controller
         $em->flush();
 
         $res = $notes;
+    }
+
+
         if (is_null($res)) {
             $data = array(
                 "status" => "204",

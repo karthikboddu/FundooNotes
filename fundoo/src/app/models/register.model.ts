@@ -3,4 +3,5 @@ export class Register{
     lastName :string
     Emailid : string
     password : string
+    image :string
 }

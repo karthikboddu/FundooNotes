@@ -1,0 +1,10 @@
+{
+    "require-dev": {
+        "kenjis/ci-phpunit-test": "^0.16.1"
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^6.3",
+        "doctrine/orm": "^2.6"
+    }
+    
+}

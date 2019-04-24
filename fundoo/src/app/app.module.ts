@@ -42,6 +42,7 @@ import { LabelsdisplayComponent } from './component/labelsdisplay/labelsdisplay.
 import { TrashComponent } from './component/trash/trash.component';
 import { SearchComponent } from './component/search/search.component';
 import { SearchPipe } from './pipe/search.pipe';
+import { PushNotificationService } from 'ngx-push-notifications';
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,7 +92,7 @@ import { SearchPipe } from './pipe/search.pipe';
     
 
   ],
-  providers: [RegisterService,CookieService,SocialLoginModule,AuthService,
+  providers: [RegisterService,CookieService,SocialLoginModule,AuthService,PushNotificationService,
 		auth,
 		{
 			provide: AuthServiceConfig,

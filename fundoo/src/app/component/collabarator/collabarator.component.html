@@ -1,2 +1,15 @@
-<label>Collaborators</label>
+<mat-dialog-content>
+
+<h2>Collaborators </h2>
+<mat-card *ngFor="let item of userdetails">
+    
+    {{item.lname}}{{item.fname}}
+   
+   <span><img src="{{item.image}}" class="userImag"></span> <div>{{item.emailid}}</div>
+
+
+</mat-card>
+
+
+</mat-dialog-content>
 <!-- <mat-divider></mat-divider> -->

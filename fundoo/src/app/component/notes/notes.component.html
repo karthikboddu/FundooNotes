@@ -146,8 +146,8 @@
 
   <!--notes show in grid and list view -->
   <div cdkDropList (cdkDropListDropped)="drop($event)" class="flexcard" fxLayout="{{direction}} wrap" fxLayoutGap="50px"
-    fxLayoutAlign="start center">
-    <mat-card cdkDrag btnhover [ngStyle]="{'background-color': n.color}" *ngFor="let n of notes"
+    fxLayoutAlign="start center" >
+    <mat-card cdkDrag btnhover [ngStyle]="{'background-color': n.color}"  *ngFor="let n of notes"
       [ngClass]="direction == 'row' ? 'row': 'column' ">
       <div class="cardtext" (click)=openNotes(n)>
         <div>
@@ -217,7 +217,7 @@
 
 
       <!-- [style.display]="'none'" -->
-      <!-- <div  >      -->
+      <!-- <div   >       -->
       <span class="spanbtn"  >
         <button mat-icon-button class="pinbtn" matTooltip="Remainder" (click)="datetime(datetimeform.value)"
           [matMenuTriggerFor]="remainder">
@@ -230,7 +230,7 @@
           <mat-icon class="icon" (click)="notestools(noteform.value.id = n.id,1,'Archive')">archive</mat-icon>
         </button>
         <button mat-icon-button class="pinbtn" >
-          <mat-icon class="icon" (click)="openColl(user)">person_add</mat-icon>
+          <mat-icon class="icon" (click)="openColl()">person_add</mat-icon>
         </button>
         <button mat-icon-button>
           <mat-icon class="icon" (click)="file.click()">insert_photo</mat-icon>
@@ -240,7 +240,7 @@
           <mat-icon class="icon" (click)="noteform.value.id=n.id" [matMenuTriggerFor]="moreopt">more_vert</mat-icon>
         </button>
       </span>
-      <!-- </div> -->
+       <!-- </div>  -->
     </mat-card>
   </div>
   <!--notes show in grid and list view ends-->
