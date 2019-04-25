@@ -136,3 +136,5 @@ $route['translate_uri_dashes'] = FALSE;
  $route['removeLabel'] = 'NotesController/removeLabel';
 
  $route['labelNameid'] = 'UserController/fetchLabelName';
+ $route['checkemail'] ='CollabaratorController/checkEmail';
+ $route['addCollabarator'] = 'CollabaratorController/addCollabarator';

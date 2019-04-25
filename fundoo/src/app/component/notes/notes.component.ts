@@ -344,7 +344,7 @@ remainder123() {
  
 
 
-  openColl(){
+  openColl(n){
     debugger
     const dialogconfg = new MatDialogConfig();
 
@@ -356,7 +356,8 @@ remainder123() {
       //   titles : notes['title'],
       //   description : notes.description,
       //   reminder : notes.remainder
-      notesdata: this.userDetails
+      notesdata: this.userDetails,
+      nid:n
     }
     let open = this.dialog.open(CollabaratorComponent, dialogconfg);
     open.afterClosed().subscribe(result => {

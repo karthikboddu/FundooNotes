@@ -38,4 +38,7 @@ export class ServiceUrlService {
 
   public userimage = "userImage";
   public fetchuimage = "fetchUserImage";
+
+  public emailCheck = "checkemail";
+  public addCollabarator = "addCollabarator";
 }

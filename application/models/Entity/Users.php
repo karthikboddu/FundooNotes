@@ -41,7 +41,7 @@ class Users{
 
 
     /**
-	 * @Column(type="blob", nullable=false)
+	 * @Column(type="blob")
 	 */
     protected $image;
 

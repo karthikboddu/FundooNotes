@@ -26,8 +26,18 @@ class NotesController extends CI_Controller
         $em = $this->doctrine->em;
        // $query = $em->createQuery('SELECT n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname from Entity\Notes n  JOIN n.labels l WHERE n.uid=?1 ');
         //$query = $em->createQuery('SELECT   n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname from Entity\Notes n  left  JOIN n.labels l where n.uid=?1 ORDER BY n.id DESC');
-        $query = $em->createQuery('SELECT   n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname from Entity\Notes n  left  JOIN n.labels l where n.uid=?1 AND n.archive=0 AND n.trash=0 ORDER BY n.id DESC');
+        $query = $em->createQuery('SELECT   n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname from Entity\Notes n  left  JOIN n.labels l where  n.uid=?1 AND n.archive=0 AND n.trash=0 ORDER BY n.id DESC');
         $query->setParameter(1, $uid);
+
+
+        $query1 = $em->createQuery('SELECT   n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname from Entity\Notes n  left  JOIN n.labels l   ORDER BY n.id DESC');
+        $query1->setParameter(1, 67);
+
+
+        $Cdf = $query1->getResult();
+
+        $quer = $em->createQuery('SELECT  cn.id from Entity\Collaborators c left join c.collnid cn  '); 
+        $coll = $quer->getScalarResult();
        // $rff = $query->getResult();
         $noteArr = $query->getScalarResult();
         $encode = json_encode($noteArr);

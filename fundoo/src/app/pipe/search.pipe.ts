@@ -16,7 +16,7 @@ debugger
   }
   console.log('hhhhhhhh',notes);
   debugger
-   return notes.filter(notes =>notes.title.indexOf(search.toLowerCase()) !==-1 || notes.desc.indexOf(search.toLowerCase())!==-1);
+   return notes.filter(notes =>notes.title.indexOf(search) !==-1 || notes.desc.indexOf(search)!==-1);
   }
 
 }

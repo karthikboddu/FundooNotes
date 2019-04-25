@@ -16,12 +16,6 @@ class Collaborators{
 	 */
     protected $id;
 
-    // /**
-	//  * 
-    //  *  @Column(type="integer")
-	 
-    //  * */
-    // protected $collEmail;
 
     /**
      * @ManyToOne(targetEntity="Users", inversedBy="userid")
@@ -29,7 +23,7 @@ class Collaborators{
     protected $cuid;
 
 
-        /**
+    /**
      * @ManyToOne(targetEntity="Users", inversedBy="userid")
      */
     protected $owneruid;
@@ -37,20 +31,20 @@ class Collaborators{
     /**
      * @ManyToMany(targetEntity="Notes",mappedBy="collaborate")
      */
-    protected $colnid;  
+    protected $collnid;  
     
     /**
      * @ManyToMany(targetEntity="Users",mappedBy="coll_list")
      */
     protected $coluid;
     
-
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->collid = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->colnid = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->coluid = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -61,54 +55,6 @@ class Collaborators{
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set ownerEmail
-     *
-     * @param string $ownerEmail
-     *
-     * @return Collaborators
-     */
-    public function setOwnerEmail($ownerEmail)
-    {
-        $this->ownerEmail = $ownerEmail;
-
-        return $this;
-    }
-
-    /**
-     * Get ownerEmail
-     *
-     * @return string
-     */
-    public function getOwnerEmail()
-    {
-        return $this->ownerEmail;
-    }
-
-    /**
-     * Set collEmail
-     *
-     * @param string $collEmail
-     *
-     * @return Collaborators
-     */
-    public function setCollEmail($collEmail)
-    {
-        $this->collEmail = $collEmail;
-
-        return $this;
-    }
-
-    /**
-     * Get collEmail
-     *
-     * @return string
-     */
-    public function getCollEmail()
-    {
-        return $this->collEmail;
     }
 
     /**
@@ -136,37 +82,27 @@ class Collaborators{
     }
 
     /**
-     * Add collid
+     * Set owneruid
      *
-     * @param \Entity\Notes $collid
+     * @param \Entity\Users $owneruid
      *
      * @return Collaborators
      */
-    public function addCollid(\Entity\Notes $collid)
+    public function setOwneruid(\Entity\Users $owneruid = null)
     {
-        $this->collid[] = $collid;
+        $this->owneruid = $owneruid;
 
         return $this;
     }
 
     /**
-     * Remove collid
+     * Get owneruid
      *
-     * @param \Entity\Notes $collid
+     * @return \Entity\Users
      */
-    public function removeCollid(\Entity\Notes $collid)
+    public function getOwneruid()
     {
-        $this->collid->removeElement($collid);
-    }
-
-    /**
-     * Get collid
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCollid()
-    {
-        return $this->collid;
+        return $this->owneruid;
     }
 
     /**

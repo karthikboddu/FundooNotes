@@ -35,7 +35,7 @@ class UserData extends CI_Controller
         $user->setLname($lname);
         $user->setEmailid($email);
         $user->setPassword($password);
-
+        $user->setImage("");
         
 		$res = $em->persist($user);
 		 $em->flush();
