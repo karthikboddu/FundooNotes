@@ -30,8 +30,8 @@ class NotesController extends CI_Controller
         $query->setParameter(1, $uid);
 
 
-        $query1 = $em->createQuery('SELECT   n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname from Entity\Notes n  left  JOIN n.labels l   ORDER BY n.id DESC');
-        $query1->setParameter(1, 67);
+        $query1 = $em->createQuery('SELECT   n.id ,n.title, n.description,n.color,n.reminder,n.image from Entity\Notes n WHERE exists (SELECT  c from Entity\Collaborators c left join c.collnid cn  )');
+        //$query1->setParameter(1, 67);
 
 
         $Cdf = $query1->getResult();
