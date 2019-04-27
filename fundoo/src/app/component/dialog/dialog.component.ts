@@ -5,16 +5,7 @@ import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
-  template :`
-  <div class="input-group input-group-lg">
-  <input type="text" class="form-control margin10px comment" placeholder="Type something..."  #postMessage>
 
-  
-<button type="button"  (click)="addPostMessage(postMessage)">Send</button>
-</div>
-
-<hr>
-  `,
   styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
