@@ -8,8 +8,6 @@ import { ResetComponent } from './component/reset/reset.component';
 import { HomeComponent } from './component/home/home.component';
 import { NotesComponent } from './component/notes/notes.component';
 
-import { DialogComponent } from './component/dialog/dialog.component';
-import { DialogdataComponent } from './component/dialogdata/dialogdata.component';
 
 import { ReminderComponent } from './component/reminder/reminder.component';
 import { ArchiveComponent } from './component/archive/archive.component';
@@ -24,21 +22,21 @@ const routes: Routes = [
   {path :'forgot',component:ForgotpasswordComponent,},
   {path :'reset' ,component:ResetComponent,},
   {path:'home',component:HomeComponent,
+  canActivate: [AuthguardService],
            children : [
-              { path:'',component:NotesComponent,},
-              { path:'notes',component:NotesComponent},
-             {path:'reminder',component:ReminderComponent},
-             {path:'archive',component:ArchiveComponent},
-             {path:'labelsdisplay',component:LabelsdisplayComponent,},
-             {path:'trash',component:TrashComponent,},
-            {path:'search',component:SearchComponent,}
+              { path:'',component:NotesComponent,canActivate: [AuthguardService]},
+              { path:'notes',component:NotesComponent,canActivate: [AuthguardService]},
+             {path:'reminder',component:ReminderComponent,canActivate: [AuthguardService]},
+             {path:'archive',component:ArchiveComponent,canActivate: [AuthguardService]},
+             {path:'labelsdisplay',component:LabelsdisplayComponent,canActivate: [AuthguardService]},
+             {path:'trash',component:TrashComponent,canActivate: [AuthguardService]},
+            {path:'search',component:SearchComponent,canActivate: [AuthguardService]}
             ],
  
     },
-  {path : '' ,component :LoginComponent},
+  {path : '' ,component :LoginComponent,canActivate: [AuthguardService]},
  
-  {path:'dialog',component:DialogComponent},
-  {path:'dialogdata',component:DialogdataComponent},
+
 
  
 ];

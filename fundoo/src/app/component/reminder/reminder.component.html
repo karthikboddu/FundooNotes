@@ -59,7 +59,7 @@
   
       </div>
       <span class="spanbutton">
-        <button mat-icon-button class="pinbtn" [matMenuTriggerFor]="remainder">
+        <button mat-icon-button class="pinbtn" (click)="rem_id = n.id" [matMenuTriggerFor]="remainder">
           <mat-icon class="icon">notification_important</mat-icon>
         </button>
         <button mat-icon-button class="pinbtn">
