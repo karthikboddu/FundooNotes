@@ -1,14 +1,16 @@
 <?php
 
-
 namespace Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Labels Model
  * @Entity
  * @Table(name="Users")
  */
-class Users{
+class Users
+{
 
     /**
      * @Id @GeneratedValue @Column(type="integer")
@@ -16,60 +18,54 @@ class Users{
      */
     protected $id;
 
-     /**
-	 * @Column(type="string", nullable=false)
-	 */
+    /**
+     * @Column(type="string", nullable=false)
+     */
     protected $fname;
 
-
     /**
-	 * @Column(type="string", nullable=false)
-	 */
+     * @Column(type="string", nullable=false)
+     */
     protected $lname;
 
-
     /**
-	 * @Column(type="string", nullable=false)
-	 */
+     * @Column(type="string", nullable=false)
+     */
     protected $emailid;
 
- 
-     /**
-	 * @Column(type="string", nullable=false)
-	 */
+    /**
+     * @Column(type="string", nullable=false)
+     */
     protected $password;
 
-
     /**
-	 * @Column(type="blob")
-	 */
+     * @Column(type="blob" , nullable=true)
+     */
     protected $image;
 
     /**
-     * 
+     *
      * @OneToMany(targetEntity="Notes",mappedBy="uid" )
      */
     protected $user_id;
 
-
     /**
-     * 
+     *
      * @OneToMany(targetEntity="Labels",mappedBy="luid" )
      */
     protected $label_list;
 
     /**
-     * 
+     *
      * @OneToMany(targetEntity="Collaborators",mappedBy="coluid" )
      */
-    protected $coll_list ;
+    protected $coll_list;
 
     public function __construct()
     {
         $this->user_id = new ArrayCollection;
         $this->label_list = new ArrayCollection();
     }
-
 
     /**
      * Get id

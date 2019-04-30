@@ -14,9 +14,10 @@ debugger
     return notes;
 
   }
-  console.log('hhhhhhhh',notes);
-  debugger
+
+
    return notes.filter(notes =>notes.title.indexOf(search) !==-1 || notes.desc.indexOf(search)!==-1);
+   console.log('hhhhhhhh',notes);
   }
 
 }

@@ -19,8 +19,7 @@ import { ResetComponent } from './component/reset/reset.component';
 
 import { HomeComponent } from './component/home/home.component';
 import { NotesComponent } from './component/notes/notes.component';
-import { DialogComponent } from './component/dialog/dialog.component';
-import { DialogdataComponent } from './component/dialogdata/dialogdata.component';
+
 import { CollabaratorComponent } from './component/collabarator/collabarator.component';
 import { EditnotesComponent } from './component/editnotes/editnotes.component';
 
@@ -54,10 +53,6 @@ import { PushNotificationService } from 'ngx-push-notifications';
     HomeComponent,
 
     NotesComponent,
-
-    DialogComponent,
-
-    DialogdataComponent,
 
     CollabaratorComponent,
 

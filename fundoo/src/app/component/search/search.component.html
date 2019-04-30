@@ -1,8 +1,8 @@
 <div>
 
-    <mat-label>Labels</mat-label>
+    <mat-label>Notes</mat-label>
     <div >
-      <mat-card class="cardtext" *ngFor="let items of notes | searchkey:searchtext">
+      <mat-card class="cardtext" *ngFor="let items of notes | searchkey : searchtext">
         {{items.title}}
         {{items.description}}
       </mat-card>
