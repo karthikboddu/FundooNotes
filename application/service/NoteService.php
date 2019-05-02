@@ -75,7 +75,9 @@ class NoteService extends CI_Controller
 
     public function noteFetch($email)
     {
-        $query = "SELECT * from Notes Where uid_id ='$email' AND archive !='1' AND trash!='1' ORDER BY id DESC ";
+        $query = "SELECT n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname from Notes n left join notes_labels nl on n.id=nl.notes_id left JOIN Labels l on nl.labels_id=l.id WHERE archive='0' AND trash='0' AND (n.uid_id='$email' or n.id in (SELECT nc.notes_id from Collaborator c left join notes_collaborators nc on c.id=nc.collaborators_id) )";
+
+        $query1= "SELECT * FROM notes where  isArchive = '0' and isDeleted='0' and (email = '$email' or id in ( SELECT noteId from collabarator WHERE email='$email') )  order by dragId desc ";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
 

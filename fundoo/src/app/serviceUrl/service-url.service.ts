@@ -15,7 +15,7 @@ export class ServiceUrlService {
   public reset = "resetpass";
   public fetchmail = "fetchemail";
   public createnotes = "noteInsertD";
-  public fetchnotes = "fetchNotesD";
+  public fetchnotes = "fetchnotes";
   public updatenotes = "updatenote";
   public setcolor = "setcolor";
   public notetrash = "trashnote";

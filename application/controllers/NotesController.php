@@ -28,9 +28,9 @@ class NotesController extends CI_Controller
         //$query = $em->createQuery('SELECT   n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname from Entity\Notes n  left  JOIN n.labels l where n.uid=?1 ORDER BY n.id DESC');
 
 
-        //$query = $em->createQuery('SELECT   n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname from Entity\Notes n  left  JOIN n.labels l where  n.uid=?1 AND n.archive=0 AND n.trash=0 ORDER BY n.id DESC');
+        $query = $em->createQuery('SELECT   n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname from Entity\Notes n  left  JOIN n.labels l where  n.uid=?1 AND n.archive=0 AND n.trash=0 ORDER BY n.id DESC');
 
-        $query = $em->createQuery('SELECT   n ,l from Entity\Notes n  left  JOIN n.labels l where  n.uid=?1 AND n.archive=0 AND n.trash=0 GROUP BY n.id ORDER BY n.id DESC');
+        //$query = $em->createQuery('SELECT   n ,l from Entity\Notes n  left  JOIN n.labels l where  n.uid=?1 AND n.archive=0 AND n.trash=0 GROUP BY n.id ORDER BY n.id DESC');
         $query->setParameter(1, $uid);
 
 
