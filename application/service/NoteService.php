@@ -75,7 +75,10 @@ class NoteService extends CI_Controller
 
     public function noteFetch($email)
     {
-        $query = "SELECT n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname from Notes n left join notes_labels nl on n.id=nl.notes_id left JOIN Labels l on nl.labels_id=l.id WHERE archive='0' AND trash='0' AND (n.uid_id='$email' or n.id in (SELECT nc.notes_id from Collaborator c left join notes_collaborators nc on c.id=nc.collaborators_id) )";
+        $query = "SELECT n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname 
+        from Notes n left join notes_labels nl on n.id=nl.notes_id left JOIN Labels l 
+        on nl.labels_id=l.id WHERE archive='0' AND trash='0' AND (n.uid_id='$email' or n.id in
+         (SELECT nc.notes_id from Collaborator c  join notes_collaborators nc on c.id=nc.collaborators_id)   )";
 
         $query1= "SELECT * FROM notes where  isArchive = '0' and isDeleted='0' and (email = '$email' or id in ( SELECT noteId from collabarator WHERE email='$email') )  order by dragId desc ";
         $stmt = $this->db->conn_id->prepare($query);
@@ -263,9 +266,9 @@ class NoteService extends CI_Controller
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
 
-
+        $resultSet = $stmt->get_result();
         if ($res) {
-            $trashArr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $trashArr = $resultSet->fetchAll(PDO::FETCH_ASSOC);
             $data = array(
 
                 "status" => "200",

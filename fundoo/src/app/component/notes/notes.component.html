@@ -71,6 +71,7 @@
 
 
         </div>
+        <div class="notetools">
         <span class="spanbutton">
           <button mat-icon-button class="pinbtn" [matMenuTriggerFor]="remainder">
             <mat-icon class="icon">notification_important</mat-icon>
@@ -94,6 +95,7 @@
           </button>
           <button mat-button class="close" (click)="noteSubmit(noteform.value)">Close</button>
         </span>
+      </div>
       </form>
     </mat-card>
 
@@ -147,7 +149,7 @@
   <!--notes show in grid and list view -->
   <div cdkDropList (cdkDropListDropped)="drop($event)" class="flexcard" fxLayout="{{direction}} wrap" fxLayoutGap="50px"
     fxLayoutAlign="start center" >
-    <mat-card cdkDrag btnhover [ngStyle]="{'background-color': n.color}"  *ngFor="let n of notes"
+    <mat-card class="notematcard" cdkDrag btnhover [ngStyle]="{'background-color': n.color}"  *ngFor="let n of notes"
       [ngClass]="direction == 'row' ? 'row': 'column' ">
       <div class="cardtext" (click)=openNotes(n)>
         <div>

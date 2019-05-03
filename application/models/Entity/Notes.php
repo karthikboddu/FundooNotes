@@ -54,6 +54,11 @@ class Notes{
     protected $trash;
 
 
+    /**
+	 * @Column(type="datetime", nullable=false)
+	 */
+    protected $created_at;
+
 
 	/**
      * @ManyToOne(targetEntity="Users", inversedBy="user_id")

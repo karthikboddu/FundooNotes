@@ -40,18 +40,18 @@ export class CollabaratorComponent implements OnInit {
  
   }
 
-
-  onClose(){
+error
+save(){
 
     let checkmail = this.collserv.emailCheck(this.collemail);
     checkmail.subscribe((res:any)=>{
       if(res.status=="204"){
-
+        this.error = "email does not exists";
       }else if(res.status=="200"){
         debugger
         let addcollabarator = this.collserv.addCollabarator(this.uid,this.collemail,this.noteid);
         addcollabarator.subscribe((collres:any)=>{
-
+          this.dialogRef.close();
         });
       }
     });

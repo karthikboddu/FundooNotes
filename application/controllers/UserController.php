@@ -121,6 +121,7 @@ class UserController extends CI_Controller
         $color = $_POST['color'];
         $labelid = $_POST['labelid'];
         $image = $_POST['image'];
+        $createdAt = CURRENT_TIMESTAMP();
         $em = $this->doctrine->em;
         $notes = new Entity\Notes;
 
