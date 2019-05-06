@@ -11,4 +11,5 @@ export interface Notes{
     image :string;
     archive:number;
     labelname:string;
+    dragId:number;
 }

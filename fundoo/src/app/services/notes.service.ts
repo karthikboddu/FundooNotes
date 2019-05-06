@@ -45,6 +45,33 @@ export class NotesService {
     return this.http.post(this.serviceurl.host+this.serviceurl.fetchnotes,emaildata);
   }
 
+
+
+  	/**
+	 * @method dragAndDrop()
+	 * @return observable data
+	 * @param prevId
+	 * @param currId
+	 * @description Function to drag and drop the card
+	 */
+	dragAndDrop(diff, currId, direction, email) {
+    debugger
+		let headers_object = new HttpHeaders().set(
+			"Authorization",
+			localStorage.getItem("token")
+		);
+		let dragAndDropData = new FormData();
+		dragAndDropData.append("diff", diff);
+		dragAndDropData.append("currId", currId);
+		dragAndDropData.append("direction", direction);
+		dragAndDropData.append("uid", email);
+		return this.http.post(
+			this.serviceurl.host + this.serviceurl.dragDropNotes,
+			dragAndDropData,
+			{ headers: headers_object }
+		);
+	}
+
   updateNotes(data,id){
     debugger
     let update = new FormData();

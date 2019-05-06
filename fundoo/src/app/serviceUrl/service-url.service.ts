@@ -41,4 +41,5 @@ export class ServiceUrlService {
 
   public emailCheck = "checkemail";
   public addCollabarator = "addCollabarator";
+  public dragDropNotes = "drapDropNotes"
 }

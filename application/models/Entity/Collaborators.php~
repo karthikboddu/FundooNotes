@@ -172,38 +172,4 @@ class Collaborators{
     {
         return $this->coluid;
     }
-
-    /**
-     * Add collnid
-     *
-     * @param \Entity\Notes $collnid
-     *
-     * @return Collaborators
-     */
-    public function addCollnid(\Entity\Notes $collnid)
-    {
-        $this->collnid[] = $collnid;
-
-        return $this;
-    }
-
-    /**
-     * Remove collnid
-     *
-     * @param \Entity\Notes $collnid
-     */
-    public function removeCollnid(\Entity\Notes $collnid)
-    {
-        $this->collnid->removeElement($collnid);
-    }
-
-    /**
-     * Get collnid
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCollnid()
-    {
-        return $this->collnid;
-    }
 }

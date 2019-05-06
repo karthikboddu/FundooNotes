@@ -83,7 +83,7 @@ $route['labeldelete'] = 'Label/deleteLabel';
 $route['noteimage'] = 'Notes/noteImage';
 $route['userImage'] = 'UserData/profilePic';
 $route['fetchUserImage'] ='UserData/userImage';
-
+$route['drapDropNotes'] = 'Notes/notesDrapDrop';
 
 $route['testapi'] = 'UserData/test';
 $route['testlog'] = 'UserData/testlogin';

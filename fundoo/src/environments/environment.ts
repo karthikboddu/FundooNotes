@@ -4,7 +4,16 @@
 
 export const environment = {
   baseUrl: "http://localhost/codeigniter/",
-  production: false
+  production: false,
+   firebase : {
+    apiKey: "AIzaSyC525zGayqqKjSuFjn-ZvBvIelePAo8UWU",
+    authDomain: "order-f667e.firebaseapp.com",
+    databaseURL: "https://order-f667e.firebaseio.com",
+    projectId: "order-f667e",
+    storageBucket: "order-f667e.appspot.com",
+    messagingSenderId: "853453207465",
+    appId: "1:853453207465:web:727426481a52a76d"
+  }
 };
 
 /*

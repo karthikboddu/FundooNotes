@@ -670,21 +670,21 @@ remainder123() {
 
     console.log(this.notes[event.currentIndex]);
 
-    // let obbs = this.noteserv.dragAndDrop(
-    // 	this.difference,
-    // 	this.notes[event.currentIndex].dragId,
-    // 	this.dirrection,
-    // 	this.email
-    // );
-    // obbs.subscribe(
-    // 	(res: any) => {
-    // 		//   obbs.unsubscribe();
-    // 	},
-    // 	error => {
-    // 		this.iserror = true;
-    // 		this.errorMessage = error.message;
-    // 	}
-    // );
+    let obbs = this.noteserv.dragAndDrop(
+    	this.difference,
+    	this.notes[event.currentIndex].dragId,
+    	this.dirrection,
+    	this.uid
+    );
+    obbs.subscribe(
+    	(res: any) => {
+    		//   obbs.unsubscribe();
+    	},
+    	error => {
+    		// this.iserror = true;
+    		// this.errorMessage = error.message;
+    	}
+    );
   }
 
 

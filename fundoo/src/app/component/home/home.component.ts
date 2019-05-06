@@ -1,5 +1,5 @@
 import { Component, OnInit, Output ,EventEmitter, Input} from '@angular/core';
-import * as $ from 'jquery';
+
 import {ViewService} from '../../services/view.service';
 import { DataserviceService } from 'src/app/services/dataservice.service';
 import { NotesService } from 'src/app/services/notes.service';
@@ -12,6 +12,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { Notes } from 'src/app/models/notes.model';
 import { RegisterService } from 'src/app/services/register.service';
+import { messaging } from 'firebase';
+import { MessagingService } from 'src/app/messaging.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -23,7 +25,7 @@ export class HomeComponent implements OnInit {
     private dataservice:DataserviceService,private dialog:MatDialog,
     private cookieserv : CookieService,
     private labelservice:LabelService,private route:Router,private dataserv:DataserviceService
-    ,private regServ :RegisterService) { }
+    ,private regServ :RegisterService,private firebaseMsg:MessagingService) { }
   grid: boolean = false;
   list: boolean = true;
   maindiv: boolean = false;
@@ -35,22 +37,18 @@ export class HomeComponent implements OnInit {
   notes: Notes[] = []
   profilename:string;
   profilemail
+  msg;
   ngOnInit() {
-    $(document).ready(function () {
-      $(".ip").click(function () {
-        $(".ip").css("background-color", "white");
-      });
-      $(".ip").mouseout(function () {
-        $(".ip").css("background-color", "#F5F5F5");
-      });
-    });
 
+
+
+   
      this.token = localStorage.getItem('token');
       this.tokenPayload = decode(this.token);
 
     this.uid = this.tokenPayload.id;
 
-    this.token = localStorage.getItem('token');
+    this.token = localStorage.getItem('token');``
     if(this.token!=null){
       this.tokenPayload = decode(this.token);
       this.uid = this.tokenPayload.id;

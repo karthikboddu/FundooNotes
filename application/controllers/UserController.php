@@ -121,7 +121,7 @@ class UserController extends CI_Controller
         $color = $_POST['color'];
         $labelid = $_POST['labelid'];
         $image = $_POST['image'];
-        $createdAt = CURRENT_TIMESTAMP();
+        //$createdAt = CURRENT_TIMESTAMP();
         $em = $this->doctrine->em;
         $notes = new Entity\Notes;
 
@@ -164,16 +164,32 @@ class UserController extends CI_Controller
         $em->flush();
 
         $res = $notes;
+
+
+
+
     }
 
 
         if (is_null($res)) {
+
+
             $data = array(
                 "status" => "204",
             );
             print json_encode($data);
 
         } else {
+
+            $query = $em->createQuery('SELECT MAX(n.id) from Entity\Notes n  WHERE n.uid=?1');
+            $query->setParameter(1, $id);
+            $narr = $query->getScalarResult();
+            $nid = $narr[0]['1'];
+           
+            $queryd = $em->createQuery('UPDATE Entity\Notes n SET n.dragId =?4  WHERE n.id=?4');
+
+            $queryd->setParameter(4, $nid);
+            $queryd->getScalarResult();
             $data = array(
                 "status" => "200",
             );

@@ -75,10 +75,10 @@ class NoteService extends CI_Controller
 
     public function noteFetch($email)
     {
-        $query = "SELECT n.id ,n.title, n.description,n.color,n.reminder,n.image,l.labelname 
+        $query = "SELECT n.id ,n.title, n.description,n.color,n.reminder,n.image,n.dragId,l.labelname 
         from Notes n left join notes_labels nl on n.id=nl.notes_id left JOIN Labels l 
         on nl.labels_id=l.id WHERE archive='0' AND trash='0' AND (n.uid_id='$email' or n.id in
-         (SELECT nc.notes_id from Collaborator c  join notes_collaborators nc on c.id=nc.collaborators_id)   )";
+         (SELECT nc.notes_id from Collaborator c  join notes_collaborators nc on c.id=nc.collaborators_id) ) ORDER BY n.dragId desc";
 
         $query1= "SELECT * FROM notes where  isArchive = '0' and isDeleted='0' and (email = '$email' or id in ( SELECT noteId from collabarator WHERE email='$email') )  order by dragId desc ";
         $stmt = $this->db->conn_id->prepare($query);
@@ -86,11 +86,60 @@ class NoteService extends CI_Controller
 
         $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach ($arr as $notes) {
-            $title = $notes['title'];
-            $desc = $notes['description'];
-        }
         print json_encode($arr);
+
+    }
+
+
+    public function dragDropNotes($uid,$diff,$currId,$direction)
+    {
+    $headers = apache_request_headers();
+    $token   = $headers['Authorization'];
+    $reff    = new JWT();
+    if ($reff->verifytoken($token)) {
+        for ($i = 0; $i < $diff; $i++) {
+            if ($direction == "negative") {
+                /**
+                 * @var string $query has query to select the next max note id of the notes
+                 */
+                $query = "SELECT MAX(dragId) dragId FROM Notes where dragId < '$currId' and uid_id='$uid'";
+            } else {
+                /**
+                 * @var string $query has query to select the next min note id of the notes
+                 */
+                $query = "SELECT MIN(dragId) dragId FROM Notes where dragId > '$currId' and uid_id='$uid'";
+            }
+            $statement = $this->db->conn_id->prepare($query);
+            $statement->execute();
+            $swapId = $statement->fetch(PDO::FETCH_ASSOC);
+            /**
+             * @var swapId to store the next id
+             */
+            $swapId = $swapId['dragId'];
+            /**
+             * @var string $query has query to swap the tow rows
+             */
+            $query = "UPDATE Notes a INNER JOIN Notes b on a.dragId <> b.dragId set a.dragId = b.dragId
+                WHERE a.dragId in ('$swapId','$currId') and b.dragId in ('$swapId','$currId')";
+            $statement = $this->db->conn_id->prepare($query);
+            $temp      = $statement->execute();
+
+            /**
+             * storing in the next id
+             */
+            $currId = $swapId;
+        }
+
+    } else {
+        $data = array(
+            "error" => "404",
+        );
+        /**
+         * returns json array response
+         */
+        print json_encode($data);
+    }
+
 
     }
 

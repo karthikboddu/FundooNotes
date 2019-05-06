@@ -38,6 +38,17 @@ class Notes extends CI_Controller
         $this->refService->noteFetch($email);
     }
 
+
+    
+    public function notesDrapDrop(){
+        $uid = $_POST['uid'];
+        $diff = $_POST['diff'];
+        $currId = $_POST['currId'];
+        $direction = $_POST['direction'];    
+        $this->refService->dragDropNotes($uid,$diff,$currId,$direction);
+    }
+
+
     public function updateNotes(){
         $title = $_POST['title'];
         $desc = $_POST['description'];

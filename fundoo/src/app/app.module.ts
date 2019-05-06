@@ -36,12 +36,21 @@ import {
   AuthService
 } from "angular-6-social-login";;
 import { getAuthServiceConfigs } from './socialloginconfig';
-import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
+
 import { LabelsdisplayComponent } from './component/labelsdisplay/labelsdisplay.component';
 import { TrashComponent } from './component/trash/trash.component';
 import { SearchComponent } from './component/search/search.component';
 import { SearchPipe } from './pipe/search.pipe';
 import { PushNotificationService } from 'ngx-push-notifications';
+import { messaging } from 'firebase';
+import { MessagingService } from './messaging.service';
+
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { environment } from '../environments/environment';
+import { AsyncPipe } from '../../node_modules/@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,12 +91,15 @@ import { PushNotificationService } from 'ngx-push-notifications';
     ReactiveFormsModule,
     FlexLayoutModule,
     HttpClientModule,
-    JwSocialButtonsModule,
+  
     DragDropModule,
-    
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase),
 
   ],
-  providers: [RegisterService,CookieService,SocialLoginModule,AuthService,PushNotificationService,
+  providers: [RegisterService,CookieService,SocialLoginModule,AuthService,PushNotificationService,AsyncPipe,MessagingService,
 		auth,
 		{
 			provide: AuthServiceConfig,
