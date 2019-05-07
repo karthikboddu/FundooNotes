@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 export class ServiceUrlService {
 
   constructor() { }
+  public firebase = "https://fcm.googleapis.com/fcm/send";
   public host = environment.baseUrl;
   public register = "registerD";
   public login = "loginD";

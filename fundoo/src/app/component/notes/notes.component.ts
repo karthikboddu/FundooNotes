@@ -16,6 +16,7 @@ import { CollabaratorComponent } from '../collabarator/collabarator.component';
 import { RegisterService } from 'src/app/services/register.service';
 import { Register } from 'src/app/models/register.model';
 import { PushNotificationOptions, PushNotificationService } from 'ngx-push-notifications';
+import { ReminderService } from 'src/app/services/reminder.service';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -41,7 +42,8 @@ export class NotesComponent implements OnInit {
     private el: ElementRef, private renderer: Renderer, private snackBar: MatSnackBar,
     private cookieserv: CookieService,
     private labelserv: LabelService,private regServ:RegisterService,
-    private _pushNotificationService: PushNotificationService
+    private _pushNotificationService: PushNotificationService,
+    private remServ : ReminderService
 
   ) {
     this.viewservice.getView().subscribe((res => {
@@ -255,7 +257,13 @@ export class NotesComponent implements OnInit {
     });
 }
 
-
+trigger(){
+  debugger
+  let push = this.remServ.pushRemainder("barry","allen");
+  push.subscribe((res:any)=>{
+    
+  })
+}
 
 currentDateAndTime
 remainder123() {
@@ -290,6 +298,7 @@ remainder123() {
  
         console.log("remainder " + element.reminder);
         debugger
+        this.remServ.pushRemainder(element.title,element.desc);
         this.timeReminder = false;
         this.snackBar.open(element.title, "", {
           duration: 2000

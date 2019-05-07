@@ -6,13 +6,13 @@ export const environment = {
   baseUrl: "http://localhost/codeigniter/",
   production: false,
    firebase : {
-    apiKey: "AIzaSyC525zGayqqKjSuFjn-ZvBvIelePAo8UWU",
-    authDomain: "order-f667e.firebaseapp.com",
-    databaseURL: "https://order-f667e.firebaseio.com",
-    projectId: "order-f667e",
-    storageBucket: "order-f667e.appspot.com",
-    messagingSenderId: "853453207465",
-    appId: "1:853453207465:web:727426481a52a76d"
+    apiKey: "AIzaSyDUY8z8hIam1_WNxcioCjIi615PU8jQs00",
+    authDomain: "fundoo-1554469627929.firebaseapp.com",
+    databaseURL: "https://fundoo-1554469627929.firebaseio.com",
+    projectId: "fundoo-1554469627929",
+    storageBucket: "fundoo-1554469627929.appspot.com",
+    messagingSenderId: "1009505662147",
+    appId: "1:1009505662147:web:f9a3c6f7b6a3731c"
   }
 };
 

@@ -73,24 +73,53 @@ class NoteService extends CI_Controller
         return $data;
     }
 
-    public function noteFetch($email)
+    public function noteFetch($uid)
     {
         $query = "SELECT n.id ,n.title, n.description,n.color,n.reminder,n.image,n.dragId,l.labelname 
         from Notes n left join notes_labels nl on n.id=nl.notes_id left JOIN Labels l 
-        on nl.labels_id=l.id WHERE archive='0' AND trash='0' AND (n.uid_id='$email' or n.id in
+        on nl.labels_id=l.id WHERE archive='0' AND trash='0' AND (n.uid_id='$uid' or n.id in
          (SELECT nc.notes_id from Collaborator c  join notes_collaborators nc on c.id=nc.collaborators_id) ) ORDER BY n.dragId desc";
 
-        $query1= "SELECT * FROM notes where  isArchive = '0' and isDeleted='0' and (email = '$email' or id in ( SELECT noteId from collabarator WHERE email='$email') )  order by dragId desc ";
+     //   $query1= "SELECT * FROM notes where  isArchive = '0' and isDeleted='0' and (email = '$email' or id in ( SELECT noteId from collabarator WHERE email='$email') )  order by dragId desc ";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
 
         $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        print json_encode($arr);
+        $encode = json_encode($noteArr);
+        $redis = new RedisConn();
+        $conn = $redis->connection();
+        // $redisKey = $conn->exists($uid);
+
+        // if($redisKey==1){
+        //     $redisNoteData =  $conn->get($uid);
+        //     print $redisNoteData;
+        // }
+        // else{
+        //     $conn->set($uid, $encode);   
+        //     $redisNoteData =  $conn->get($uid);
+        //     print $redisNoteData;     
+        // }
+
+
+        for($i=0;$i<sizeof($arr);$i++){
+            $conn->lpush(0,json_encode($arr[$i]));
+        }
+
+        for($j=0;$j<sizeof($arr);$j++){
+                 
+        }
+        $dsf = $conn->lrange(0,0,-1);
+        //print json_encode($arr);
 
     }
 
-
+    public function flushAll()
+    {
+        $redis = new RedisConn();
+        $conn = $redis->connection();
+        $conn->flushAll();
+    }
     public function dragDropNotes($uid,$diff,$currId,$direction)
     {
     $headers = apache_request_headers();

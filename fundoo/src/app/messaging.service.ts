@@ -10,18 +10,19 @@ import { BehaviorSubject } from 'rxjs'
 export class MessagingService {
 
   currentMessage = new BehaviorSubject(null);
+  messaging;
 
-  constructor(
-    private angularFireDB: AngularFireDatabase,
-    private angularFireAuth: AngularFireAuth,
-    private angularFireMessaging: AngularFireMessaging) {
-    this.angularFireMessaging.messaging.subscribe(
-      (_messaging) => {
-        _messaging.onMessage = _messaging.onMessage.bind(_messaging);
-        _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
+  constructor(){
+    try{
+      firebase.initializeApp({
+      'messagingSenderId': '853453207465'
+      });
+      this.messaging=firebase.messaging();
+      }catch(err){
+      console.log('Firebase intial',err.stack);
       }
-    )
   }
+
 
   /**
    * update token in firebase database
@@ -29,41 +30,44 @@ export class MessagingService {
    * @param userId userId as a key 
    * @param token token as a value
    */
-  updateToken(userId, token) {
-    // we can change this function to request our backend service
-    this.angularFireAuth.authState.pipe(take(1)).subscribe(
-      () => {
-        const data = {};
-        data[userId] = token
-        this.angularFireDB.object('fcmTokens/').update(data)
-      })
-  }
+  // updateToken(userId, token) {
+  //   // we can change this function to request our backend service
+  //   this.angularFireAuth.authState.pipe(take(1)).subscribe(
+  //     () => {
+  //       const data = {};
+  //       data[userId] = token
+  //       this.angularFireDB.object('fcmTokens/').update(data)
+  //     })
+  // }
 
   /**
    * request permission for notification from firebase cloud messaging
    * 
    * @param userId userId
    */
-  requestPermission(userId) {
-    this.angularFireMessaging.requestToken.subscribe(
-      (token) => {
-        console.log(token);
-        this.updateToken(userId, token);
-      },
-      (err) => {
-        console.error('Unable to get permission to notify.', err);
-      }
-    );
+  getPermission() {
+    this.messaging.requestPermission()
+    .then(() => {
+      console.log('Notification permission granted.');
+      return this.messaging.getToken()
+    })
+    .then(token => {
+      console.log("FCM Token",token)
+      // this.updateToken(token)
+    })
+    .catch((err) => {
+      console.log('Unable to get permission to notify.', err);
+    });
   }
 
-  /**
-   * hook method when new notification received in foreground
-   */
   receiveMessage() {
-    this.angularFireMessaging.messages.subscribe(
-      (payload) => {
-        console.log("new message received. ", payload);
-        this.currentMessage.next(payload);
-      })
+    
+     this.messaging.onMessage((payload) => {
+      console.log("Message received. ", payload);
+      this.currentMessage.next(payload)
+    });
+
   }
+
+
 }

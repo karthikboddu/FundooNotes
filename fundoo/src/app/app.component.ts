@@ -18,12 +18,25 @@ export class AppComponent  implements OnInit {
   constructor(private messagingService:MessagingService){
     
   } 
-  msg;
+  message;
   ngOnInit() {
-    const userId = 'user001';
-    this.messagingService.requestPermission(userId)
+
+    var registrationToken = 'key=dPWn5w4axR4:APA91bGn5_DQoSkuZ4SvcMwE2Ru7jzt23BGwJqJ8V8WMOVHoIGNlNwC818TNWIXjqkUZA1RyZYMtZSmMhLrhe5Ve3kre131DGpHukF_DBk3nspNCaqfI18IXxzf9m-EUHHeGT6Esu80u';
+    localStorage.setItem("fcm",registrationToken);
+    var message = {
+      data: {
+        score: '850',
+        time: '14:45'
+      },
+      token: registrationToken
+    };
+    
+    this.messagingService.getPermission()
     this.messagingService.receiveMessage()
-    this.msg = this.messagingService.currentMessage
+    this.message = this.messagingService.currentMessage
+
+
   }
+
 
 }

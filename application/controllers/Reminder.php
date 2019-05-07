@@ -26,4 +26,10 @@ class Reminder extends CI_Controller
         $this->refService->reminderNotesFetch($uid);
     }
 
+    public function pushRemainder(){
+        $uid = $_POST['uid'];
+        $title = $_POST['title'];
+        
+    }
+
 }
