@@ -86,31 +86,63 @@ class NoteService extends CI_Controller
 
         $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $encode = json_encode($noteArr);
+        //$encode = json_encode($noteArr);
         $redis = new RedisConn();
         $conn = $redis->connection();
-        // $redisKey = $conn->exists($uid);
 
-        // if($redisKey==1){
-        //     $redisNoteData =  $conn->get($uid);
-        //     print $redisNoteData;
-        // }
-        // else{
-        //     $conn->set($uid, $encode);   
-        //     $redisNoteData =  $conn->get($uid);
-        //     print $redisNoteData;     
-        // }
-
-
-        for($i=0;$i<sizeof($arr);$i++){
-            $conn->lpush(0,json_encode($arr[$i]));
+        $redisKey = $conn->exists('notes'.$uid);
+      
+        if($redisKey==1){
+            $hss = $conn->hgetall('notes'.$uid); 
+            $newarr = array();
+           
+            for($i=0;$i<sizeof($hss);$i++){
+               $hm =$conn->hmget('notes'.$uid,$i);
+            //    $dsf= json_decode($hm[0]);
+               array_push($newarr,json_decode($hm[0]));
+           }
+            print json_encode($newarr);
+        }
+        else{
+            for($i=0;$i<sizeof($arr);$i++){
+                $conn->hmset('notes'.$uid,array( $i =>json_encode($arr[$i]) ));
+                //$conn->rpush('notes'.$uid,json_encode($arr[$i]) );
+            } 
+            $newarr = array();
+            for($i=0;$i<sizeof($arr);$i++){
+               $hm =$conn->hmget('notes'.$uid,$i);
+            //    $dsf= json_decode($hm[0]);
+               array_push($newarr,json_decode($hm[0]));
+           }
+           $hss = $conn->hgetall('notes'.$uid); 
+            print json_encode($newarr);   
         }
 
-        for($j=0;$j<sizeof($arr);$j++){
-                 
-        }
-        $dsf = $conn->lrange(0,0,-1);
-        //print json_encode($arr);
+       
+        // for($i=0;$i<sizeof($arr);$i++){
+        //     $conn->lpush(0,json_encode($arr[$i]));
+        // }
+
+        // for($i=0;$i<sizeof($arr);$i++){
+        //     $conn->hmset($uid,5,$arr[$i]);
+        // }
+
+        
+      
+
+        // $dd = $conn->hgetall(notes.$uid); 
+
+ 
+
+        // $hm =$conn->hmget('metavars','foo');
+        // $del = $conn->hdel('metavars','foo');
+     
+        // for($j=0;$j<sizeof($arr);$j++){
+        //     $hss = $conn->hgetall('notes'.$i);    
+        //  }
+        //  $hss = $conn->hgetall('notes1');  
+        
+        
 
     }
 

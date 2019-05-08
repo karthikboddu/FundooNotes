@@ -111,6 +111,8 @@ class UserController extends CI_Controller
         // return $res;
     }
 
+
+
     public function insertNotes()
     {
 
@@ -165,8 +167,9 @@ class UserController extends CI_Controller
 
         $res = $notes;
 
-
-
+        $redis = new RedisConn();
+        $conn = $redis->connection();
+       // $conn->flushAll();
 
     }
 
@@ -185,7 +188,10 @@ class UserController extends CI_Controller
             $query->setParameter(1, $id);
             $narr = $query->getScalarResult();
             $nid = $narr[0]['1'];
-           
+            $query = $em->createQuery('SELECT n from Entity\Notes n WHERE n.uid=?1 AND n.id=?2');
+            $query->setParameter(1, $id);
+            $query->setParameter(2, $nid);
+            $noteRow = $query->getScalarResult();
             $queryd = $em->createQuery('UPDATE Entity\Notes n SET n.dragId =?4  WHERE n.id=?4');
 
             $queryd->setParameter(4, $nid);
@@ -193,7 +199,26 @@ class UserController extends CI_Controller
             $data = array(
                 "status" => "200",
             );
+
+            $dsf = $noteRow[0];
+             $dfd = json_encode($narr);
+            $redisKey = $conn->exists('notes'.$id);
+            $ff = $conn->hvals('notes'.$id);
+            if($redisKey==1){
+               // $conn->rpush('notes',json_encode($noteRow[0]));
+               $conn->hset('notes',22,json_encode($noteRow));
+               $fsf = $conn->hgetall('notes');
+            }
+            $newarr = array();
+            for($i=0;$i<sizeof($ff);$i++){
+               $hm =$conn->hmget('notes'.$id,$i);
+            //    $dsf= json_decode($hm[0]);
+               array_push($newarr,json_decode($hm[0]));
+           }
+           $hss = $conn->hgetall('notes'.$id); 
             print json_encode($data);
+
+        
         }
     }
 
