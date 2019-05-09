@@ -178,13 +178,20 @@ class UserDataController extends CI_Controller
 
         if ($present) {
             $rabb = new SendMail();
-
-            $token = md5($email);
-            $query = "UPDATE registeruser SET reset_key = '$token' where email = '$email'";
+            $token = array(
+                "email"=>$email,
+            );
+            $key = "karthik";
+            $jwt = JWT::encode($token, $key);
+            // $token = md5($email);
+            $query = "UPDATE Users SET reset_token = '$jwt' where emailid = '$email'";
             $statement = $this->db->conn_id->prepare($query);
-            $statement->execute();
+            $resforgot = $statement->execute();
             $sub = 'password recovery mail';
-            $body = $constants->resetLinkMsg . $constants->resetLink . $token;
+            $body = $constants->resetLinkMsg . $constants->resetLink.$jwt;
+            if($resforgot){
+
+            }
             $response = $rabb->sendEmail($email, $sub, $body);
             if ($response == "sent") {
                 $data = array(

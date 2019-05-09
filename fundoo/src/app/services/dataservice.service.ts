@@ -11,18 +11,19 @@ export class DataserviceService {
   //   this.datamsg.next(view);
   // }
 
-  subject;
-  text: any;
   constructor() { }
-  searchdata(searchText) {
-    debugger
-    this.subject = new Subject();
-    this.subject.next({ data: searchText });
-    this.text = searchText;
-  }
-  returnsearchdata() {
-    this.searchdata(this.text)
-    return this.subject.asObservable();
+  search =new Subject();
+  word:string;
+  searchdata(value:any){
+  debugger;
+  this.word =value;
+  this.search.next({data:value});
+  } 
+  
+  getserch(){
+  debugger
+  this.searchdata(this.word);
+  return this.search.asObservable();
   }
 
 

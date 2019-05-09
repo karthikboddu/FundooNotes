@@ -36,6 +36,10 @@ export class AppComponent  implements OnInit {
     this.message = this.messagingService.currentMessage
 
 
+
+
+
+
   }
 
 

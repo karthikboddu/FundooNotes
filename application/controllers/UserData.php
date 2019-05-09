@@ -72,39 +72,69 @@ class UserData extends CI_Controller
      * @method forgotpass()
      */
     public function forgotpass(){
+        $post = $_POST;
+        if(empty($post)){
+            return;
+        }else{
         $email = $_POST['Emailid'];
 
         $res = $this->refService->forgotpassword($email);
+        }
     }
 
     public function fetchemail(){
+        $post = $_POST;
+        if(empty($post)){
+            return;
+        }else{
         $email = $_POST['token'];
         $res = $this->refService->fetchemailid($email);
+        }
     }   
 
     public function resetpassword(){
+        $post = $_POST;
+        if(empty($post)){
+            return;
+        }else{
         $password = $_POST['password'];
         $token = $_POST['token'];
         $res = $this->refService->resetpass($password,$token);
+        }
     }
 
     public function socialLogin(){
+        $post = $_POST;
+        if(empty($post)){
+            return;
+        }else{
         $email = $_POST['email'];
         $name = $_POST['name'];
 
         $this->refService->socialSigin($email,$name);
+        }
     }
 
     public function profilePic(){
+        $post = $_POST;
+        if(empty($post)){
+            return;
+        }else{
         $id = $_POST['uid'];
         $image = $_POST['image'];
         $this->refService->updateProfilepic($id,$image);
+        }
     }
 
     public function userImage(){
+        $post = $_POST;
+        if(empty($post)){
+            return;
+        }else{
         $id = $_POST['uid'];
     
         $this->refService->fetchUserImage($id);
+        }
     }
 
     

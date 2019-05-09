@@ -6,18 +6,17 @@ import { Notes } from '../models/notes.model';
 })
 export class SearchPipe implements PipeTransform {
 
-  transform(notes: Notes [] , search?:string):Notes [] {
-debugger
-    console.log('cdsfdsfu',notes);
-    if(!notes||!search)
-    {
-    return notes;
-
+  num;
+  transform(notes: Notes[], serchingTerm?: string): Notes[] {
+  debugger;
+  console.log("hiiiii",notes);
+  if (!notes || !serchingTerm) {
+  return notes;
   }
-
-
-   return notes.filter(notes =>notes.title.indexOf(search) !==-1 || notes.desc.indexOf(search)!==-1);
-   console.log('hhhhhhhh',notes);
+  console.log("hiiiiisea",notes);
+  return notes.filter(notes =>
+  notes.title.indexOf(serchingTerm)!==-1 || notes.description.indexOf(serchingTerm)!==-1 );
+  
   }
-
+  
 }

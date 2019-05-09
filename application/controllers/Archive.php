@@ -23,14 +23,24 @@ class Archive extends CI_Controller
 
 
     public function fetchArchive(){
+        $post = $_POST;
+        if(empty($post)){
+            return;
+        }else{
         $uid =  $_POST['uid'];
         $this->refService->archivednotes($uid);
+        }
     }
 
 
     public function unarchive(){
+        $post = $_POST;
+        if(empty($post)){
+            return;
+        }else{
         $uid = $_POST['uid'];
         $this->refService->archive($uid);
+    }
     }
 
 }

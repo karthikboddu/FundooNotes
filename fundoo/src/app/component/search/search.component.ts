@@ -19,10 +19,10 @@ export class SearchComponent implements OnInit {
   notes:Notes[];
   ngOnInit() {
     debugger
-    let searchData = this.dataserv.returnsearchdata();
+    let searchData = this.dataserv.getserch();
     searchData.subscribe((res:any)=>{
       debugger
-      this.searchtext = res;
+      this.searchtext = res.data;
       console.log("searched ",res);
     })
     this.loadNotes();

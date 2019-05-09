@@ -298,7 +298,7 @@ remainder123() {
  
         console.log("remainder " + element.reminder);
         debugger
-        this.remServ.pushRemainder(element.title,element.desc);
+        this.remServ.pushRemainder(element.title,element.description);
         this.timeReminder = false;
         this.snackBar.open(element.title, "", {
           duration: 2000
@@ -545,7 +545,7 @@ remainder123() {
 
             // thingsObj.id = value.id
             thingsObj.title = value.title;
-            thingsObj.desc = value.desc;
+            thingsObj.description = value.desc;
             thingsObj.color = value.color;
 
 

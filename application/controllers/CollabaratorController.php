@@ -19,6 +19,10 @@ class CollabaratorController extends CI_Controller
 
 
     public function checkEmail(){
+        $post = $_POST;
+        if(empty($post)){
+            return;
+        }else{
         $em = $this->doctrine->em;
         $email = $_POST['email'];
         $query = $em->createQuery('SELECT u.emailid from Entity\Users u WHERE u.emailid=?1');
@@ -41,10 +45,14 @@ class CollabaratorController extends CI_Controller
         }
         
      
-    }
+    }}
 
 
     public function addCollabarator(){
+        $post = $_POST;
+        if(empty($post)){
+            return;
+        }else{
        $owneremail =  $_POST['owneruid'];
        $collemail = $_POST['collemail'];
        $nid = $_POST['noteid'];
@@ -81,6 +89,7 @@ class CollabaratorController extends CI_Controller
 
         $em->persist($collabarator);
         $em->flush();
+    }
     }
 }
 

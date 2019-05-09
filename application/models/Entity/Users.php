@@ -43,6 +43,11 @@ class Users
      */
     protected $image;
 
+       /**
+     * @Column(type="string", nullable=true)
+     */
+    protected $reset_token;
+
     /**
      *
      * @OneToMany(targetEntity="Notes",mappedBy="uid" )

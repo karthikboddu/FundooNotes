@@ -24,6 +24,10 @@ class UserController extends CI_Controller
 
     public function login()
     {
+        $post = $_POST;
+        if(empty($post)){
+            return;
+        }else{
         $email = $_POST['Emailid'];
         $password = $_POST['password'];
         $em = $this->doctrine->em;
@@ -67,12 +71,17 @@ class UserController extends CI_Controller
             print json_encode($data);
         }
     }
+    }
 
     /**
      * @return result
      */
     public function register()
     {
+        $post = $_POST;
+        if(empty($post)){
+            return;
+        }else{
         $fname = $_POST['firstName'];
         $lname = $_POST['lastName'];
         $email = $_POST['Emailid'];
@@ -110,121 +119,144 @@ class UserController extends CI_Controller
         // $res = $this->refService->registration($fname, $lname, $email, $password);
         // return $res;
     }
+    }
 
 
 
     public function insertNotes()
     {
-
-        $id = $_POST['id'];
-        $title = $_POST['title'];
-        $desc = $_POST['desc'];
-        $rem = $_POST['remainder'];
-        $color = $_POST['color'];
-        $labelid = $_POST['labelid'];
-        $image = $_POST['image'];
-        //$createdAt = CURRENT_TIMESTAMP();
-        $em = $this->doctrine->em;
-        $notes = new Entity\Notes;
-
-        if($rem =="undefined"){
-            $rem ="";
-        }
-        $reff = new JWT();
-        
-
-        $article2 = $em->find('Entity\Users', $id);
-
-        $headers = apache_request_headers();
-        $token = $headers['Authorization'];
-        $checktoken = $reff->verifytoken($token);
-        if($checktoken){
-            $notes->setTitle($title);
-            $notes->setDescription($desc);
-            $notes->setColor($color);
+        $post = $_POST;
+        if(empty($post)){
+            return;
+        }else{
+            $id = $_POST['id'];
+            $title = $_POST['title'];
+            $desc = $_POST['desc'];
+            $rem = $_POST['remainder'];
+            $color = $_POST['color'];
+            $labelid = $_POST['labelid'];
+            $image = $_POST['image'];
+            //$createdAt = CURRENT_TIMESTAMP();
+            $em = $this->doctrine->em;
+            $notes = new Entity\Notes;
     
-            $notes->setTrash(0);
-            $notes->setImage($image);
-            $notes->setArchive(0);
-            $notes->setReminder($rem);
-            $notes->setUid($article2);
-        
-
-
-        if ($labelid != "undefined" && $labelid != "null") {
-            $labels = new Entity\Labels;
-            $labeldata = $em->find('Entity\Labels', $labelid);
-            $notes->addLabel($labeldata);
-        }
-
-        $article2 = $em->find('Entity\Users', $id);
-
-        $notes->setUid($article2);
-
-        $em->persist($notes);
-
-        $em->flush();
-
-        $res = $notes;
-
-        $redis = new RedisConn();
-        $conn = $redis->connection();
-       // $conn->flushAll();
-
-    }
-
-
-        if (is_null($res)) {
-
-
-            $data = array(
-                "status" => "204",
-            );
-            print json_encode($data);
-
-        } else {
-
-            $query = $em->createQuery('SELECT MAX(n.id) from Entity\Notes n  WHERE n.uid=?1');
-            $query->setParameter(1, $id);
-            $narr = $query->getScalarResult();
-            $nid = $narr[0]['1'];
-            $query = $em->createQuery('SELECT n from Entity\Notes n WHERE n.uid=?1 AND n.id=?2');
-            $query->setParameter(1, $id);
-            $query->setParameter(2, $nid);
-            $noteRow = $query->getScalarResult();
-            $queryd = $em->createQuery('UPDATE Entity\Notes n SET n.dragId =?4  WHERE n.id=?4');
-
-            $queryd->setParameter(4, $nid);
-            $queryd->getScalarResult();
-            $data = array(
-                "status" => "200",
-            );
-
-            $dsf = $noteRow[0];
-             $dfd = json_encode($narr);
-            $redisKey = $conn->exists('notes'.$id);
-            $ff = $conn->hvals('notes'.$id);
-            if($redisKey==1){
-               // $conn->rpush('notes',json_encode($noteRow[0]));
-               $conn->hset('notes',22,json_encode($noteRow));
-               $fsf = $conn->hgetall('notes');
+            if($rem =="undefined"){
+                $rem ="";
             }
-            $newarr = array();
-            for($i=0;$i<sizeof($ff);$i++){
-               $hm =$conn->hmget('notes'.$id,$i);
-            //    $dsf= json_decode($hm[0]);
-               array_push($newarr,json_decode($hm[0]));
-           }
-           $hss = $conn->hgetall('notes'.$id); 
-            print json_encode($data);
-
+            $reff = new JWT();
+            
+    
+            $article2 = $em->find('Entity\Users', $id);
+    
+            $headers = apache_request_headers();
+            $token = $headers['Authorization'];
+            $checktoken = $reff->verifytoken($token);
+            if($checktoken){
+                $notes->setTitle($title);
+                $notes->setDescription($desc);
+                $notes->setColor($color);
         
+                $notes->setTrash(0);
+                $notes->setImage($image);
+                $notes->setArchive(0);
+                $notes->setReminder($rem);
+                $notes->setUid($article2);
+            
+    
+    
+            if ($labelid != "undefined" && $labelid != "null") {
+                $labels = new Entity\Labels;
+                $labeldata = $em->find('Entity\Labels', $labelid);
+                $notes->addLabel($labeldata);
+            }
+    
+            $article2 = $em->find('Entity\Users', $id);
+    
+            $notes->setUid($article2);
+    
+            $em->persist($notes);
+    
+            $em->flush();
+    
+            $res = $notes;
+    
+            $redis = new RedisConn();
+            $conn = $redis->connection();
+           // $conn->flushAll();
+    
         }
+    
+    
+            if (is_null($res)) {
+    
+    
+                $data = array(
+                    "status" => "204",
+                );
+                print json_encode($data);
+    
+            } else {
+    
+                $query = $em->createQuery('SELECT MAX(n.id) from Entity\Notes n  WHERE n.uid=?1');
+                $query->setParameter(1, $id);
+                $narr = $query->getScalarResult();
+                $nid = $narr[0]['1'];
+    
+                $queryd = $em->createQuery('UPDATE Entity\Notes n SET n.dragId =?4  WHERE n.id=?4');
+    
+                $queryd->setParameter(4, $nid);
+                $queryd->getScalarResult();
+    
+                $query = $em->createQuery('SELECT n from Entity\Notes n WHERE n.uid=?1 AND n.id=?2');
+                $query->setParameter(1, $id);
+                $query->setParameter(2, $nid);
+                $noteRow = $query->getScalarResult();
+                $noteRow1 = $query->getArrayResult();
+                $data = array(
+                    "status" => "200",
+                );
+                $noteData =array(0=> array(
+                    "id" => $nid,
+                    "title"=>$noteRow1[0]['title'],
+                    "description"=>$noteRow1[0]['description'],
+                    "color"=>$noteRow1[0]['color'],
+                    "reminder"=>$noteRow1[0]['reminder'],
+                    "archive"=>$noteRow1[0]['archive'],
+                    "trash"=>$noteRow1[0]['trash'],
+                    "dragId"=>$noteRow1[0]['dragId']
+                ));
+    
+                $dsf = $noteRow[0];
+                 $dfd = json_encode($noteData);
+                $redisKey = $conn->exists('notes'.$id);
+                $ff = $conn->hvals('notes'.$id);
+                $newId = sizeof($ff)+1;
+                if($redisKey==1){
+                   // $conn->rpush('notes',json_encode($noteRow[0]));
+                   $conn->hset('notes'.$id,$newId,json_encode($noteData));
+                   $fsf = $conn->hgetall('notes'.$id);
+                }
+                $newarr = array();
+                for($i=0;$i<sizeof($ff);$i++){
+                   $hm =$conn->hmget('notes'.$id,$i);
+                //    $dsf= json_decode($hm[0]);
+                   array_push($newarr,json_decode($hm[0]));
+               }
+               $hss = $conn->hgetall('notes'.$id); 
+                print json_encode($data);
+    
+            
+            }
+        }
+      
     }
 
     public function addLabel()
     {
-
+        $post = $_POST;
+        if(empty($post)){
+            return;
+        }else{
         $uid = $_POST['uid'];
         $label = $_POST['label'];
 
@@ -239,7 +271,7 @@ class UserController extends CI_Controller
         $em->persist($labels);
 
         $em->flush();
-
+        }
     }
 
     public function getLabel()
@@ -316,7 +348,10 @@ class UserController extends CI_Controller
 
     public function updateLabelNote()
     {
-
+        $post = $_POST;
+        if(empty($post)){
+            return;
+        }else{
         $em = $this->doctrine->em;
         $uid = $_POST['uid'];
         $lid = $_POST['labelid'];
@@ -356,10 +391,14 @@ class UserController extends CI_Controller
             $em->persist($notes);
             $em->flush();
         }
-
+    }
     }
 
     public function fetchLabelName(){
+        $post = $_POST;
+        if(empty($post)){
+            return;
+        }else{
         $em = $this->doctrine->em;
 
         $lid = $_POST['lid'];
@@ -369,5 +408,6 @@ class UserController extends CI_Controller
 
             print json_encode($label);
     }
+}
 
 }

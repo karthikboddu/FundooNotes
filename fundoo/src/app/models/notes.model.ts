@@ -1,6 +1,6 @@
 export interface Notes{
     id: string;
-    desc :string;
+    description :string;
     email: string;
     title: string;
     notes: string;
