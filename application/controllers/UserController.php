@@ -59,7 +59,7 @@ class UserController extends CI_Controller
             $jwt = JWT::encode($token, $key);
             // $verify = JWT::verifytoken($jwt,,$key,'HS256');
             //$decoded = JWT::decode($jwt, $key, array('HS256'));
-
+            $conn->set('userid',$uid);
             $conn->set('token' . $email, $jwt);
             $response = $conn->get('token' . $email);
 
@@ -207,7 +207,8 @@ class UserController extends CI_Controller
                 $queryd->setParameter(4, $nid);
                 $queryd->getScalarResult();
     
-                $query = $em->createQuery('SELECT n from Entity\Notes n WHERE n.uid=?1 AND n.id=?2');
+              //  $query = $em->createQuery('SELECT n from Entity\Notes n WHERE n.uid=?1 AND n.id=?2');
+                $query = $em->createQuery('SELECT   n.id ,n.title, n.description,n.color,n.trash,n.archive,n.reminder,n.image,n.dragId,l.labelname from Entity\Notes n  left  JOIN n.labels l where  n.uid=?1 AND n.id=?2 AND n.archive=0 AND n.trash=0 ORDER BY n.dragId DESC');
                 $query->setParameter(1, $id);
                 $query->setParameter(2, $nid);
                 $noteRow = $query->getScalarResult();
@@ -215,7 +216,7 @@ class UserController extends CI_Controller
                 $data = array(
                     "status" => "200",
                 );
-                $noteData =array(0=> array(
+                $noteData =array(
                     "id" => $nid,
                     "title"=>$noteRow1[0]['title'],
                     "description"=>$noteRow1[0]['description'],
@@ -223,14 +224,15 @@ class UserController extends CI_Controller
                     "reminder"=>$noteRow1[0]['reminder'],
                     "archive"=>$noteRow1[0]['archive'],
                     "trash"=>$noteRow1[0]['trash'],
-                    "dragId"=>$noteRow1[0]['dragId']
-                ));
+                    "dragId"=>$noteRow1[0]['dragId'],
+                    "labelname"=>$noteRow1[0]['labelname']
+                );
     
                 $dsf = $noteRow[0];
                  $dfd = json_encode($noteData);
                 $redisKey = $conn->exists('notes'.$id);
                 $ff = $conn->hvals('notes'.$id);
-                $newId = sizeof($ff)+1;
+                $newId = sizeof($ff);
                 if($redisKey==1){
                    // $conn->rpush('notes',json_encode($noteRow[0]));
                    $conn->hset('notes'.$id,$newId,json_encode($noteData));

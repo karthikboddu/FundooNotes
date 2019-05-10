@@ -12,11 +12,11 @@ use \Firebase\JWT\JWT;
 
 class NoteService extends CI_Controller
 {
-
+    private $redis = "";
     public function __construct()
     {
         parent::__construct();
-
+        $this->redis = new RedisConn();
     }
 
     public function addNotes($id, $title, $desc, $rem, $color, $lid)
@@ -75,7 +75,7 @@ class NoteService extends CI_Controller
 
     public function noteFetch($uid)
     {
-        $query = "SELECT n.id ,n.title, n.description,n.color,n.reminder,n.image,n.dragId,l.labelname
+        $query = "SELECT n.id ,n.title, n.description,n.color,n.reminder,n.trash,n.archive,n.image,n.dragId,l.labelname
         from Notes n left join notes_labels nl on n.id=nl.notes_id left JOIN Labels l
         on nl.labels_id=l.id WHERE archive='0' AND trash='0' AND (n.uid_id='$uid' or n.id in
          (SELECT nc.notes_id from Collaborator c  join notes_collaborators nc on c.id=nc.collaborators_id) ) ORDER BY n.dragId desc";
@@ -96,19 +96,19 @@ class NoteService extends CI_Controller
             $hss = $conn->hgetall('notes' . $uid);
             $newarr = array();
 
-            for ($i = 0; $i < sizeof($hss); $i++) {
-                $hm = $conn->hmget('notes' . $uid, $i);
+            for ($i = sizeof($hss)-1; $i >=0; $i--) {
+                $hm = $conn->hmget('notes'.$uid, $i);
                 //    $dsf= json_decode($hm[0]);
                 array_push($newarr, json_decode($hm[0]));
             }
             print json_encode($newarr);
         } else {
-            for ($i = 0; $i < sizeof($arr); $i++) {
-                $conn->hmset('notes' . $uid, array($i => json_encode($arr[$i])));
+            for ($i = 0; $i <sizeof($arr); $i++) {
+                $conn->hmset('notes'.$uid, array($i => json_encode($arr[$i])));
                 //$conn->rpush('notes'.$uid,json_encode($arr[$i]) );
             }
             $newarr = array();
-            for ($i = 0; $i < sizeof($arr); $i++) {
+            for ($i = 0; $i <sizeof($arr); $i++) {
                 $hm = $conn->hmget('notes' . $uid, $i);
                 //    $dsf= json_decode($hm[0]);
                 array_push($newarr, json_decode($hm[0]));
@@ -135,7 +135,7 @@ class NoteService extends CI_Controller
         //  }
         //  $hss = $conn->hgetall('notes1');
 
-        // print json_encode($arr);
+       // print json_encode($arr);
     }
 
     public function flushAll()
@@ -235,6 +235,10 @@ class NoteService extends CI_Controller
 
     public function colorSet($id, $color, $flag)
     {
+        $redis = new RedisConn();
+        $conn = $redis->connection();
+
+        $redisKey = $conn->exists('notes' . $uid);
         if ($flag == "color") {
             $query = "UPDATE Notes SET color = '$color' where id = '$id'";
             $stmt = $this->db->conn_id->prepare($query);
@@ -280,7 +284,7 @@ class NoteService extends CI_Controller
             $query = "UPDATE Notes SET reminder ='' where id = '$id' ";
             $stmt = $this->db->conn_id->prepare($query);
             $res = $stmt->execute();
-
+            // $conn->hexists("notes".,)
             if ($res) {
                 $data = array(
                     "status" => "200",
@@ -306,6 +310,26 @@ class NoteService extends CI_Controller
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
 
+    
+        $conn = $this->redis->connection();
+        $uid = $conn->get('userid');
+       // $noteExists = $conn->hexists("notes".$uid,$id);
+        $notesall = $conn->hgetall("notes".$uid);
+
+            for($i=0;$i<sizeof($notesall);$i++){
+                $newNote = json_decode($notesall[$i]);
+                $nid = $newNote->id;
+                if($newNote->id==$id){
+                    $noteT = json_decode( $conn->hget("notes".$uid,$i));
+                   $dxc = $conn->set($noteT->trash,1);
+                }
+            }    
+           
+
+        
+       
+        
+
         if ($res) {
             $data = array(
                 "status" => "200",
@@ -324,10 +348,16 @@ class NoteService extends CI_Controller
 
     public function noteDelete($id)
     {
+        $redis = new RedisConn();
+        $conn = $redis->connection();
+        $uid = $conn->get('userid');
         $query = "DELETE FROM Notes WHERE id = '$id'";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
-
+        $noteExists = $conn->hexists("notes".$uid,$id);
+        if($noteExists){
+            $conn->hdel("notes".$uid,$id);   
+        }
         if ($res) {
             $data = array(
                 "status" => "200",
