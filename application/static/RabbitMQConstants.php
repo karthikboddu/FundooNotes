@@ -8,7 +8,7 @@ class RabbitMQConstants
     public $password= "guest";
     public $queuename="email";
     public $senderEmailID = "karthikb5566@gmail.com";
-    public $senderPassword = "KartiK@3600";
+    public $senderPassword = "";
     public $senderName = "karthik";
 
 }
