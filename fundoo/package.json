@@ -30,7 +30,7 @@
     "firebase": "^5.11.1",
     "hammerjs": "^2.0.8",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "ngx-cookie-service": "^2.1.0",
     "ngx-push-notifications": "^7.0.2",
     "popper.js": "^1.14.7",
